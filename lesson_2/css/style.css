@@ -49,14 +49,56 @@ body {
 .page__list > li {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   row-gap: 10px;
   border: 1px solid #28293e;
-  padding: 10px;
+  padding: 20px 15px 10px;
   border-radius: 5px;
 }
 .page__list > li h3 {
   color: #ef6d58;
   font-size: 24px;
+  font-weight: 700;
+}
+.button {
+  position: relative;
+  color: #28293e;
+
+  display: inline-block;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  min-block-size: 24px;
+  padding-block-end: 12px;
+  padding-block-start: 14px;
+  padding-inline: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  transition: border-color 0.8s;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.button:hover {
+  border-color: #28293e;
+}
+.button--hover-purple-background::before {
+  content: "";
+  position: absolute;
+  inline-size: 0%;
+  block-size: 100%;
+  background-color: #b550f8;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  border-radius: 6px;
+  transition: inline-size 0.35s;
+}
+.button--hover-purple-background span {
+  position: relative;
+  z-index: 1;
+}
+.button--hover-purple-background:hover:before {
+  inline-size: 100%;
 }
 
 /** FOOTER */

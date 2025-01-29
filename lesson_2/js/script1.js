@@ -1,13 +1,10 @@
 "use strict"
 
-const a = parseInt(prompt("Enter first number, please", 0))
-const b = parseInt(prompt("Enter second number, please", 0))
-const c = parseInt(prompt("Enter third number, please", 0))
+const firstNumber = parseInt(prompt("Enter first number, please", 0))
+const secondNumber = parseInt(prompt("Enter second number, please", 0))
 
-const s1 = a + 12 + b
-const s2 = Math.sqrt((a + b) / (2 * a))
-const s3 = Math.cbrt((a + b) * c)
-const s4 = Math.sin(a / (-1 * b))
+const sum = firstNumber + secondNumber
+const mult = firstNumber * secondNumber
 
 document.write(`<!DOCTYPE html>
 <html lang="en">
