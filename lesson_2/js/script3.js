@@ -1,13 +1,15 @@
 "use strict"
 
-const TASK_NUMBER = 1
+const TASK_NUMBER = 3
 
-const firstNumber = parseInt(prompt("Enter first number, please", 0))
-const secondNumber = parseInt(prompt("Enter second number, please", 0))
-
-const sum = firstNumber + secondNumber
-const multiple = firstNumber * secondNumber
-const divide = firstNumber / secondNumber
+const valueOneProduct = parseFloat(
+  prompt("Enter value of the product, please", 0)
+)
+const productVolume = parseInt(
+  prompt("Enter volume of the products, please", 0)
+)
+const totalValue = valueOneProduct * productVolume
+const vat = totalValue * 0.05
 
 document.write(`
 <body>
@@ -26,22 +28,17 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці</p>
+							<p>Дано вартість одиниці товару і кількість: Знайти загальну вартість та ПДВ (5% від загальної
+								вартості).</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
-							<table>
-								<tr>
-									<th>Sum</th>
-									<th>Multiple</th>
-									<th>Division</th>
-								</tr>
-								<tr>
-									<td>${sum.toFixed(2)}</td>
-									<td>${multiple.toFixed(2)}</td>
-									<td>${divide.toFixed(2)}</td>
-								</tr>
-							</table>
+							<ol>
+								<li>Value of One Product: ${valueOneProduct.toFixed(2)}</li>
+								<li>Product Volume: ${productVolume}</li>
+								<li>Total Volume: ${totalValue.toFixed(2)}</li>
+								<li>VAT (5%): ${vat.toFixed(2)}</li>
+							</ol>
 						</li>
 						<li class="reload">
 							<a href="task${TASK_NUMBER}.html"><img src="../../img/circular-arrow.svg" alt="Reload"></a>

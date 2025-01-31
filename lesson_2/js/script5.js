@@ -1,13 +1,11 @@
 "use strict"
 
-const TASK_NUMBER = 1
+const TASK_NUMBER = 5
 
-const firstNumber = parseInt(prompt("Enter first number, please", 0))
-const secondNumber = parseInt(prompt("Enter second number, please", 0))
-
-const sum = firstNumber + secondNumber
-const multiple = firstNumber * secondNumber
-const divide = firstNumber / secondNumber
+const numberSeconds = parseInt(prompt("Enter number of seconds, please", 0))
+const numHours = Math.floor(numberSeconds / 3600)
+const numMinutes = Math.floor((numberSeconds % 3600) / 60)
+const numSec = numberSeconds % 60
 
 document.write(`
 <body>
@@ -26,28 +24,19 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці</p>
+							<p>Дано кількість секунд, що пройшла від початку доби. Визначити скільки це годин і хвилин.</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
-							<table>
-								<tr>
-									<th>Sum</th>
-									<th>Multiple</th>
-									<th>Division</th>
-								</tr>
-								<tr>
-									<td>${sum.toFixed(2)}</td>
-									<td>${multiple.toFixed(2)}</td>
-									<td>${divide.toFixed(2)}</td>
-								</tr>
-							</table>
+							<ol>
+								<li>Volume of Seconds: ${numberSeconds}</li>
+								<li><b>Time Passed:</b> ${numHours}h ${numMinutes}min ${numSec}s</li>
+							</ol>
 						</li>
 						<li class="reload">
 							<a href="task${TASK_NUMBER}.html"><img src="../../img/circular-arrow.svg" alt="Reload"></a>
 						</li>
 					</ol>
-
 				</div>
 			</div>
 		</main>

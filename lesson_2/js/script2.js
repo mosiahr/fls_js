@@ -1,13 +1,10 @@
 "use strict"
 
-const TASK_NUMBER = 1
+const TASK_NUMBER = 2
 
-const firstNumber = parseInt(prompt("Enter first number, please", 0))
-const secondNumber = parseInt(prompt("Enter second number, please", 0))
-
-const sum = firstNumber + secondNumber
-const multiple = firstNumber * secondNumber
-const divide = firstNumber / secondNumber
+const birthYear = parseInt(prompt("Enter birth year, please", 0))
+const currentYear = parseInt(prompt("Enter current year, please", 0))
+const yearsVolume = currentYear - birthYear
 
 document.write(`
 <body>
@@ -26,22 +23,15 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці</p>
+							<p>Дано рік народження (дата: 1 січня) та поточний рік. Знайти кількість років.</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
-							<table>
-								<tr>
-									<th>Sum</th>
-									<th>Multiple</th>
-									<th>Division</th>
-								</tr>
-								<tr>
-									<td>${sum.toFixed(2)}</td>
-									<td>${multiple.toFixed(2)}</td>
-									<td>${divide.toFixed(2)}</td>
-								</tr>
-							</table>
+							<ol>
+								<li>Birth Year = ${birthYear}</li>
+								<li>Current Year = ${currentYear}</li>
+								<li>Volume of Years= ${yearsVolume}</li>
+							</ol>
 						</li>
 						<li class="reload">
 							<a href="task${TASK_NUMBER}.html"><img src="../../img/circular-arrow.svg" alt="Reload"></a>

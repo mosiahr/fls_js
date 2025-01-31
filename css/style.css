@@ -12,6 +12,13 @@
 body {
   font-family: "Epilogue", sans-serif;
 }
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+}
 
 .wrapper {
   display: flex;
@@ -27,7 +34,6 @@ body {
   margin: 0 auto;
   padding-inline: 15px;
 }
-
 .header {
   background-color: #28293e;
   padding-block: 20px;
@@ -35,9 +41,47 @@ body {
   font-size: 32px;
   font-weight: 800;
 }
+.header__block {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.page {
+  background: url("../img/Yevhen.webp") 100% 100% / 20% no-repeat;
+}
+.img-home {
+  color: #fff;
+  width: 70px;
+  /* height: 50px; */
+  transition: transform 0.3s;
+  will-change: transform;
+}
+.img-home:hover {
+  transform: scale(1.15);
+}
 
 .page-block {
   padding-block: 20px;
+}
+.page__main-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.item-homework {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 15px;
+  border: 1px solid #28293e;
+  padding: 20px 15px 10px;
+  border-radius: 5px;
+}
+.page__main-list > li h3 {
+  color: #ef6d58;
+  font-size: 24px;
+  font-weight: 700;
+  min-width: 20%;
 }
 .page__list {
   display: grid;
@@ -45,7 +89,6 @@ body {
   grid-auto-flow: row;
   gap: 20px;
 }
-
 .page__list > li {
   display: flex;
   flex-direction: column;
@@ -64,7 +107,6 @@ body {
 .button {
   position: relative;
   color: #28293e;
-
   display: inline-block;
   border-radius: 6px;
   font-size: 14px;
@@ -99,6 +141,19 @@ body {
 }
 .button--hover-purple-background:hover:before {
   inline-size: 100%;
+}
+li.reload {
+  /* background: url("../img/circular-arrow.svg") center / contain no-repeat; */
+  border: 0;
+  justify-content: center;
+}
+li.reload img {
+  width: 30%;
+  animation: rotate-element 6s linear infinite;
+}
+
+li.reload img:hover {
+  animation-play-state: paused;
 }
 
 /** FOOTER */

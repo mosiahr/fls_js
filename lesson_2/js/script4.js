@@ -1,13 +1,12 @@
 "use strict"
 
-const TASK_NUMBER = 1
+const TASK_NUMBER = 4
 
-const firstNumber = parseInt(prompt("Enter first number, please", 0))
-const secondNumber = parseInt(prompt("Enter second number, please", 0))
-
-const sum = firstNumber + secondNumber
-const multiple = firstNumber * secondNumber
-const divide = firstNumber / secondNumber
+const numberСentimeters = parseInt(
+  prompt("Enter number of centimeters, please", 0)
+)
+const numberMeters = numberСentimeters / 100
+const numberKilometers = numberСentimeters / 100000
 
 document.write(`
 <body>
@@ -26,28 +25,20 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці</p>
+							<p>Дано довжину у сантиметрах. Визначати скільки це метрів і кілометрів.</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
-							<table>
-								<tr>
-									<th>Sum</th>
-									<th>Multiple</th>
-									<th>Division</th>
-								</tr>
-								<tr>
-									<td>${sum.toFixed(2)}</td>
-									<td>${multiple.toFixed(2)}</td>
-									<td>${divide.toFixed(2)}</td>
-								</tr>
-							</table>
+							<ol>
+								<li>Volume of Centimeters: ${numberСentimeters}cm</li>
+								<li>Volume of Meters: ${numberMeters}m</li>
+								<li>Volume of Kilometers: ${numberKilometers}km</li>
+							</ol>
 						</li>
 						<li class="reload">
 							<a href="task${TASK_NUMBER}.html"><img src="../../img/circular-arrow.svg" alt="Reload"></a>
 						</li>
 					</ol>
-
 				</div>
 			</div>
 		</main>
