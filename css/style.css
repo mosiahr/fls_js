@@ -156,6 +156,47 @@ li.reload img:hover {
   animation-play-state: paused;
 }
 
+.receipt {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  /* max-width: 200px; */
+}
+.receipt__logo {
+  width: 100%;
+}
+.receipt__item {
+}
+.item-receipt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+  justify-content: space-between;
+  width: 100%;
+}
+.item-receipt__title {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+.item-receipt__title p:nth-child(2) {
+  padding-inline-start: 10px;
+}
+.item-receipt--total {
+  border-block: 1px solid #000;
+  padding-block: 10px;
+}
+.item-receipt__value {
+  align-self: flex-end;
+}
+.item-receipt--small {
+  font-size: 14px;
+}
+.item-receipt--bold {
+  font-weight: 700;
+}
+
 /** FOOTER */
 .footer {
   background-color: #28293e;
