@@ -1,11 +1,20 @@
 "use strict"
 
-const TASK_NUMBER = 5
+const TASK_NUMBER = 7
 
-const numberSeconds = parseInt(prompt("Enter number of seconds, please", 0))
-const numHours = Math.floor(numberSeconds / 3600)
-const numMinutes = Math.floor((numberSeconds % 3600) / 60)
-const numSec = numberSeconds % 60
+const minMonth = 1,
+  maxMonth = 12
+const minDay = 0,
+  maxDay = 6
+const randomManth =
+  minMonth + Math.floor(Math.random() * (maxMonth - minMonth + 1))
+const randomDay = minDay + Math.floor(Math.random() * (maxDay - minDay + 1))
+const sumRandomMonthAndRandomDay = randomManth + randomDay
+
+// const numHours = Math.floor(numberSeconds / 3600)
+
+// const numMinutes = Math.floor((numberSeconds % 3600) / 60)
+// const numSec = numberSeconds % 60
 
 document.write(`
 <body>
@@ -24,13 +33,14 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Дано кількість секунд, що пройшла від початку доби. Визначити скільки це годин і хвилин.</p>
+							<p>Знайти суму випадкового номера місяця (від 1 до 12) та випадкового номера дня (від 0 до 6).</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
 							<ol>
-								<li>Volume of Seconds: ${numberSeconds}</li>
-								<li><b>Time Passed:</b> ${numHours}h ${numMinutes}min ${numSec}s</li>
+								<li>Random Number of Month (1 to 12): ${randomManth}</li>
+								<li>Random Number of Day (0 to 6): ${randomDay}</li>
+								<li>Sum: ${sumRandomMonthAndRandomDay}</li>
 							</ol>
 						</li>
 						<li class="reload">
