@@ -11,11 +11,6 @@ const randomManth =
 const randomDay = minDay + Math.floor(Math.random() * (maxDay - minDay + 1))
 const sumRandomMonthAndRandomDay = randomManth + randomDay
 
-// const numHours = Math.floor(numberSeconds / 3600)
-
-// const numMinutes = Math.floor((numberSeconds % 3600) / 60)
-// const numSec = numberSeconds % 60
-
 document.write(`
 <body>
 	<div class="wrapper">
