@@ -184,9 +184,13 @@ td {
   inline-size: 100%;
 }
 li.reload {
-  /* background: url("../img/circular-arrow.svg") center / contain no-repeat; */
   border: 0;
+}
+li.reload a {
+  border: 0;
+  display: flex;
   justify-content: center;
+  align-items: center;
 }
 li.reload img {
   width: 30%;

@@ -1,19 +1,16 @@
 "use strict"
 
-const TASK_STRING = "Extra 1"
+const TASK_STRING = "Extra 2"
 const [_, TASK_NUMBER] = TASK_STRING.split(" ")
-// console.log(_, TASK_NUMBER)
 
-const defaultWidthView = 1200
-const defaultNumberElement = 3
+const defaultSalary = 2920
+const defaultSubsistenceMinimum = 3028
 
-const widthView = parseInt(
-  prompt("Enter width of view, please", defaultWidthView)
+const salary = parseInt(prompt("Enter salary, please", defaultSalary))
+const subsistenceMinimum = parseInt(
+  prompt("Enter subsistence minimum, please", defaultSubsistenceMinimum)
 )
-const numberElement = parseInt(
-  prompt("Enter number of elements, please", defaultNumberElement)
-)
-const widthElement = Math.floor(widthView / numberElement)
+const socialPay = subsistenceMinimum - salary
 
 document.write(`
 <body>
@@ -32,15 +29,15 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_STRING}</h3>
-							<p>Дано ширину екрана та кількість елементів, які повинні бути відображені у рядку. Визначити ширину
-								елементів, які повинні бути відображені у цьому рядку.</p>
+							<p>З клавіатури вводиться розмір заробітної плати та розмір прожиткового мінімуму. Визначити розмір
+								соціальної допомоги (ввжаємо, що заробітна плата є меншою).</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_STRING}</h3>
 							<ol>
-								<li>Width of view: ${widthView}px</li>
-								<li>Number of elements: ${numberElement}</li>
-								<li>Width Element: ${widthElement}px</li>
+								<li>Salary: ${salary}UAH</li>
+								<li>Subsistence Minimum: ${subsistenceMinimum}UAH</li>
+								<li>Social Payment: ${socialPay}UAH</li>
 							</ol>
 						</li>
 						<li class="reload">
