@@ -2,9 +2,14 @@
 
 const TASK_NUMBER = 0
 
-const a = parseInt(prompt("Enter first number, please", 0))
-const b = parseInt(prompt("Enter second number, please", 0))
-const c = parseInt(prompt("Enter third number, please", 0))
+const a =
+  Math.round(parseFloat(prompt("Enter first number, please", 0)) * 100) / 100
+
+const b =
+  Math.round(parseFloat(prompt("Enter second number, please", 0)) * 100) / 100
+
+const c =
+  Math.round(parseFloat(prompt("Enter third number, please", 0)) * 100) / 100
 
 const s1 = a + 12 + b
 const s2 = Math.sqrt((a + b) / (2 * a))
@@ -34,7 +39,11 @@ document.write(`
 						<li>
 							<h3>Answer of Task ${TASK_NUMBER}</h3>
 							<ol>
-								<li>S1 = ${s1}</li>
+								<li>a = ${a}</li>
+								<li>b = ${b}</li>
+								<li>c = ${c}</li>
+								<li>===========</li>
+								<li>S1 = ${s1.toFixed(2)}</li>
 								<li>S2 = ${s2.toFixed(2)}</li>
 								<li>S3 = ${s3.toFixed(2)}</li>
 								<li>S4 = ${s4.toFixed(2)}</li>

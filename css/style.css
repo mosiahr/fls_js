@@ -51,6 +51,19 @@ td {
 .header__block a {
   align-self: flex-start;
 }
+.img-home {
+  color: #fff;
+  width: 70px;
+  transition: transform 0.3s;
+  will-change: transform;
+}
+.img-home:hover {
+  transform: scale(1.15);
+}
+.header__link:hover {
+  color: #ef6d58;
+}
+
 @media (max-width: 1069.98px) {
   .header {
     font-size: 24px;
@@ -70,17 +83,7 @@ td {
 
 /** PAGE */
 .page {
-  /* background: url("../img/Yevhen.webp") 100% 100% / 20% no-repeat; */
   background: url("../img/javascript-logo.svg") 100% 100% no-repeat;
-}
-.img-home {
-  color: #fff;
-  width: 70px;
-  transition: transform 0.3s;
-  will-change: transform;
-}
-.img-home:hover {
-  transform: scale(1.15);
 }
 
 .page-block {
@@ -185,6 +188,8 @@ td {
 }
 li.reload {
   border: 0;
+  justify-content: center;
+  align-items: center;
 }
 li.reload a {
   border: 0;
