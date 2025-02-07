@@ -21,52 +21,33 @@ const secondNumberSweets = parseInt(
   prompt(`How many sweets does ${secondChildName} have ?`, 1)
 )
 
-// const inputDataFirstChild = `${firstChildName} has ${firstNumberSweets} sweet${
-//   firstNumberSweets === 1 ? "" : "s"
-// }`
-
 let inputDataFirstChild = ""
 const endWordSweetForFirstChild = `${
   Math.abs(firstNumberSweets) === 1 ? "" : "s"
 }`
-switch (firstNumberSweets) {
-  case firstNumberSweets < 0:
-    inputDataFirstChild = `${firstChildName} has borrowed ${Math.abs(
-      firstNumberSweets
-    )} sweet${endWordSweetForFirstChild}`
-    break
-  case firstNumberSweets === 0:
-    inputDataFirstChild = `${firstChildName} doesn't have any sweet`
-    break
-  case firstNumberSweets > 0:
-    console.log("HI")
 
-    inputDataFirstChild = `${firstChildName} has ${firstNumberSweets} sweet${endWordSweetForFirstChild}`
-    break
-  default:
-    break
+if (firstNumberSweets < 0) {
+  inputDataFirstChild = `${firstChildName} has borrowed ${Math.abs(
+    firstNumberSweets
+  )} sweet${endWordSweetForFirstChild}`
+} else if (firstNumberSweets === 0) {
+  inputDataFirstChild = `${firstChildName} doesn't have any sweet`
+} else if (firstNumberSweets > 0) {
+  inputDataFirstChild = `${firstChildName} has ${firstNumberSweets} sweet${endWordSweetForFirstChild}`
 }
-console.log(inputDataFirstChild)
-console.log(Math.abs(firstNumberSweets))
 
 let inputDataSecondChild = ""
 const endWordSweetForSecondChild = `${
   Math.abs(secondNumberSweets) === 1 ? "" : "s"
 }`
-switch (secondNumberSweets) {
-  case secondNumberSweets < 0:
-    inputDataSecondChild = `${secondChildName} has borrowed ${Math.abs(
-      secondNumberSweets
-    )} sweet${endWordSweetForSecondChild}`
-    break
-  case secondNumberSweets === 0:
-    inputDataSecondChild = `${secondChildName} doesn't have any sweet`
-    break
-  case secondNumberSweets > 0:
-    inputDataSecondChild = `${secondChildName} has ${secondNumberSweets} sweet${endWordSweetForSecondChild}`
-    break
-  default:
-    break
+if (secondNumberSweets < 0) {
+  inputDataSecondChild = `${secondChildName} has borrowed ${Math.abs(
+    secondNumberSweets
+  )} sweet${endWordSweetForSecondChild}`
+} else if (secondNumberSweets === 0) {
+  inputDataSecondChild = `${secondChildName} doesn't have any sweet`
+} else if (secondNumberSweets > 0) {
+  inputDataSecondChild = `${secondChildName} has ${secondNumberSweets} sweet${endWordSweetForSecondChild}`
 }
 
 let result = ""
