@@ -1,10 +1,34 @@
 "use strict"
 
+const HOMEWORK_NUMBER = 3
 const TASK_NUMBER = 2
 
-const birthYear = parseInt(prompt("Enter birth year, please", 0))
-const currentYear = parseInt(prompt("Enter current year, please", 0))
-const yearsVolume = currentYear - birthYear
+const defaultPriceItem = 25.5
+const defaultAmountMoney = 100
+
+const priceItem =
+  Math.round(
+    parseFloat(prompt("Enter price of item, please", defaultPriceItem)) * 100
+  ) / 100
+
+const amountMoney =
+  Math.round(
+    parseFloat(prompt("Enter amount of money, please", defaultAmountMoney)) *
+      100
+  ) / 100
+
+const change = amountMoney > priceItem ? amountMoney - priceItem : 0
+
+let result = ""
+if (priceItem > amountMoney) {
+  result = "Sorry, you don't have enough money."
+} else if (priceItem === amountMoney) {
+  result = "OK! You don't have a change. Do you need a receipt?"
+} else if (priceItem + 4 < amountMoney) {
+  result = `OK! You have a change ${change}. Would you like to buy a lottery?`
+} else if (priceItem < amountMoney) {
+  result = `OK! You have a change ${change}. Do you need a receipt?`
+}
 
 document.write(`
 <body>
@@ -13,7 +37,7 @@ document.write(`
 			<div class="header__container">
 				<div class="header__block">
 					<a href="../../index.html"><img class="img-home" src="../../img/logo.webp" alt="Home"></a>
-					<h1><a class="header__link" href="../index.html">Homework 2</a> / Task ${TASK_NUMBER}</h1>
+					<h1><a class="header__link" href="../index.html">Homework ${HOMEWORK_NUMBER}</a> / Task ${TASK_NUMBER}</h1>
 				</div>
 			</div>
 		</header>
@@ -23,14 +47,16 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Дано рік народження (дата: 1 січня) та поточний рік. Знайти кількість років.</p>
+							<p>3 клавіатури вводиться ціна товару і кількість грошей. Якщо грошей не вистачає то відмовляємо у
+								покупці, інакше, якщо ще залишаються гроші, то пропонуємо купити лотерею за 4 грн.</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
 							<ol>
-								<li>Birth Year = ${birthYear}</li>
-								<li>Current Year = ${currentYear}</li>
-								<li>Volume of Years= ${yearsVolume}</li>
+								<li>Price of item = ${priceItem}</li>
+								<li>Amount of money = ${amountMoney}</li>
+								<li>Change = ${change}</li>
+								<li>${result}</li>
 							</ol>
 						</li>
 						<li class="reload">

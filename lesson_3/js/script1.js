@@ -1,5 +1,6 @@
 "use strict"
 
+const HOMEWORK_NUMBER = 3
 const TASK_NUMBER = 1
 
 const defaultFirstChildName = "First child"
@@ -66,7 +67,7 @@ document.write(`
 			<div class="header__container">
 				<div class="header__block">
 					<a href="../../index.html"><img class="img-home" src="../../img/logo.webp" alt="Home"></a>
-					<h1><a class="header__link" href="../index.html">Homework 3</a> / Task ${TASK_NUMBER}</h1>
+					<h1><a class="header__link" href="../index.html">Homework ${HOMEWORK_NUMBER}</a> / Task ${TASK_NUMBER}</h1>
 				</div>
 			</div>
 		</header>
