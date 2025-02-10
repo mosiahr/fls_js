@@ -2,11 +2,16 @@
 
 const HOMEWORK_NUMBER = 3
 const TASK_NUMBER = 3
-const NOT_CORRECTED_NUMBER =
-  "Sorry, you entered not corrected number.\nYou need to enter a number between 1 and 5."
+const MESSAGE_NOT_CORRECTED_NUMBER =
+  "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 5."
+const MESSAGE_GUESSED_NUMBER = "You guessed the number!"
+const MESSAGE_DONT_GUESSED_NUMBER = "Sorry! You don't guess the number!"
 
 const minNumber = 1
 const maxNumber = 5
+
+let result = ""
+let inputDataSecondAttemptNumber = ""
 
 const randomNumber =
   minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
@@ -17,32 +22,29 @@ const firstAttemptNumber = parseInt(
   )
 )
 
-let result = ""
-let inputDataSecondAttemptNumber = ""
-
-if (firstAttemptNumber > 0 && firstAttemptNumber < 6) {
+if (firstAttemptNumber >= minNumber && firstAttemptNumber <= maxNumber) {
   if (randomNumber === firstAttemptNumber) {
-    result = "You guessed the number!"
+    result = MESSAGE_GUESSED_NUMBER
   } else {
     const secondAttemptNumber = parseInt(
       prompt(
-        "Sorry! You don't guess the number! \nYou have one more attempt. \nSecond attempt. \nEnter your number: "
+        `${MESSAGE_DONT_GUESSED_NUMBER} \nYou have one more attempt. \nSecond attempt. \nEnter your number: `
       )
     )
 
-    if (secondAttemptNumber > 0 && secondAttemptNumber < 6) {
+    if (secondAttemptNumber >= minNumber && secondAttemptNumber <= maxNumber) {
       if (randomNumber === secondAttemptNumber) {
-        result = "You guessed the number!"
+        result = MESSAGE_GUESSED_NUMBER
       } else {
-        result = "Sorry! You don't guess the number!"
+        result = MESSAGE_DONT_GUESSED_NUMBER
       }
       inputDataSecondAttemptNumber = `<li>Your second number = ${secondAttemptNumber}</li>`
     } else {
-      result = NOT_CORRECTED_NUMBER
+      result = MESSAGE_NOT_CORRECTED_NUMBER
     }
   }
 } else {
-  result = NOT_CORRECTED_NUMBER
+  result = MESSAGE_NOT_CORRECTED_NUMBER
 }
 
 document.write(`
