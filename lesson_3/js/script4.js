@@ -1,12 +1,33 @@
 "use strict"
 
+const HOMEWORK_NUMBER = 3
 const TASK_NUMBER = 4
 
-const numberСentimeters = parseInt(
-  prompt("Enter number of centimeters, please", 0)
-)
-const numberMeters = numberСentimeters / 100
-const numberKilometers = numberСentimeters / 100000
+let result = ""
+const age = parseInt(prompt("Enter you age, please: "))
+
+if (isNaN(age) || age < 1) {
+  result = "Sorry, you entered an invalid number."
+} else {
+  switch (true) {
+    case age < 6:
+      result = "You are a child in kindergarten"
+      break
+    case age < 18:
+      result = "You are a student in school"
+      break
+    case age < 23:
+      result = "You are a student in university"
+      break
+    case age < 66:
+      result = "You are employee"
+      break
+    case age >= 66:
+      result = "You are retired"
+    default:
+      break
+  }
+}
 
 document.write(`
 <body>
@@ -15,7 +36,7 @@ document.write(`
 			<div class="header__container">
 				<div class="header__block">
 					<a href="../../index.html"><img class="img-home" src="../../img/logo.webp" alt="Home"></a>
-					<h1><a class="header__link" href="../index.html">Homework 2</a> / Task ${TASK_NUMBER}</h1>
+					<h1><a class="header__link" href="../index.html">Homework ${HOMEWORK_NUMBER}</a> / Task ${TASK_NUMBER}</h1>
 				</div>
 			</div>
 		</header>
@@ -25,20 +46,21 @@ document.write(`
 					<ol class="page__list">
 						<li>
 							<h3>Task ${TASK_NUMBER}</h3>
-							<p>Дано довжину у сантиметрах. Визначати скільки це метрів і кілометрів.</p>
+							<p>3 клавіатури вводиться вік людини. Вивести на екран ким він є (дитиною у садочку, школярем,
+								студентом, працівником, пенсіонером).</p>
 						</li>
 						<li>
 							<h3>Solution of Task ${TASK_NUMBER}</h3>
 							<ol>
-								<li>Volume of Centimeters: ${numberСentimeters}cm</li>
-								<li>Volume of Meters: ${numberMeters}m</li>
-								<li>Volume of Kilometers: ${numberKilometers}km</li>
+								<li>Your age is ${age}</li>
+								<li>${result}</li>
 							</ol>
 						</li>
 						<li class="reload">
 							<a href="task${TASK_NUMBER}.html"><img src="../../img/circular-arrow.svg" alt="Reload"></a>
 						</li>
 					</ol>
+
 				</div>
 			</div>
 		</main>
