@@ -12,7 +12,7 @@ const TASK_DEFINITION = `Створити окремі функції, які д
 		<li>мінімальне значення.</li>
 	</ol>`
 const MESSAGE_NOT_CORRECTED_NUMBER =
-  "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 7."
+  "Sorry, you entered not a number.\nYou need to enter a number."
 
 const getNumber = (minRandomNumber = 0, maxRandomNumber = 999) =>
   parseInt(
