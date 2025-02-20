@@ -9,6 +9,9 @@ export function confirmBeginTest(funcTest) {
 export const randomNumber = (minNumber, maxNumber) =>
   minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
 
+export const roundDecimal = (number) =>
+  Math.round(parseFloat(number) * 100) / 100
+
 export function renderTask(
   homeworkNumber,
   taskNumber,
