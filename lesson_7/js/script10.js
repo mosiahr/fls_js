@@ -1,37 +1,39 @@
 "use strict"
 
-import { confirmBeginTest, randomNumber, renderTask } from "../../js/script.js"
+import { confirmBeginTest, roundDecimal, renderTask } from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 10
-const TASK_DEFINITION = `Дано покази температур (довільна кількість). Розробити функцію, яка дозволить підрахувати
-								кількість відʼємних показів температури.`
-const MESSAGE_NOT_CORRECTED_NUMBER =
-  "Sorry, you entered not a number.\nYou need to enter a number."
+const TASK_DEFINITION = `Дано покази температур (довільна кількість). Розробити функцію, яка дозволить знайти середнє
+								значення для додатних показів температури.`
 
-const countNegativeTemperature = (arr) => {
-  let count = 0
+const arithmeticMeanArrElements = (arr) => {
+  let sumPositiveTemp = 0
+  let countPositiveTemp = 0
 
-  arr.forEach((el) => {
-    if (el < 0) count++
-  })
-  return count
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > 0) {
+      sumPositiveTemp += arr[i]
+      countPositiveTemp += 1
+    }
+  }
+  return roundDecimal(sumPositiveTemp / countPositiveTemp)
 }
 
-const renderResult = (countNegativeTemperature, temperatures) => {
-  return `<ol><li>Temperatures = ${temperatures}</li></ol>
-  <ol><li>Count of Negative Temperature = ${countNegativeTemperature}</li></ol>`
+const renderResult = (arithmeticMeanArrElements, temperatures) => {
+  return `<ol><li>Temperatures: ${temperatures}</li></ol>
+  <ol><li>Arithmetic Mean of Positive Temperatures: ${arithmeticMeanArrElements}</li></ol>`
 }
 
 const main = () => {
   const temperatures = [10, 32, -12, 7, -22]
-  const countNegTemp = countNegativeTemperature(temperatures)
+  const arithmeticMean = arithmeticMeanArrElements(temperatures)
 
   renderTask(
     HOMEWORK_NUMBER,
     TASK_NUMBER,
     TASK_DEFINITION,
-    renderResult(countNegTemp, temperatures)
+    renderResult(arithmeticMean, temperatures)
   )
 }
 
