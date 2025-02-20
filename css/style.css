@@ -148,6 +148,9 @@ td {
   font-size: 24px;
   font-weight: 700;
 }
+.page__number-list > li {
+  list-style: decimal;
+}
 .button {
   position: relative;
   color: #28293e;
