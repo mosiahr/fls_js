@@ -10,9 +10,9 @@ const TASK_DEFINITION = `Дано покази температур (довіл�
 const countNegativeTemperature = (...arr) => {
   let count = 0
 
-  arr.forEach((el) => {
-    if (el < 0) count++
-  })
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < 0) count++
+  }
   return count
 }
 
