@@ -1,6 +1,6 @@
 "use strict"
 
-import { confirmBeginTest, randomNumber, renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 1
@@ -10,7 +10,7 @@ const MESSAGE_NOT_CORRECTED_NUMBER =
   "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 12."
 
 const getMonthNumber = () =>
-  parseInt(prompt("Enter your month number (1-12): ", randomNumber(1, 12)))
+  parseInt(prompt("Enter your month number (1-12): ", getRandomNumber(1, 12)))
 
 function getMonthName(monthNumber) {
   let result = ""

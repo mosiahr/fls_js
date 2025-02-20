@@ -1,6 +1,6 @@
 "use strict"
 
-import { confirmBeginTest, randomNumber, renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 2
@@ -10,7 +10,7 @@ const MESSAGE_NOT_CORRECTED_NUMBER =
   "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 7."
 
 const getDayNumber = () =>
-  parseInt(prompt("Enter your day number (1-7): ", randomNumber(1, 7)))
+  parseInt(prompt("Enter your day number (1-7): ", getRandomNumber(1, 7)))
 
 const isWorkingDay = (dayNumber) => dayNumber >= 1 && dayNumber <= 5
 

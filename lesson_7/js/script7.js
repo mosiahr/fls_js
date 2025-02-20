@@ -1,6 +1,6 @@
 "use strict"
 
-import { confirmBeginTest, randomNumber, renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 7
@@ -9,7 +9,7 @@ const TASK_DEFINITION = `Створити функцію, яка випадко�
 
 const getRandomPath = (path1, path2, path3, path4) => {
   const pathArr = [path1, path2, path3, path4]
-  const number = randomNumber(0, pathArr.length - 1)
+  const number = getRandomNumber(0, pathArr.length - 1)
   return pathArr[number]
 }
 

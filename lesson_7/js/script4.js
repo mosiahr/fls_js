@@ -1,6 +1,6 @@
 "use strict"
 
-import { confirmBeginTest, randomNumber, renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 4
@@ -13,7 +13,7 @@ const getNumber = (minRandomNumber = 0, maxRandomNumber = 999) =>
   parseInt(
     prompt(
       "Enter your number: ",
-      randomNumber(minRandomNumber, maxRandomNumber)
+      getRandomNumber(minRandomNumber, maxRandomNumber)
     )
   )
 

@@ -1,6 +1,6 @@
 "use strict"
 
-import { confirmBeginTest, randomNumber, renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 5
@@ -17,7 +17,7 @@ const getNumber = (
   massage = "Enter your number: ",
   minRandomNumber = 0,
   maxRandomNumber = 999
-) => parseInt(prompt(massage, randomNumber(minRandomNumber, maxRandomNumber)))
+) => parseInt(prompt(massage, getRandomNumber(minRandomNumber, maxRandomNumber)))
 
 const convertCmToInch = (number) => number / 2.54
 const convertKgToPound = (number) => number * 2.2046226218
