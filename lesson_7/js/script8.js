@@ -8,18 +8,13 @@ const TASK_DEFINITION = `Створити функцію, яка виводит�
 								куди переходимо при кліку на зображення (тег img повине знаходитись у середині
 								тега a: &lta&gt &ltimg src="шлях"&gt &lt/a&gt)`
 
-const getRandomPath = (path1, path2, path3, path4) => {
-  const pathArr = [path1, path2, path3, path4]
-  const number = getRandomNumber(0, pathArr.length - 1)
-  return pathArr[number]
-}
+const getRandomPath = (...path) => path[getRandomNumber(0, path.length - 1)]
 
 const renderBanner = (src, title, href) => `
 		<div class="banner">
 			<h3>${title}</h3>
 			<a href="${href}" target="_blank"><img src="${src}" alt="Image"></a>
-		</div>
-	`
+		</div>`
 
 const main = () => {
   const src = getRandomPath(
