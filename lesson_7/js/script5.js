@@ -31,12 +31,12 @@ const renderResult = (number) => {
     result = `<li>Massage: ${MESSAGE_NOT_CORRECTED_NUMBER}</li>`
   } else {
     const resConvertCmToInch = roundDecimal(convertCmToInch(number))
-    const resСonvertKgToPound = roundDecimal(convertKgToPound(number))
-    const resСonvertKmToMile = roundDecimal(convertKmToMile(number))
+    const resConvertKgToPound = roundDecimal(convertKgToPound(number))
+    const resConvertKmToMile = roundDecimal(convertKmToMile(number))
 
     result = `<li>To Inch: ${number}cm => ${resConvertCmToInch} in</li>
-					<li>To Pound: ${number}Kg => ${resСonvertKgToPound} pound [lbs]</li>
-					<li>To Mile: ${number}Km => ${resСonvertKmToMile} mi</li>`
+					<li>To Pound: ${number}Kg => ${resConvertKgToPound} pound [lbs]</li>
+					<li>To Mile: ${number}Km => ${resConvertKmToMile} mi</li>`
   }
 
   return `<ol><li>Number = ${number}</li></ol>
