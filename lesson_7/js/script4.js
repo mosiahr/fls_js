@@ -17,7 +17,7 @@ const getNumber = (minRandomNumber = 0, maxRandomNumber = 999) =>
     )
   )
 
-const isEven = (number) => number % 2 == 0
+const isEven = (number) => number % 2 === 0
 const isPositive = (number) => number > 0
 const isMoreThanOneHundred = (number) => number > 100
 
@@ -26,13 +26,11 @@ function countNumber(num1, num2, num3) {
   let countIsPositive = 0
   let countIsMoreThanOneHundred = 0
 
-  const numbers = [num1, num2, num3]
-  numbers.forEach((item) => {
-    if (isEven(item)) countIsEven += 1
-    if (isPositive(item)) countIsPositive += 1
-    if (isMoreThanOneHundred(item)) countIsMoreThanOneHundred += 1
-  })
-
+  for (let i = 0; i < arguments.length; i++) {
+    if (isEven(arguments[i])) countIsEven += 1
+    if (isPositive(arguments[i])) countIsPositive += 1
+    if (isMoreThanOneHundred(arguments[i])) countIsMoreThanOneHundred += 1
+  }
   return [countIsEven, countIsPositive, countIsMoreThanOneHundred]
 }
 
