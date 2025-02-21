@@ -1,0 +1,39 @@
+/* Local fonts */
+@import url('fonts.css');
+
+/* Reset */
+@import url('reset.css');
+
+/* Keyframes */
+@import url('keyframes.css');
+
+body {
+    font-family: none, sans-serif;
+}
+textarea {
+    resize: vertical;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow: clip;
+}
+.wrapper > main {
+    flex-grow: 1;
+}
+[class*="__container"] {
+    max-width: 1170px;
+	margin: 0 auto;
+	padding-inline: 15px;
+}
+
+/** FOOTER */
+.footer {
+    background-color: #fdf0e9;
+    color: #391400;
+    font-weight: 700;
+    text-align: center;
+	padding-block: 15px;
+}

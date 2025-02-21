@@ -12,14 +12,17 @@ export const getRandomNumber = (minNumber, maxNumber) =>
 export const roundDecimal = (number) =>
   Math.round(parseFloat(number) * 100) / 100
 
+// export function renderLessonPage(
+
+// )
+
 export function renderTask(
   homeworkNumber,
   taskNumber,
   taskDefinition,
   renderResult
 ) {
-  const bodyEl = document.body
-  bodyEl.innerHTML = `
+  document.body.innerHTML = `
 		<body>
 			<div class="wrapper">
 				<header class="header">
