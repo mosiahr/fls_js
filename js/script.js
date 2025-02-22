@@ -1,5 +1,3 @@
-"use strict"
-
 export function confirmBeginTest(funcTest) {
   if (confirm("Begin test?")) {
     funcTest()

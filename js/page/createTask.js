@@ -1,5 +1,3 @@
-"use strict"
-
 export default function createTask(taskNumber, taskDefinition, taskPath) {
   return `<h3>Task ${taskNumber}</h3>
 			<p>${taskDefinition}</p>

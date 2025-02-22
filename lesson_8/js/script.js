@@ -1,6 +1,7 @@
 "use strict"
 
-import { renderLessonPage } from "../../js/renderLessonPage.js"
+import { createPage } from "/js/page/index.js"
+import render from "/js/render.js"
 
 const arrTaskDefinition = [
   `Дано масив, який містить оцінки з К предметів. 
@@ -19,4 +20,4 @@ const arrTaskDefinition = [
 		  складаються з більше ніш 5 символів;`,
 ]
 
-renderLessonPage(arrTaskDefinition, 8)
+render(createPage(arrTaskDefinition, 8))

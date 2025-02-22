@@ -1,6 +1,10 @@
 "use strict"
 
-import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
+import {
+  confirmBeginTest,
+  getRandomNumber,
+  renderTask,
+} from "../../js/script.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 2

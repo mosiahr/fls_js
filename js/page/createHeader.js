@@ -1,6 +1,4 @@
-"use strict"
-
-export default function createHeaderPage(homeworkNumber) {
+export default function createHeader(homeworkNumber) {
   return `
 	<header class="header">
 		<div class="header__container">
