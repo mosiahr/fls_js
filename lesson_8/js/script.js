@@ -1,9 +1,20 @@
 "use strict"
 
-import { createPage } from "/js/page/index.js"
-import render from "/js/render.js"
+import {
+  createPage,
+  createHeader,
+  createHeading,
+  createList,
+  createFooter,
+  createTasks,
+} from "/js/page/index.js"
 
-const arrTaskDefinition = [
+import { renderTask } from "/js/script.js"
+import render from "/js/render.js"
+import {FOOTER_INFO} from "/js/config.js";
+import {getURLSearchParams} from "/js/utils.js"
+
+const taskDefinitionArr = [
   `Дано масив, який містить оцінки з К предметів. 
 	  Знайти середній бал і зʼясувати до якої категорії він відноситься (відмінник, двійочник (має хоча би одну двійку), 
 	  хорошист (оцінки добре і відмінно), трійочник(є хоча би одна трійка)).`,
@@ -20,4 +31,22 @@ const arrTaskDefinition = [
 		  складаються з більше ніш 5 символів;`,
 ]
 
-render(createPage(arrTaskDefinition, 8))
+const tasks = createTasks(taskDefinitionArr)
+
+const listPage = createPage(
+  createHeader(8),
+  
+  // createHeading("Required tasks", "page-block__title-list"),
+  createList(tasks),
+  createFooter(FOOTER_INFO)
+)
+
+render(listPage)
+
+
+
+const taskNumber = getURLSearchParams("task")
+
+if (taskNumber) {
+  renderTask(8, taskNumber, taskDefinitionArr[taskNumber])
+}
