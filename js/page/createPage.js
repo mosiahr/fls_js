@@ -1,11 +1,11 @@
-export default function createPage(header, page, footer) {
-  return `<body>
+export default function createPage(header, footer, ...pageElements) {
+    return `<body>
 				<div class="wrapper">
 					 ${header}
 					 <main class="page">
 						  <div class="page__container">
 								<div class="page-block">
-									 ${page}
+									 ${pageElements.join("")}
 								</div>
 						  </div>
 					 </main>
