@@ -1,7 +1,7 @@
 "use strict"
 
 import { renderTask } from "../../js/script.js"
-import { confirmBeginTest, getRandomNumber } from "/js/utils.js"
+import { confirmBeginTest, getRandomNumber } from "../../js/utils.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 3
