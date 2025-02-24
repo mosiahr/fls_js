@@ -10,7 +10,7 @@ import {
     createTaskSolution
 } from "../../js/page/index.js"
 
-import {renderTask} from "/js/script.js"
+// import {renderTask} from "../../js/script.js"
 import render from "../../js/render.js"
 import {FOOTER_INFO} from "../../js/config.js";
 import {confirmBeginTest, getURLSearchParams} from "../../js/utils.js"
