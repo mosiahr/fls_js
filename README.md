@@ -1,2 +1,2 @@
 # fls_js
-Home works of Freelancer Lifestyle course of JavaScript 
+Home works of Freelancer Lifestyle JavaScript course 
