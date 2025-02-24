@@ -1,6 +1,7 @@
 "use strict"
 
-import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
+import { renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber } from "/js/utils.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 0
@@ -13,10 +14,7 @@ const getMonthNumber = () =>
   parseInt(prompt("Enter your month number (1-12): ", getRandomNumber(1, 12)))
 
 function isFoundNumberAmongThreeElements(number, element1, element2, element3) {
-  if (number === element1 || number === element2 || number === element3) {
-    return true
-  }
-  return false
+  return number === element1 || number === element2 || number === element3;
 }
 
 function getSeason(monthNumber) {

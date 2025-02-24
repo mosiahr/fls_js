@@ -1,6 +1,7 @@
 "use strict"
 
-import { confirmBeginTest, getRandomNumber, renderTask } from "../../js/script.js"
+import { renderTask } from "../../js/script.js"
+import { confirmBeginTest, getRandomNumber } from "/js/utils.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 8
@@ -17,19 +18,19 @@ const renderBanner = (src, title, href) => `
 		</div>`
 
 const main = () => {
-  const src = getRandomPath(
-    "../img/facebook.svg",
-    "../img/instagram.svg",
-    "../img/whatsapp.svg",
-    "../img/youtube.svg"
-  )
+    const src = getRandomPath(
+        "../img/facebook.svg",
+        "../img/instagram.svg",
+        "../img/whatsapp.svg",
+        "../img/youtube.svg"
+    )
 
-  renderTask(
-    HOMEWORK_NUMBER,
-    TASK_NUMBER,
-    TASK_DEFINITION,
-    renderBanner(src, "Function", "https://uk.javascript.info/function-basics")
-  )
+    renderTask(
+        HOMEWORK_NUMBER,
+        TASK_NUMBER,
+        TASK_DEFINITION,
+        renderBanner(src, "Function", "https://uk.javascript.info/function-basics")
+    )
 }
 
 confirmBeginTest(main)
