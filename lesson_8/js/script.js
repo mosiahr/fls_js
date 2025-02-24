@@ -3,10 +3,11 @@
 import {
     createPage,
     createHeader,
-    createHeading,
+    createElem,
     createList,
     createFooter,
     createTasks,
+    createLogo,
 } from "/js/page/index.js"
 
 import {renderTask} from "/js/script.js"
@@ -33,15 +34,16 @@ const taskDefinitionArr = [
 
 const tasks = createTasks(taskDefinitionArr)
 
-const listPage = createPage(
-    createHeader(8),
+const taskListPage = createPage(
+    createHeader(createLogo(), createElem("h1", "Homework 8")),
     createFooter(FOOTER_INFO),
-    createHeading("Required tasks", "page-block__title-list"),
+    createElem("h2",
+        "Required tasks",
+        {class: "page-block__title-list"}),
     createList(tasks),
 )
 
-render(listPage)
-
+render(taskListPage)
 
 const taskNumber = getURLSearchParams("task")
 
