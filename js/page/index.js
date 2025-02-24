@@ -5,4 +5,6 @@ export { default as createFooter } from "./createFooter.js"
 export { default as createTasks } from "./createTasks.js"
 export { default as createLogo } from "./createLogo.js"
 export { default as createElem } from "./createElem.js"
+export { default as createTaskSolution } from "./createTaskSolution.js"
+
 

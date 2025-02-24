@@ -1,5 +1,3 @@
-"use strict"
-
 import {
     createPage,
     createHeader,
@@ -8,12 +6,16 @@ import {
     createFooter,
     createTasks,
     createLogo,
+    createTaskSolution
 } from "/js/page/index.js"
 
 import {renderTask} from "/js/script.js"
 import render from "/js/render.js"
 import {FOOTER_INFO} from "/js/config.js";
-import {getURLSearchParams} from "/js/utils.js"
+import {confirmBeginTest, getURLSearchParams} from "/js/utils.js"
+
+import task0 from "./task0.js"
+import createTask from "../../js/page/createTask.js";
 
 const taskDefinitionArr = [
     `Дано масив, який містить оцінки з К предметів. 
@@ -47,6 +49,21 @@ render(taskListPage)
 
 const taskNumber = getURLSearchParams("task")
 
+
+const taskPage = createPage(
+    createHeader(createLogo(), createElem("h1", "Homework 8")),
+    createFooter(FOOTER_INFO),
+    createElem("h2",
+        "Required tasks",
+        {class: "page-block__title-list"}),
+    createList([
+        createTask(taskNumber, taskDefinitionArr[taskNumber], `.?task=${taskNumber}`),
+        createTaskSolution(taskNumber, "Resullllllt")
+    ])
+)
+
+
 if (taskNumber) {
-    renderTask(8, taskNumber, taskDefinitionArr[taskNumber])
+    render(taskPage)
+    // confirmBeginTest(renderTask(8, taskNumber, taskDefinitionArr[taskNumber]))
 }
