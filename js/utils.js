@@ -1,9 +1,9 @@
 export const getURLSearchParams = (param) =>
     new URLSearchParams(window.location.search).get(param)
 
-export function confirmBeginTest(funcTest) {
-    if (confirm("Begin test?")) {
-        funcTest()
+export function runWithConfirmStart(funcTest, ...args) {
+    if (confirm("-= START TEST? =-")) {
+        return funcTest(args)
     }
 }
 
@@ -12,3 +12,10 @@ export const getRandomNumber = (minNumber, maxNumber) =>
 
 export const roundDecimal = (number) =>
     Math.round(parseFloat(number) * 100) / 100
+
+export const parseIntArr = (arr) => {
+    const resArr = []
+    for (let i = 0; i < arr.length; i++)
+        resArr.push(parseInt(arr[i]))
+    return resArr
+}

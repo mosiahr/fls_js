@@ -1,7 +1,7 @@
 "use strict"
 
 import { renderTask } from "../../js/script.js"
-import {confirmBeginTest, roundDecimal} from "../../js/utils.js"
+import {runWithConfirmStart, roundDecimal} from "../../js/utils.js"
 
 const HOMEWORK_NUMBER = 7
 const TASK_NUMBER = 10
@@ -38,4 +38,4 @@ const main = () => {
   )
 }
 
-confirmBeginTest(main)
+runWithConfirmStart(main)
