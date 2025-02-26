@@ -67,7 +67,7 @@ const taskNumber = getURLSearchParams("task")
 
 if (taskNumber) {
     const taskPage = createPage(
-        createHeader(createLogo(), createElem("h1", `Homework / Task ${taskNumber}`)),
+        createHeader(createLogo(), createElem("h1", `Homework ${HOMEWORK_NUMBER} / Task ${taskNumber}`)),
         createFooter(FOOTER_INFO),
         createElem("h2",
             "Test task page",
