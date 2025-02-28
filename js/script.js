@@ -10,7 +10,7 @@ export function renderTask(
 				<header class="header">
 					<div class="header__container">
 						<div class="header__block">
-							<a href="../../index.html"><img class="img-home" src="../../img/logo.webp" alt="Home"></a>
+							<a href="../index.html"><div class="img-home"></div></a>
 							<h1><a class="header__link" href="../index.html">Homework ${homeworkNumber}</a> / Task ${taskNumber}</h1>
 						</div>
 					</div>

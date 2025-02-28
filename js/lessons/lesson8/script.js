@@ -8,12 +8,11 @@ import {
     createTasks,
     createLogo,
     createTaskSolution
-} from "../../js/page/index.js"
+} from "../../page/index.js"
 
-// import {renderTask} from "../../js/script.js"
-import render from "../../js/render.js"
-import {FOOTER_INFO} from "../../js/config.js";
-import {runWithConfirmStart, getURLSearchParams} from "../../js/utils.js"
+import render from "../../render.js"
+import {FOOTER_INFO} from "../../config.js";
+import {runWithConfirmStart, getURLSearchParams} from "../../utils.js"
 
 import task0 from "./task0.js"
 import task1 from "./task1.js"

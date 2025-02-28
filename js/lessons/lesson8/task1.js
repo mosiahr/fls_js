@@ -1,4 +1,4 @@
-import {getRandomNumber, roundDecimal} from "../../js/utils.js"
+import {getRandomNumber, roundDecimal} from "../../utils.js"
 
 
 

@@ -10,7 +10,7 @@
 // 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 // 	<title>Lesson 2 / Task 0</title>
 // 	<link rel="stylesheet" href="../css/style.css">
-// 	<script src="../js/script0.js"></script>
+// 	<script src="../lesson8/script0.lesson8"></script>
 // </head>
 
 // <body>

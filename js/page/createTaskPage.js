@@ -1,5 +1,5 @@
 import createHeader from "./createHeader.js"
-import createHeading from "./createHElem.js"
+import createElem from "./createElem.js"
 import createList from "./createList.js"
 import createFooter from "./createFooter.js"
 
@@ -15,7 +15,7 @@ export default function createListPage(
 					 <main class="page">
 						  <div class="page__container">
 								<div class="page-block">
-									 ${createHeading(
+									 ${createElem(
 										"Required tasks",
 										"page-block__title-list"
 									 )}
