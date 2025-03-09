@@ -35,11 +35,12 @@ export default class App {
     initLoadPage() {
         // Using when page load first time or when user reload page
         const location = window.location
+        console.log(location)
 
         if (location.hash) {
-            this._router.goTo(location.hash)
+            this._router.goTo(new URL(location.href).hash)
         } else {
-            this._router.goTo(location.pathname)
+            this._router.goTo(new URL(location.href).pathname)
         }
     }
 }

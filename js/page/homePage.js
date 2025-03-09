@@ -16,7 +16,7 @@ export const homePage = createPage(
     createElem("h2", "Home Page", { class: "page-block__title-list" }),
     `<ul class="page__main-list">
   	<li>
-  		<a class="item-homework" href="/#/lessons/">
+  		<a class="item-homework" href="./#/lessons/">
   			<h3>Lessons</h3>
   		</a>
   	</li>

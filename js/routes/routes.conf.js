@@ -4,8 +4,12 @@ import { lessonsPage } from "../page/lessonsPage.js"
 import { notFoundPage } from "../page/index.js"
 
 export const routes = {
-    home: new Route(new RegExp(/^\/?$/), "home", homePage),
-    homeIndex: new Route(new RegExp(/^\/index\.html$/), "homeIndex", homePage),
+    home: new Route(new RegExp(/^\/fls_js\/?$/), "home", homePage),
+    homeIndex: new Route(
+        new RegExp(/^\/fls_js\/index\.html$/),
+        "homeIndex",
+        homePage
+    ),
     lessons: new Route(new RegExp(/^\/lessons\/?$/), "lessons", lessonsPage),
     lesson: new Route(
         new RegExp(/^\/lessons\/[0-9]+\/?$/),
