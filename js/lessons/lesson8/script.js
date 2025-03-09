@@ -7,12 +7,12 @@ import {
     createTask,
     createTasks,
     createLogo,
-    createTaskSolution
-} from "../../page/index.js"
+    createTaskSolution,
+} from "../../components/index.js"
 
 import render from "../../render.js"
-import {FOOTER_INFO} from "../../config.js";
-import {runWithConfirmStart, getURLSearchParams} from "../../utils.js"
+import { FOOTER_INFO } from "../../config.js"
+import { runWithConfirmStart, getURLSearchParams } from "../../utils.js"
 
 import task0 from "./task0.js"
 import task1 from "./task1.js"
@@ -44,10 +44,8 @@ const tasks = createTasks(taskDefinitionArr)
 const taskListPage = createPage(
     createHeader(createLogo(), createElem("h1", `Homework ${HOMEWORK_NUMBER}`)),
     createFooter(FOOTER_INFO),
-    createElem("h2",
-        "Tasks to Test",
-        {class: "page-block__title-list"}),
-    createList(tasks, "page__list"),
+    createElem("h2", "Tasks to Test", { class: "page-block__title-list" }),
+    createList(tasks, "page__list")
 )
 
 function runTask(taskNumber, funcArr) {
@@ -66,21 +64,29 @@ const taskNumber = getURLSearchParams("task")
 
 if (taskNumber) {
     const taskPage = createPage(
-        createHeader(createLogo(), createElem("h1", `Homework ${HOMEWORK_NUMBER} / Task ${taskNumber}`)),
+        createHeader(
+            createLogo(),
+            createElem("h1", `Homework ${HOMEWORK_NUMBER} / Task ${taskNumber}`)
+        ),
         createFooter(FOOTER_INFO),
-        createElem("h2",
-            "Test task page",
-            {class: "page-block__title-list"}),
-        createList([
-            createTask(taskNumber, taskDefinitionArr[taskNumber], `.?task=${taskNumber}`),
-            createTaskSolution(taskNumber,
-                createList(runTask(taskNumber, taskFuncArr)))
-        ], "page__list")
+        createElem("h2", "Test task page", { class: "page-block__title-list" }),
+        createList(
+            [
+                createTask(
+                    taskNumber,
+                    taskDefinitionArr[taskNumber],
+                    `.?task=${taskNumber}`
+                ),
+                createTaskSolution(
+                    taskNumber,
+                    createList(runTask(taskNumber, taskFuncArr))
+                ),
+            ],
+            "page__list"
+        )
     )
     // let [enterData, arithmeticMeanNum, typePupil] = runTask(taskNumber, taskFuncArr)
     // console.log(enterData, arithmeticMeanNum, typePupil)
     render(taskPage)
     // confirmBeginTest(renderTask(8, taskNumber, taskDefinitionArr[taskNumber]))
-} else
-    render(taskListPage)
-
+} else render(taskListPage)

@@ -7,5 +7,3 @@ export { default as createTask } from "./createTask.js"
 export { default as createLogo } from "./createLogo.js"
 export { default as createElem } from "./createElem.js"
 export { default as createTaskSolution } from "./createTaskSolution.js"
-
-export { notFoundPage } from "./notFoundPage.js"

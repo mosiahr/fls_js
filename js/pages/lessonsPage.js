@@ -5,7 +5,7 @@ import {
     createList,
     createLogo,
     createPage,
-} from "./index.js"
+} from "../components/index.js"
 import { MAIN_HEADER_TITLE, FOOTER_INFO } from "../config.js"
 
 export const lessonsPage = createPage(

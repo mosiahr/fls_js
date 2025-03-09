@@ -1,7 +1,5 @@
 import Route from "./Route.js"
-import { homePage } from "../page/homePage.js"
-import { lessonsPage } from "../page/lessonsPage.js"
-import { notFoundPage } from "../page/index.js"
+import { homePage, lessonsPage, notFoundPage } from "../pages/index.js"
 
 export const routes = {
     home: new Route(new RegExp(/^\/fls_js\/?$/), "home", homePage),

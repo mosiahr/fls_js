@@ -4,7 +4,7 @@ import {
     createHeader,
     createLogo,
     createPage,
-} from "./index.js"
+} from "../components/index.js"
 import { MAIN_HEADER_TITLE, FOOTER_INFO, NOT_FOUND_MESSAGE } from "../config.js"
 
 // const HOMEWORK_NUMBER = 8
