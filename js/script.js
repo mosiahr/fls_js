@@ -1,3 +1,7 @@
+import data from "../data.json" with {type: "json"}
+
+
+
 export function renderTask(
   homeworkNumber,
   taskNumber,
@@ -43,3 +47,5 @@ export function renderTask(
 			</div>
 		</body>`
 }
+
+
