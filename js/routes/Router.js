@@ -1,3 +1,5 @@
+import { notFoundPage } from "../pages/index.js"
+
 export default class Router {
     constructor(routes) {
         this._routes = routes
@@ -35,7 +37,7 @@ export default class Router {
                 if (addToState) this.addPathToState(path)
                 this.render(route.page)
             } else {
-                this.render(this._routes.notFound)
+                this.render(notFoundPage)
             }
         } catch (error) {
             console.log(error)

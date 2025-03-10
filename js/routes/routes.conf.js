@@ -1,11 +1,13 @@
 import Route from "./Route.js"
 import { homePage, lessonsPage, notFoundPage } from "../pages/index.js"
+import { PROJECT_FOLDER } from "../config.js"
 
 export const routes = {
-    home: new Route(new RegExp(/^\/fls_js\/?$/), "home", homePage),
-    homeIndex: new Route(
-        new RegExp(/^\/fls_js\/index\.html$/),
-        "homeIndex",
+    home: new Route(
+        new RegExp(
+            `^\/?$|^\/${PROJECT_FOLDER}\/?$|^\/${PROJECT_FOLDER}\/index\.html$`
+        ),
+        "home",
         homePage
     ),
     lessons: new Route(new RegExp(/^\/lessons\/?$/), "lessons", lessonsPage),
@@ -25,5 +27,5 @@ export const routes = {
         "task",
         "taskPage"
     ),
-    notFound: new Route(new RegExp(), "notFound", notFoundPage),
+    // notFound: new Route(new RegExp(), "notFound", notFoundPage),
 }
