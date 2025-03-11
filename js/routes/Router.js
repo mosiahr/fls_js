@@ -39,7 +39,7 @@ export default class Router {
                 this.render(route.page.getHTML())
             } else {
                 // TODO: Move render and notFoundPage to another place
-                this.render(notFoundPage)
+                this.render(notFoundPage.getHTML())
             }
         } catch (error) {
             console.log(error)
