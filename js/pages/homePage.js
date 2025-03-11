@@ -1,18 +1,9 @@
-import {
-    createElem,
-    createFooter,
-    createHeader,
-    createList,
-    createLogo,
-    createPage,
-} from "../components/index.js"
-import { MAIN_HEADER_TITLE, FOOTER_INFO } from "../config.js"
+import { createElem } from "../components/index.js"
+import { MainPage } from "./index.js"
 
-// const HOMEWORK_NUMBER = 8
-
-export const homePage = createPage(
-    createHeader(createLogo(), createElem("h1", MAIN_HEADER_TITLE)),
-    createFooter(FOOTER_INFO),
+export const homePage = new MainPage(
+    "",
+    "",
     createElem("h2", "Home Page", { class: "page-block__title-list" }),
     `<ul class="page__main-list">
   	<li>

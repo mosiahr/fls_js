@@ -1,7 +1,9 @@
 import App from "./App.js"
 import { routes } from "./routes/routes.conf.js"
 
-const app = new App(routes)
+const app = new App(document.getElementById("root"), routes)
+console.log(app._rootElement)
+
 app.initRoute()
 app.initLoadPage()
 

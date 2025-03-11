@@ -1,7 +1,8 @@
 import Router from "./routes/Router.js"
 
 export default class App {
-    constructor(routes) {
+    constructor(rootElement, routes) {
+        this._rootElement = rootElement
         this._router = new Router(routes)
     }
 
@@ -43,4 +44,6 @@ export default class App {
             this._router.goTo(new URL(location.href).pathname)
         }
     }
+
+	// this._rootElement.innerHTML = 
 }

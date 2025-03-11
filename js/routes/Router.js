@@ -35,8 +35,10 @@ export default class Router {
                 : this.getRoute(path)
             if (route) {
                 if (addToState) this.addPathToState(path)
-                this.render(route.page)
+                // TODO: Move render to another place
+                this.render(route.page.getHTML())
             } else {
+                // TODO: Move render and notFoundPage to another place
                 this.render(notFoundPage)
             }
         } catch (error) {
