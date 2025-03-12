@@ -1,5 +1,5 @@
 import Route from "./Route.js"
-import { homePage, lessonsPage, notFoundPage } from "../pages/index.js"
+import { homePage, lessonsPage, lessonPage, taskPage } from "../pages/index.js"
 import { PROJECT_FOLDER } from "../config.js"
 
 export const routes = {
@@ -14,7 +14,7 @@ export const routes = {
     lesson: new Route(
         new RegExp(/^\/lessons\/[0-9]+\/?$/),
         "lesson",
-        "lessonPage"
+        lessonPage
     ),
     tasks: new Route(
         new RegExp(/^\/lessons\/[0-9]+\/tasks\/?$/),
@@ -25,7 +25,6 @@ export const routes = {
     task: new Route(
         new RegExp(/^\/lessons\/[0-9]+\/tasks\/[0-9]+\/?$/),
         "task",
-        "taskPage"
+        taskPage
     ),
-    // notFound: new Route(new RegExp(), "notFound", notFoundPage),
 }

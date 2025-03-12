@@ -43,6 +43,7 @@ export default class Router {
             }
         } catch (error) {
             console.log(error)
+            this.render(notFoundPage.getHTML())
         }
     }
 
