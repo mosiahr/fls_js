@@ -31,7 +31,6 @@ export default class Route {
 
             if (regexResult === null) {
                 console.log("NULLLL")
-
                 return false
             }
             return true

@@ -1,11 +1,24 @@
 import App from "./App.js"
 import { routes } from "./routes/routes.conf.js"
+import data from "../data.json" with { type: "json" }
+import Data from "./data/data.js"
 
-const app = new App(document.getElementById("root"), routes)
-console.log(app._rootElement)
+
+// export const objD = new Data(data).getObjectData()
+// console.log(objD);
+
+const app = new App(document.getElementById("root"), routes, data)
+
+
 
 app.initRoute()
 app.initLoadPage()
+
+
+
+
+
+// export const objData = data.getObjectData()
 
 // Explanation: Let’s break down what each folder and file is used for.
 // /assets: This folder holds all the static files for your project, like images, logos, fonts, and favicons.

@@ -1,5 +1,5 @@
 export default function createHeader(...elements) {
-  return `
+    return `
 	<header class="header">
 		<div class="header__container">
 			<div class="header__block">
