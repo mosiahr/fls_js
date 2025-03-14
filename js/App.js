@@ -1,6 +1,8 @@
 import Router from "./routes/Router.js"
 import jsonData from "../data.json" with { type: "json" }
 import Data from "./data/data.js"
+import { notFoundPage } from "./pages/index.js"
+
 
 export default class App {
     constructor(rootElement, routes, data) {
