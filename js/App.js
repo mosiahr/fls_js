@@ -53,7 +53,7 @@ export default class App {
 
 	getObjData() {
 		try {
-			return new Data(this._data).getObjectData()
+			return new Data(this._data).objData	
 		} catch (error) {
 			console.log(error);
 		}
@@ -97,4 +97,18 @@ export default class App {
         }
     }
     // this._rootElement.innerHTML =
+
+	initController() {
+		const d = new Data(this._data)
+		console.log("d.all(): ", d.all())
+		// console.log("ObjD:: ", new Data(this._data).objData)
+		
+		console.log("d.lessons: ", d.lessons)
+		console.log("d.lessons: typeof:  ", typeof d.lessons)
+
+		console.log("d.getLesson(2): ", d.lessons.get(2))
+		console.log("d.getLesson(2) typeof: ", typeof d.lessons.get(2))
+		console.log("d.lessons.all(): ", d.lessons.all())
+		
+	}
 }

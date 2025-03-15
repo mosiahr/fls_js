@@ -7,30 +7,34 @@ export default class DataConverter {
     }
 
     convertData() {
-        const dataObj = []
-        if (this._data.hasOwnProperty("lessons")) {
-            this._data.lessons.forEach((lesson) => {
-                const tasksObj = []
-                for (const task of lesson["tasks"]) {
-                    const taskObj = new Task(
-                        task["id"],
-                        task["name"],
-                        task["description"],
-                        task["solutions"],
-                        task["available"]
-                    )
-                    tasksObj.push(taskObj)
-                }
+        try {
+            const dataObj = []
+            if (this._data.hasOwnProperty("lessons")) {
+                this._data.lessons.forEach((lesson) => {
+                    const tasksObj = []
+                    for (const task of lesson["tasks"]) {
+                        const taskObj = new Task(
+                            task["id"],
+                            task["name"],
+                            task["description"],
+                            task["solutions"],
+                            task["available"]
+                        )
+                        tasksObj.push(taskObj)
+                    }
 
-                const lessonObj = new Lesson(
-                    lesson["id"],
-                    lesson["name"],
-                    lesson["title"],
-                    tasksObj || []
-                )
-                dataObj.push(lessonObj)
-            })
+                    const lessonObj = new Lesson(
+                        lesson["id"],
+                        lesson["name"],
+                        lesson["title"],
+                        tasksObj || []
+                    )
+                    dataObj.push(lessonObj)
+                })
+            }
+            return dataObj
+        } catch (error) {
+            console.log(error)
         }
-        return dataObj
     }
 }

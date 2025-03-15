@@ -20,4 +20,12 @@ export default class BasicPage {
 				</div>
 			</body>`
     }
+
+    get pageElements() {
+        return this._pageElements
+    }
+
+    set pageElements(arr) {
+        this._pageElements = arr
+    }
 }

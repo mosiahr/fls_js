@@ -17,6 +17,6 @@ export default class MainPage extends BasicPage {
         super(...args)
         this._header = args[0] || header
         this._footer = args[1] || footer
-        this._pageElements = args
+        this._pageElements = args || []
     }
 }

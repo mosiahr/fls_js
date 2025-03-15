@@ -25,12 +25,12 @@ export default class Route {
     match(path) {
         try {
             const regexResult = path.match(this.pattern)
-            console.log(path, this.pattern)
+            // console.log(path, this.pattern)
 
-            console.log("regexResult: ", regexResult)
+            // console.log("regexResult: ", regexResult)
 
             if (regexResult === null) {
-                console.log("NULLLL")
+                // console.log("NULLLL")
                 return false
             }
             return true

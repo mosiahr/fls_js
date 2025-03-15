@@ -3,21 +3,14 @@ import { routes } from "./routes/routes.conf.js"
 import data from "../data.json" with { type: "json" }
 import Data from "./data/data.js"
 
-
 // export const objD = new Data(data).getObjectData()
 // console.log(objD);
 
 const app = new App(document.getElementById("root"), routes, data)
 
-
-
 app.initRoute()
 app.initLoadPage()
-
-
-
-
-
+app.initController()
 // export const objData = data.getObjectData()
 
 // Explanation: Let’s break down what each folder and file is used for.
