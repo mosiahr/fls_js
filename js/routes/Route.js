@@ -1,8 +1,9 @@
 export default class Route {
-    constructor(pattern, name, page, available = true) {
+    constructor(pattern, name, controller, available = true) {
         this._pattern = pattern
-        this._page = page
+        // this._page = page
         this._name = name
+        this._controller = controller
         this._available = available
     }
 
@@ -14,8 +15,11 @@ export default class Route {
         return this._name
     }
 
-    get page() {
-        return this._page
+    // get page() {
+    //     return this._page
+    // }
+    get controller() {
+        return this._controller
     }
 
     get available() {

@@ -1,7 +1,9 @@
 import Router from "./routes/Router.js"
 import jsonData from "../data.json" with { type: "json" }
 import Data from "./data/data.js"
-import { notFoundPage } from "./pages/index.js"
+import { MainPage, notFoundPage } from "./pages/index.js"
+import Controller from "./controllers/controller.js"
+// import LessonController from "./controllers/lessonController.js"
 
 
 export default class App {
@@ -110,5 +112,24 @@ export default class App {
 		console.log("d.getLesson(2) typeof: ", typeof d.lessons.get(2))
 		console.log("d.lessons.all(): ", d.lessons.all())
 		
+
+		const path = "/lessons/"
+		const route = path.match("#")
+                ? this._router.getRoute(path.replace("#", ""))
+                : this._router.getRoute(path)
+		
+
+		// Get all lessons
+
+		if (route)
+			// new Controller(route, d.lessons.all())
+			console.log("route.controller: ", typeof  route.controller);
+			// (MainPage, d.lessons.all())
+			const controller = new route.controller(MainPage, d.lessons.all())
+			// console.log(controller)
+			// console.log(controller.show())
+			this.render(controller.show())
+
+			
 	}
 }

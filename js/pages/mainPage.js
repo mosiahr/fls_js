@@ -15,8 +15,12 @@ export default class MainPage extends BasicPage {
         )
         const footer = createFooter(FOOTER_INFO)
         super(...args)
-        this._header = args[0] || header
-        this._footer = args[1] || footer
-        this._pageElements = args || []
+        this.header = args[0] || header
+        this.footer = args[1] || footer
+        this.pageElements = args || []
+    }
+
+    updatePageElements(el) {
+        this.pageElements.push(el)
     }
 }

@@ -1,31 +1,31 @@
 export default class BasicPage {
     constructor(header, footer, ...pageElements) {
-        this._header = header
-        this._footer = footer
-        this._pageElements = pageElements
+        this.header = header
+        this.footer = footer
+        this.pageElements = pageElements
     }
     getHTML() {
         return `
 			<body>
 				<div class="wrapper">
-					${this._header}
+					${this.header}
 					<main class="page">
 						<div class="page__container">
 								<div class="page-block">
-									${this._pageElements.join("")}
+									${this.pageElements.join("")}
 								</div>
 						</div>
 					</main>
-					${this._footer}
+					${this.footer}
 				</div>
 			</body>`
     }
 
-    get pageElements() {
-        return this._pageElements
-    }
+    // get pageElements() {
+    //     return this.pageElements
+    // }
 
-    set pageElements(arr) {
-        this._pageElements = arr
-    }
+    // set pageElements(arr) {
+    //     this.pageElements = arr
+    // }
 }

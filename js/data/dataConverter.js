@@ -27,7 +27,8 @@ export default class DataConverter {
                         lesson["id"],
                         lesson["name"],
                         lesson["title"],
-                        tasksObj || []
+                        tasksObj || [],
+                        lesson["available"]
                     )
                     dataObj.push(lessonObj)
                 })

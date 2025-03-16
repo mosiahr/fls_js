@@ -46,4 +46,12 @@ export default class Lesson {
     set tasks(value) {
         this._tasks = value
     }
+
+	get available() {
+        return this._available
+    }
+
+    set available(value) {
+        this._available = value
+    }
 }
