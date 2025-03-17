@@ -10,8 +10,8 @@ export default class App {
     constructor(rootElement, routes, data) {
         this._rootElement = rootElement
         this._router = new Router(routes)
-		this._data = data
-		this._objData = this.getObjData()
+		this._objData = new Data(data)
+		this._objectsData = this.getObjectsData()
     }
 
     initRoute() {
@@ -53,9 +53,9 @@ export default class App {
         }
     }
 
-	getObjData() {
+	getObjectsData() {
 		try {
-			return new Data(this._data).objData	
+			return this._objData.objects	
 		} catch (error) {
 			console.log(error);
 		}
@@ -64,13 +64,18 @@ export default class App {
 	goTo(path, addToState = false) {
         try {
             console.log(`goTo(${path})`)
-            const route = path.match("#")
+            const [route, id] = path.match("#")
                 ? this._router.getRoute(path.replace("#", ""))
                 : this._router.getRoute(path)
+
             if (route) {
                 if (addToState) this.addPathToState(path)
-                // TODO: Move render to another place
-                this.render(route.page.getHTML())
+				const controller = 
+					new route.controller(
+						MainPage,
+						this._objData.getQueryArrayByClassName(route.dataClass),
+						id)
+				this.render(controller.show())
             } else {
                 // TODO: Move render and notFoundPage to another place
                 this.render(notFoundPage.getHTML())
@@ -101,7 +106,7 @@ export default class App {
     // this._rootElement.innerHTML =
 
 	initController() {
-		const d = new Data(this._data)
+		const d = this._objData
 		console.log("d.all(): ", d.all())
 		// console.log("ObjD:: ", new Data(this._data).objData)
 		
@@ -121,14 +126,10 @@ export default class App {
 
 		// Get all lessons
 
-		if (route)
-			// new Controller(route, d.lessons.all())
-			console.log("route.controller: ", typeof  route.controller);
-			// (MainPage, d.lessons.all())
-			const controller = new route.controller(MainPage, d.lessons.all())
-			// console.log(controller)
-			// console.log(controller.show())
-			this.render(controller.show())
+		// if (route){
+		// 	const controller = new route.controller(MainPage, d.getQueryArrayByClassName(route.dataClass).all())
+		// 	this.render(controller.show())
+		// }
 
 			
 	}

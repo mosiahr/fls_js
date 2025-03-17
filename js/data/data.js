@@ -23,14 +23,14 @@ export default class Data {
     constructor(data) {
         this._data = data
         this._objects = this.#getObjectData()
-        this.lessons = this.#getQueryArrayByClassName(Lesson)
+        this.lessons = this.getQueryArrayByClassName(Lesson)
     }
 
     get data() {
         return this._data
     }
 
-    get objData() {
+    get objects() {
         return this._objects
     }
 
@@ -38,7 +38,7 @@ export default class Data {
         return new DataConverter(this._data).convertData()
     }
 
-    #getQueryArrayByClassName = (className) =>
+    getQueryArrayByClassName = (className) =>
         new QueryArray(this._objects, className)
 
     all() {

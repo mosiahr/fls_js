@@ -1,5 +1,3 @@
-import { notFoundPage } from "../pages/index.js"
-
 export default class Router {
     constructor(routes) {
         this._routes = routes
@@ -29,11 +27,11 @@ export default class Router {
     getRoute(path) {
         try {
             for (const [name, route] of Object.entries(this._availableRoutes)) {
-                if (route.match(path)) {
-                    return route
+                const matchResult = route.match(path)
+                if (matchResult) {
+                    return [route, parseInt(matchResult?.groups?.id)]
                 }
             }
-            return this._routes.notFound
         } catch (error) {
             console.log(error)
         }
