@@ -23,7 +23,7 @@ export default class Data {
     constructor(data) {
         this._data = data
         this._objects = this.#getObjectData()
-        this.lessons = this.getQueryArrayByClassName(Lesson)
+        // this.lessons = this.getQueryArrayByClassName(Lesson)
     }
 
     get data() {

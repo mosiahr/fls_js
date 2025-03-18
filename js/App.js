@@ -106,22 +106,22 @@ export default class App {
     // this._rootElement.innerHTML =
 
 	initController() {
-		const d = this._objData
-		console.log("d.all(): ", d.all())
-		// console.log("ObjD:: ", new Data(this._data).objData)
+		// const d = this._objData
+		// console.log("d.all(): ", d.all())
+		// // console.log("ObjD:: ", new Data(this._data).objData)
 		
-		console.log("d.lessons: ", d.lessons)
-		console.log("d.lessons: typeof:  ", typeof d.lessons)
+		// console.log("d.lessons: ", d.lessons)
+		// console.log("d.lessons: typeof:  ", typeof d.lessons)
 
-		console.log("d.getLesson(2): ", d.lessons.get(2))
-		console.log("d.getLesson(2) typeof: ", typeof d.lessons.get(2))
-		console.log("d.lessons.all(): ", d.lessons.all())
+		// console.log("d.getLesson(2): ", d.lessons.get(2))
+		// console.log("d.getLesson(2) typeof: ", typeof d.lessons.get(2))
+		// console.log("d.lessons.all(): ", d.lessons.all())
 		
 
-		const path = "/lessons/"
-		const route = path.match("#")
-                ? this._router.getRoute(path.replace("#", ""))
-                : this._router.getRoute(path)
+		// const path = "/lessons/"
+		// const route = path.match("#")
+        //         ? this._router.getRoute(path.replace("#", ""))
+        //         : this._router.getRoute(path)
 		
 
 		// Get all lessons
