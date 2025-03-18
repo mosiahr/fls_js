@@ -1,5 +1,5 @@
 export { default as BasicPage } from "./basicPage.js"
-export { default as MainPage } from "./mainPage.js"
+export { default as Page } from "./page.js"
 export { homePage } from "./homePage.js"
 export { lessonsPage } from "./lessonsPage.js"
 export { lessonPage } from "./lessonPage.js"

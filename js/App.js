@@ -1,7 +1,7 @@
 import Router from "./routes/Router.js"
 import jsonData from "../data.json" with { type: "json" }
 import Data from "./data/data.js"
-import { MainPage, notFoundPage } from "./pages/index.js"
+import { Page, notFoundPage } from "./pages/index.js"
 import Controller from "./controllers/controller.js"
 // import LessonController from "./controllers/lessonController.js"
 
@@ -72,7 +72,7 @@ export default class App {
                 if (addToState) this.addPathToState(path)
 				const controller = 
 					new route.controller(
-						MainPage,
+						Page,
 						this._objData.getQueryArrayByClassName(route.dataClass),
 						id)
 				this.render(controller.show())

@@ -4,7 +4,7 @@ import {
     lessonsPage,
     lessonPage,
     taskPage,
-    MainPage,
+    Page,
 } from "../pages/index.js"
 import { PROJECT_FOLDER } from "../config.js"
 import Data from "../data/data.js"

@@ -1,5 +1,5 @@
 import { createElem, createList } from "../components/index.js"
-import { MainPage } from "./index.js"
+import { Page } from "./index.js"
 // import { objData } from "../index.js"
 
 // import { objD } from "../index.js"
@@ -47,7 +47,7 @@ import { MainPage } from "./index.js"
 //     }
 // }
 
-export const lessonsPage = new MainPage(
+export const lessonsPage = new Page(
     "",
     "",
     createElem("h2", "Lessons Page", { class: "page-block__title-list" })

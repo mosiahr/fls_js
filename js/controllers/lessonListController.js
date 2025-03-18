@@ -1,4 +1,4 @@
-import { MainPage } from "../pages/index.js"
+import { Page } from "../pages/index.js"
 import Controller from "./controller.js"
 import { createElem, createList } from "../components/index.js"
 

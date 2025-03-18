@@ -1,7 +1,7 @@
 import { createElem } from "../components/index.js"
-import { MainPage } from "./index.js"
+import { Page } from "./index.js"
 
-export const taskPage = new MainPage(
+export const taskPage = new Page(
     "",
     "",
     createElem("h2", "Task #", { class: "page-block__title-list" }),

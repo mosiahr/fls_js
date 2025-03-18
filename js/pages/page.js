@@ -7,7 +7,7 @@ import {
 } from "../components/index.js"
 import { MAIN_HEADER_TITLE, FOOTER_INFO } from "../config.js"
 
-export default class MainPage extends BasicPage {
+export default class Page extends BasicPage {
     constructor(...args) {
         const header = createHeader(
             createLogo(),
