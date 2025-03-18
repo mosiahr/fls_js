@@ -17,6 +17,7 @@ export default class DataConverter {
                             task["id"],
                             task["name"],
                             task["description"],
+                            lesson.id,
                             task["solutions"],
                             task["available"]
                         )
