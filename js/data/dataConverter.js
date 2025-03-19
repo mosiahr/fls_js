@@ -17,22 +17,22 @@ export default class DataConverter {
 
                     for (const task of lesson["tasks"]) {
                         const taskObj = new Task(
-                            task["id"],
-                            task["name"],
-                            task["description"],
+                            task.id,
+                            task.name,
+                            task.description,
                             lesson.id,
-                            task["solutions"],
-                            task["available"]
+                            task.solutions,
+                            task.available
                         )
                         taskListForLesson.push(taskObj)
                     }
 
                     const lessonObj = new Lesson(
-                        lesson["id"],
-                        lesson["name"],
-                        lesson["title"],
+                        lesson.id,
+                        lesson.name,
+                        lesson.title,
                         taskListForLesson || [],
-                        lesson["available"]
+                        lesson.available
                     )
                     lessonObjectList.push(lessonObj)
                     taskObjectList.push(...taskListForLesson)

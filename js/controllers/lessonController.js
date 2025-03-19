@@ -31,7 +31,7 @@ export default class LessonController extends Controller {
             if (task.available) {
                 // console.log(task)
                 const taskEl = createTask(
-                    task.id + 1,
+                    task.name,
                     task.description,
                     `./#/tasks/${task.id + 1}`
                 )
