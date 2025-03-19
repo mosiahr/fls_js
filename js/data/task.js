@@ -20,7 +20,7 @@ export default class Task {
     }
 
     get name() {
-        return this._name
+        return this._name || `Task #${this._id + 1}`
     }
 
     set name(value) {
@@ -62,4 +62,6 @@ export default class Task {
     toString() {
         return `Task # ${this._id + 1}`
     }
+
+    updateSolutions() {}
 }

@@ -22,5 +22,6 @@ export default class Page extends BasicPage {
 
     updatePageElements(el) {
         this.pageElements.push(el)
+        console.log("PAGE:::: ", this.pageElements)
     }
 }

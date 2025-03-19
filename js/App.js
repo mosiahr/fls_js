@@ -67,13 +67,13 @@ export default class App {
             const [route, id] = path.match("#")
                 ? this._router.getRoute(path.replace("#", ""))
                 : this._router.getRoute(path)
-
+			
             if (route) {
                 if (addToState) this.addPathToState(path)
 				const controller = 
 					new route.controller(
 						Page,
-						this._objData.getQueryArrayByClassName(route.dataClass),
+						this._objData.getQueryArrayByClass(route.dataClass),
 						id)
 				this.render(controller.show())
             } else {

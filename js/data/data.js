@@ -1,10 +1,12 @@
 import DataConverter from "./dataConverter.js"
 import Lesson from "./lesson.js"
+import Task from "./task.js"
 
 class QueryArray extends Array {
-    constructor(array, className) {
+    constructor(array) {
         super()
-        this._array = array.filter((el) => el instanceof className)
+        this._array = array
+        // this._array = array.filter((el) => el instanceof className)
     }
     get(id) {
         try {
@@ -22,8 +24,9 @@ class QueryArray extends Array {
 export default class Data {
     constructor(data) {
         this._data = data
-        this._objects = this.#getObjectData()
-        // this.lessons = this.getQueryArrayByClassName(Lesson)
+        this._resObjectArr = this.#getObjectData()
+        this._lessons = this._resObjectArr.lessons || []
+        this._tasks = this._resObjectArr.tasks || []
     }
 
     get data() {
@@ -31,17 +34,19 @@ export default class Data {
     }
 
     get objects() {
-        return this._objects
+        return this._resObjectArr
     }
 
     #getObjectData() {
         return new DataConverter(this._data).convertData()
     }
 
-    getQueryArrayByClassName = (className) =>
-        new QueryArray(this._objects, className)
+    getQueryArrayByClass = (dataClass) => {
+        if (dataClass === Lesson) return new QueryArray(this._lessons)
+        if (dataClass === Task) return new QueryArray(this._tasks)
+    }
 
     all() {
-        return this._objects
+        return this._resObjectArr
     }
 }

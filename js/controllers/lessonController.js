@@ -1,6 +1,11 @@
 import { Page } from "../pages/index.js"
 import Controller from "./controller.js"
-import { createElem, createList, createTask } from "../components/index.js"
+import {
+    createElem,
+    createList,
+    createTask,
+    pageTitle,
+} from "../components/index.js"
 
 export default class LessonController extends Controller {
     constructor(page, objData, id) {
@@ -10,46 +15,25 @@ export default class LessonController extends Controller {
     }
 
     show() {
-        const lessonListPage = new this.page()
-        lessonListPage.updatePageElements(this.createHeading())
-        lessonListPage.updatePageElements(this.createTaskList())
-        return lessonListPage.getHTML()
-    }
-
-    createHeading() {
-        // console.log(this._lessonData)
-        // const heading = document.createElement("H2")
-        // heading.className = "page-block__title-list"
-        // heading.textContent = this._lessonData.name
-
-        // const paragraph = document.createElement("p")
-        // paragraph.textContent = this._lessonData.title
-        // console.log(paragraph)
-        // heading.appendChild(paragraph)
-        // console.log(heading)
-        // return heading.getHTML()
-        return createElem(
-            "h2",
-            this._lessonData.name + "<br>" + this._lessonData.title,
-            {
-                class: "page-block__title-list",
-            }
+        const lessonPage = new this.page()
+        lessonPage.updatePageElements(
+            pageTitle(this._lessonData.name, this._lessonData.title)?.outerHTML
         )
+        lessonPage.updatePageElements(this.createTaskList())
+        return lessonPage.getHTML()
     }
 
     createTaskList() {
         const taskArr = []
         const tasks = this._lessonData.tasks
-        // console.log(tasks)
+
         for (const task of tasks) {
             if (task.available) {
                 // console.log(task)
                 const taskEl = createTask(
                     task.id + 1,
                     task.description,
-                    `./#/lessons/${this._lessonData.id + 1}/tasks/${
-                        task.id + 1
-                    }`
+                    `./#/tasks/${task.id + 1}`
                 )
                 taskArr.push(taskEl)
             }

@@ -9,7 +9,6 @@ export default class LessonListController extends Controller {
 
     show() {
         const lessonListPage = new this.page()
-        lessonListPage.updatePageElements(this.createHeading())
         lessonListPage.updatePageElements(this.createLessonList())
         return lessonListPage.getHTML()
     }

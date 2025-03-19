@@ -8,10 +8,13 @@ export default class DataConverter {
 
     convertData() {
         try {
-            const dataObj = []
+            const lessonObjectList = []
+            const taskObjectList = []
+
             if (this._data.hasOwnProperty("lessons")) {
                 this._data.lessons.forEach((lesson) => {
-                    const tasksObj = []
+                    const taskListForLesson = []
+
                     for (const task of lesson["tasks"]) {
                         const taskObj = new Task(
                             task["id"],
@@ -21,20 +24,25 @@ export default class DataConverter {
                             task["solutions"],
                             task["available"]
                         )
-                        tasksObj.push(taskObj)
+                        taskListForLesson.push(taskObj)
                     }
 
                     const lessonObj = new Lesson(
                         lesson["id"],
                         lesson["name"],
                         lesson["title"],
-                        tasksObj || [],
+                        taskListForLesson || [],
                         lesson["available"]
                     )
-                    dataObj.push(lessonObj)
+                    lessonObjectList.push(lessonObj)
+                    taskObjectList.push(...taskListForLesson)
                 })
             }
-            return dataObj
+            // console.log("RES: ", {
+            //     lessons: lessonObjectList,
+            //     tasks: taskObjectList,
+            // })
+            return { lessons: lessonObjectList, tasks: taskObjectList }
         } catch (error) {
             console.log(error)
         }
