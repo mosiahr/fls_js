@@ -1,6 +1,5 @@
 export default function pageTitle(labelText, titleText) {
     const label = document.createElement("h5")
-    // label.classList.add("page-block__label")
     label.textContent = labelText
 
     const title = document.createElement("h2")
@@ -11,6 +10,5 @@ export default function pageTitle(labelText, titleText) {
 
     pageTitle.appendChild(label)
     pageTitle.appendChild(title)
-    console.log(pageTitle)
     return pageTitle
 }

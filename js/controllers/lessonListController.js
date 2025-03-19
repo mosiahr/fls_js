@@ -21,7 +21,6 @@ export default class LessonListController extends Controller {
 
     createLessonList() {
         const lessonArr = []
-        console.log(this.objData.all())
 
         for (const lesson of this.objData.all()) {
             if (lesson.available) {
