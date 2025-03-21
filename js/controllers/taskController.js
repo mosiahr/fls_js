@@ -1,5 +1,16 @@
 import Controller from "./controller.js"
 import { pageTitle, button } from "../components/index.js"
+import { generateSubSetArray } from "../lessons/hw13.js"
+
+import { hljs } from "../index.js"
+
+console.log(hljs)
+console.log(hljs.listLanguages)
+console.log(hljs.getLanguage)
+
+function hello() {
+    return "Hello"
+}
 
 export default class TaskController extends Controller {
     constructor(page, objData, id) {
@@ -22,6 +33,15 @@ export default class TaskController extends Controller {
                 "button--hover-purple-background"
             )?.outerHTML
         )
+
+        const highlightedCode = hljs.highlight(hello.toString(), {
+            language: "javascript",
+            // ignoreIllegals: true,
+        }).value
+        taskPage.updatePageElements(highlightedCode)
+        // taskPage.updatePageElements(generateSubSetArray([1, 2, 3]))
         return taskPage.getHTML()
     }
+
+    showSolution() {}
 }
