@@ -3,7 +3,7 @@ export default function pageTitle(labelText, titleText) {
     label.textContent = labelText
 
     const title = document.createElement("h2")
-    title.textContent = titleText
+    title.innerHTML = titleText
 
     const pageTitle = document.createElement("div")
     pageTitle.className = "page-block__title"

@@ -1,4 +1,7 @@
+import { NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT } from "../config.js"
 import { Page } from "../pages/index.js"
+
+import { limitString } from "../utils.js"
 import Controller from "./controller.js"
 import {
     createElem,
@@ -32,7 +35,10 @@ export default class LessonController extends Controller {
                 // console.log(task)
                 const taskEl = createTask(
                     task.name,
-                    task.description,
+                    limitString(
+                        task.description,
+                        NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT
+                    ),
                     `./#/tasks/${task.id + 1}`
                 )
                 taskArr.push(taskEl)
