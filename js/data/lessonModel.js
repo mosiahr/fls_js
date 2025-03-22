@@ -1,22 +1,10 @@
-export default class Lesson {
-    constructor(id, name, title = "", tasks = [], available) {
-        this._id = id
-        this._name = name
+import Model from "./model.js"
+
+export default class LessonModel extends Model {
+    constructor(id, name, title = "", tasks = [], available = true) {
+        super(id, name, available)
         this._title = title
         this._tasks = tasks
-        this._available = available
-    }
-
-    get id() {
-        return this._id
-    }
-
-    get name() {
-        return this._name
-    }
-
-    set name(value) {
-        this._name = value
     }
 
     get title() {
@@ -33,18 +21,6 @@ export default class Lesson {
 
     set tasks(value) {
         this._tasks = value
-    }
-
-    get available() {
-        return this._available
-    }
-
-    set available(value) {
-        this._available = value
-    }
-
-    toString() {
-        return `Lesson # ${this._id + 1}`
     }
 }
 

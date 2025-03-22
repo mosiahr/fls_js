@@ -1,4 +1,6 @@
-export default class Task {
+import Model from "./model.js"
+
+export default class TaskModel extends Model {
     constructor(
         id,
         name,
@@ -7,24 +9,14 @@ export default class Task {
         solutions = [],
         available = true
     ) {
-        this._id = id
-        this._name = name
+        super(id, name, available)
         this._description = description
         this._lesson = lesson
         this._solutions = solutions
-        this._available = available
-    }
-
-    get id() {
-        return this._id
     }
 
     get name() {
         return this._name || `Task #${this._id + 1}`
-    }
-
-    set name(value) {
-        this._name = value
     }
 
     get description() {
@@ -49,18 +41,6 @@ export default class Task {
 
     set solutions(value) {
         this._solutions = value
-    }
-
-    get available() {
-        return this._available
-    }
-
-    set available(value) {
-        this._available = value
-    }
-
-    toString() {
-        return `Task # ${this._id + 1}`
     }
 
     updateSolutions() {}

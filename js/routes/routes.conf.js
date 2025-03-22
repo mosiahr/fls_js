@@ -1,9 +1,6 @@
 import Route from "./Route.js"
 import { PROJECT_FOLDER } from "../config.js"
-import { Data, Lesson, Task } from "../data/index.js"
-// import LessonListController from "../controllers/lessonListController.js"
-// import LessonController from "../controllers/lessonController.js"
-// import TaskController from "../controllers/taskController.js"
+import { Data, LessonModel, TaskModel } from "../data/index.js"
 import {
     LessonListController,
     LessonController,
@@ -20,23 +17,23 @@ export const routes = {
     lessons: new Route(
         new RegExp(/^\/lessons\/?$/),
         LessonListController,
-        Lesson
+        LessonModel
     ),
     lesson: new Route(
         // new RegExp(/^\/lessons\/[0-9]+\/?$/),
         new RegExp(/^\/lessons\/(?<id>[0-9]+)\/?$/),
         LessonController,
-        Lesson
+        LessonModel
     ),
     tasks: new Route(
         new RegExp(/^\/tasks\/?$/),
         // "tasksPage",
-        Task,
+        TaskModel,
         false
     ),
     task: new Route(
         new RegExp(/^\/tasks\/(?<id>[0-9]+)\/?$/),
         TaskController,
-        Task
+        TaskModel
     ),
 }

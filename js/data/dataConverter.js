@@ -1,5 +1,5 @@
-import Lesson from "./lesson.js"
-import Task from "./task.js"
+import LessonModel from "./lessonModel.js"
+import TaskModel from "./taskModel.js"
 
 export default class DataConverter {
     constructor(data) {
@@ -15,19 +15,25 @@ export default class DataConverter {
                 this._data.lessons.forEach((lesson) => {
                     const taskListForLesson = []
 
-                    for (const task of lesson["tasks"]) {
-                        const taskObj = new Task(
-                            task.id,
-                            task.name,
-                            task.description,
-                            lesson.id,
-                            task.solutions,
-                            task.available
+                    for (const {
+                        id,
+                        name,
+                        description,
+                        solutions,
+                        available,
+                    } of lesson["tasks"]) {
+                        const taskObj = new TaskModel(
+                            id,
+                            name,
+                            description,
+                            solutions,
+                            available,
+                            { lesson: lesson.id }
                         )
                         taskListForLesson.push(taskObj)
                     }
 
-                    const lessonObj = new Lesson(
+                    const lessonObj = new LessonModel(
                         lesson.id,
                         lesson.name,
                         lesson.title,

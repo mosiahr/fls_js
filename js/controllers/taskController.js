@@ -7,6 +7,7 @@ export default class TaskController extends Controller {
         super(page, objData)
         this._id = id
         this._taskData = objData.get(id - 1)
+        console.log(objData)
     }
 
     show() {
