@@ -20,7 +20,5 @@ export default class Page extends BasicPage {
         this.pageElements = args || []
     }
 
-    updatePageElements(el) {
-        this.pageElements.push(el)
-    }
+
 }

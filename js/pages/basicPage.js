@@ -1,3 +1,5 @@
+import { hljs } from "../index.js"
+
 export default class BasicPage {
     constructor(header, footer, ...pageElements) {
         this.header = header
@@ -19,6 +21,17 @@ export default class BasicPage {
 					${this.footer}
 				</div>
 			</body>`
+    }
+
+    updatePageElements(el) {
+        this.pageElements.push(el)
+    }
+
+    createHighlightedCode(code) {
+        const highlightedCode = hljs.highlight(code.toString(), {
+            language: "javascript",
+        }).value
+        return `<pre><code>${highlightedCode}</code></pre>`
     }
 
     // get pageElements() {
