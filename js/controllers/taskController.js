@@ -1,5 +1,5 @@
 import Controller from "./controller.js"
-import { pageTitle, button } from "../components/index.js"
+import { pageTitle, button, solutionEl } from "../components/index.js"
 import { generateSubSetArray } from "../hw/hw13.js"
 
 export default class TaskController extends Controller {
@@ -7,7 +7,7 @@ export default class TaskController extends Controller {
         super(page, objData)
         this._id = id
         this._taskData = objData.get(id - 1)
-        console.log(this._taskData)
+        // console.log(this._taskData)
         // console.log(this._taskData.solutions)
     }
 
@@ -20,18 +20,39 @@ export default class TaskController extends Controller {
         taskPage.updatePageElements(
             button(
                 "/#/",
-                "Solution",
+                "Start test",
+                "page-block__button",
                 "button",
                 "button--hover-purple-background"
             )?.outerHTML
         )
 
-        const code = taskPage.createHighlightedCode(generateSubSetArray)
-        taskPage.updatePageElements(code)
+        // const code = taskPage.createHighlightedCode(generateSubSetArray)
+        // taskPage.updatePageElements(code)
+
+        // console.log();
+
+        taskPage.updatePageElements(this.showSolution()?.outerHTML)
 
         // taskPage.updatePageElements(generateSubSetArray([1, 2, 3]))
         return taskPage.getHTML()
     }
+    // TODO: If it is multiple solutions, need to implement this
+    showSolution(id = 0) {
+        const solutionFunc = this._taskData.solutions[id]?.func
+        const solutionParams = this._taskData.solutions[id]?.params
 
-    showSolution() {}
+        let solutionResult = solutionFunc(...solutionParams)
+
+        if (solutionResult instanceof Array)
+            solutionResult = JSON.stringify(solutionResult)
+
+        return solutionEl(
+            solutionFunc,
+            solutionResult,
+            "page-block__solution",
+            "solution"
+        )
+    }
+    runSolutionFunc() {}
 }

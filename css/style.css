@@ -114,7 +114,7 @@ td {
     color: rgb(57, 20, 0);
     font-size: 24px;
     font-weight: 800;
-    padding-inline-start: 20px;
+    padding-inline: 20px;
 }
 
 .page-block__title h5 {
@@ -180,7 +180,10 @@ td {
 .page__number-list > li {
     list-style: decimal;
 }
-
+.page-block__button {
+    margin-inline: auto;
+    /* max-inline-size: 25%; */
+}
 .button {
     position: relative;
     color: #28293e;
@@ -294,6 +297,34 @@ li.reload img:hover {
 
 .item-receipt--bold {
     font-weight: 700;
+}
+
+/** SOLUTION */
+.page-block__solution {
+}
+.solution {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 14px;
+}
+.solution-item {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid rgb(57, 20, 0);
+    padding: 0px 10px 20px;
+    align-items: center;
+    justify-content: start;
+    flex: 1 0 47%;
+}
+.solution-item h3 {
+    color: rgb(57, 20, 0);
+    font-size: 20px;
+    font-weight: 700;
+    padding-block: 20px;
 }
 
 @media (max-width: 1069.98px) {

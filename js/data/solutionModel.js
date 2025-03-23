@@ -3,7 +3,7 @@ import Model from "./model.js"
 export default class SolutionModel extends Model {
     constructor(
         id,
-        name,
+        name = "",
         title = "",
         task,
         func,

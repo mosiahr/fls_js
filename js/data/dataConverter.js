@@ -39,7 +39,7 @@ export default class DataConverter {
                                         lesson.tasks[
                                             func.solutionParams?.task - 1
                                         ],
-                                        alias,
+                                        func,
                                         func.solutionParams?.params
                                     )
                                     solutionsForTask.push(solution)
