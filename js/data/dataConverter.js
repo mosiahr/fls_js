@@ -1,5 +1,6 @@
-import LessonModel from "./lessonModel.js"
-import TaskModel from "./taskModel.js"
+import { LessonModel, TaskModel, SolutionModel } from "./index.js"
+import { getRandomNumber } from "../utils.js"
+import * as hw from "../hw/index.js"
 
 export default class DataConverter {
     constructor(data) {
@@ -10,6 +11,8 @@ export default class DataConverter {
         try {
             const lessonObjectList = []
             const taskObjectList = []
+            const solutionObjectList = []
+            let nextSolutionID = 0
 
             if (this._data.hasOwnProperty("lessons")) {
                 this._data.lessons.forEach((lesson) => {
@@ -22,15 +25,38 @@ export default class DataConverter {
                         solutions,
                         available,
                     } of lesson["tasks"]) {
+                        const solutionsForTask = []
+
+                        for (const [alias, func] of Object.entries(hw)) {
+                            if (func.solutionParams?.lesson - 1 === lesson.id) {
+                                const taskFound =
+                                    lesson.tasks[func.solutionParams?.task - 1]
+                                if (id === taskFound.id) {
+                                    const solution = new SolutionModel(
+                                        nextSolutionID++,
+                                        func.solutionParams?.name,
+                                        func.solutionParams?.title,
+                                        lesson.tasks[
+                                            func.solutionParams?.task - 1
+                                        ],
+                                        alias,
+                                        func.solutionParams?.params
+                                    )
+                                    solutionsForTask.push(solution)
+                                }
+                            }
+                        }
+
                         const taskObj = new TaskModel(
                             id,
                             name,
                             description,
-                            solutions,
-                            available,
-                            { lesson: lesson.id }
+                            lesson.id,
+                            solutionsForTask,
+                            available
                         )
                         taskListForLesson.push(taskObj)
+                        solutionObjectList.push(...solutionsForTask)
                     }
 
                     const lessonObj = new LessonModel(
@@ -44,11 +70,11 @@ export default class DataConverter {
                     taskObjectList.push(...taskListForLesson)
                 })
             }
-            // console.log("RES: ", {
-            //     lessons: lessonObjectList,
-            //     tasks: taskObjectList,
-            // })
-            return { lessons: lessonObjectList, tasks: taskObjectList }
+            return {
+                lessons: lessonObjectList,
+                tasks: taskObjectList,
+                solutions: solutionObjectList,
+            }
         } catch (error) {
             console.log(error)
         }

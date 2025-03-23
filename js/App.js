@@ -103,7 +103,6 @@ export default class App {
             console.log(err)
         }
     }
-    // this._rootElement.innerHTML =
 
 	initController() {
 		// const d = this._objData

@@ -1,6 +1,5 @@
 import DataConverter from "./dataConverter.js"
-import LessonModel from "./lessonModel.js"
-import TaskModel from "./taskModel.js"
+import { LessonModel, TaskModel, SolutionModel } from "./index.js"
 
 class QueryArray extends Array {
     constructor(array) {
@@ -27,6 +26,7 @@ export default class Data {
         this._resObjectArr = this.#getObjectData()
         this._lessons = this._resObjectArr.lessons || []
         this._tasks = this._resObjectArr.tasks || []
+        this._solutions = this._resObjectArr.solutions || []
     }
 
     get data() {
@@ -44,6 +44,7 @@ export default class Data {
     getQueryArrayByClass = (dataClass) => {
         if (dataClass === LessonModel) return new QueryArray(this._lessons)
         if (dataClass === TaskModel) return new QueryArray(this._tasks)
+        if (dataClass === SolutionModel) return new QueryArray(this._solutions)
     }
 
     all() {
