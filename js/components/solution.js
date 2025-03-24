@@ -1,5 +1,6 @@
 import { hljs } from "../index.js"
 import codeEl from "./codeEl.js"
+import { SOLUTION_CODE_TITLE, SOLUTION_RESULT_TITLE } from "../config.js"
 
 export default function solutionEl(
     code = "",
@@ -11,12 +12,12 @@ export default function solutionEl(
 
     const codeDivEl = codeEl(code, "solution-item")
     const headerCodeDivEl = document.createElement("h3")
-    headerCodeDivEl.textContent = "Solution Code"
+    headerCodeDivEl.textContent = SOLUTION_CODE_TITLE
     codeDivEl.prepend(headerCodeDivEl)
 
     const resultDivEl = codeEl(solutionResult, "solution-item")
     const headerResultDivEl = document.createElement("h3")
-    headerResultDivEl.textContent = "Solution Result"
+    headerResultDivEl.textContent = SOLUTION_RESULT_TITLE
     resultDivEl.prepend(headerResultDivEl)
 
     solutionEl.appendChild(codeDivEl)

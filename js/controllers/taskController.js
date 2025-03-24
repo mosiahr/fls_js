@@ -42,7 +42,9 @@ export default class TaskController extends Controller {
         const solutionFunc = this._taskData.solutions[id]?.func
         const solutionParams = this._taskData.solutions[id]?.params
 
-        let solutionResult = solutionFunc(...solutionParams)
+        let solutionResult
+        if (solutionFunc && solutionParams)
+            solutionResult = solutionFunc(...solutionParams)
 
         if (solutionResult instanceof Array)
             solutionResult = JSON.stringify(solutionResult)

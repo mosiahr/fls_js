@@ -1,5 +1,6 @@
 import { NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT } from "../config.js"
 import { Page } from "../pages/index.js"
+import { taskCard } from "../components/index.js"
 
 import { limitString } from "../utils.js"
 import Controller from "./controller.js"
@@ -33,15 +34,26 @@ export default class LessonController extends Controller {
         for (const task of tasks) {
             if (task.available) {
                 // console.log(task)
-                const taskEl = createTask(
+                // const taskEl = createTask(
+                //     task.name,
+                //     limitString(
+                //         task.description,
+                //         NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT
+                //     ),
+                //     `./#/tasks/${task.id + 1}`
+                // )
+
+                const taskEl = taskCard(
                     task.name,
                     limitString(
                         task.description,
                         NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT
                     ),
-                    `./#/tasks/${task.id + 1}`
+                    `./#/tasks/${task.id + 1}`,
+                    [],
+                    ["item-homework"]
                 )
-                taskArr.push(taskEl)
+                taskArr.push(taskEl.outerHTML)
             }
         }
         return createList(taskArr, "page__list")

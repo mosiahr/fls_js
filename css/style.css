@@ -132,12 +132,14 @@ td {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     gap: 10px 15px;
     border: 1px solid #28293e;
     padding: 20px 15px 10px;
     border-radius: 5px;
     transition: all 0.3s;
+    min-height: 100%;
 }
 
 .item-homework:hover {
@@ -166,9 +168,12 @@ td {
     justify-content: space-between;
     align-items: center;
     row-gap: 10px;
-    border: 1px solid #28293e;
-    padding: 20px 15px 10px;
+    /* border: 1px solid #28293e; */
+    /* padding: 20px 15px 10px; */
     border-radius: 5px;
+}
+.page__list > li > a {
+    flex-grow: 1;
 }
 
 .page__list > li h3 {
