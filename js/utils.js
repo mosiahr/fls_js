@@ -65,3 +65,15 @@ export const getRandomNumberArrFromUser = (
 
 export const limitString = (str, numChar) =>
     str.substring(0, numChar) + (str.length > numChar ? "..." : "")
+
+export const getCurrentFileName = (meta) => meta.url.split("/").at(-1)
+
+export const getNumbersFromCurrentFileName = (meta) => {
+    try {
+        const currentFileName = meta.url.split("/").at(-1)
+        const number = currentFileName.match(/\d/g).join("")
+        return parseInt(number)
+    } catch (error) {
+        console.log(error)
+    }
+}

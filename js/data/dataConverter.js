@@ -1,5 +1,5 @@
 import { LessonModel, TaskModel, SolutionModel } from "./index.js"
-import { getRandomNumber } from "../utils.js"
+import { getRandomNumber, getNumbersFromCurrentFileName } from "../utils.js"
 import * as hw from "../hw/index.js"
 
 export default class DataConverter {
@@ -27,7 +27,10 @@ export default class DataConverter {
                     } of lesson["tasks"]) {
                         const solutionsForTask = []
 
-                        for (const [alias, func] of Object.entries(hw)) {
+                        for (const [_, func] of Object.entries(hw)) {
+                            // const funcLesson = getNumbersFromCurrentFileName(
+                            //     func.solutionParams?.meta
+                            // )
                             if (func.solutionParams?.lesson - 1 === lesson.id) {
                                 const taskFound =
                                     lesson.tasks[func.solutionParams?.task - 1]

@@ -1,6 +1,6 @@
 import Controller from "./controller.js"
 import { pageTitle, button, solutionEl } from "../components/index.js"
-import { generateSubSetArray } from "../hw/hw13.js"
+// import { generateSubSetArray } from "../hw/hw13.js"
 
 export default class TaskController extends Controller {
     constructor(page, objData, id) {
@@ -37,7 +37,7 @@ export default class TaskController extends Controller {
         // taskPage.updatePageElements(generateSubSetArray([1, 2, 3]))
         return taskPage.getHTML()
     }
-    // TODO: If it is multiple solutions, need to implement this
+    // TODO: If it is multiple solutions, need to implement them
     showSolution(id = 0) {
         const solutionFunc = this._taskData.solutions[id]?.func
         const solutionParams = this._taskData.solutions[id]?.params
@@ -45,9 +45,10 @@ export default class TaskController extends Controller {
         let solutionResult
         if (solutionFunc && solutionParams)
             solutionResult = solutionFunc(...solutionParams)
+        console.log(solutionResult)
 
-        if (solutionResult instanceof Array)
-            solutionResult = JSON.stringify(solutionResult)
+        // if (solutionResult instanceof Array)
+        solutionResult = JSON.stringify(solutionResult, null, "\t")
 
         return solutionEl(
             solutionFunc,

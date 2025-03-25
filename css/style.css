@@ -307,12 +307,19 @@ li.reload img:hover {
 /** SOLUTION */
 .page-block__solution {
 }
-.solution {
+/* .solution {
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
     justify-content: space-between;
     font-size: 14px;
+} */
+.solution {
+    display: grid;
+    gap: 10px;
+    justify-content: space-between;
+    font-size: 14px;
+    grid-template-columns: 1fr 1fr;
 }
 .solution-item {
     display: flex;
@@ -324,6 +331,7 @@ li.reload img:hover {
     align-items: center;
     justify-content: start;
     flex: 1 0 47%;
+    overflow: auto;
 }
 .solution-item h3 {
     color: rgb(57, 20, 0);
@@ -360,6 +368,9 @@ li.reload img:hover {
     }
 
     .page__list {
+        grid-template-columns: 1fr;
+    }
+    .solution {
         grid-template-columns: 1fr;
     }
 }
