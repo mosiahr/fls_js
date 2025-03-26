@@ -79,7 +79,7 @@ export const renderMakePermutations = (arr) => {
     return res
 }
 const arrTask2 = ["Serhiy", "Mariana", "Oleh", "Inna"]
-console.log(renderMakePermutations(arrTask2))
+// console.log(renderMakePermutations(arrTask2))
 
 renderMakePermutations.solutionParams = {
     code: makePermutations.toString(),

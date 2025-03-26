@@ -7,6 +7,7 @@ export default class SolutionModel extends Model {
         title = "",
         task,
         func,
+        code,
         params = [],
         available = true
     ) {
@@ -14,6 +15,7 @@ export default class SolutionModel extends Model {
         this._title = title
         this._task = task
         this._func = func
+        this._code = code
         this._params = params
     }
 
@@ -39,6 +41,14 @@ export default class SolutionModel extends Model {
 
     set func(value) {
         this._func = value
+    }
+
+    get code() {
+        return this._code
+    }
+
+    set code(value) {
+        this._code = value
     }
 
     get params() {

@@ -33,16 +33,6 @@ export default class LessonController extends Controller {
 
         for (const task of tasks) {
             if (task.available) {
-                // console.log(task)
-                // const taskEl = createTask(
-                //     task.name,
-                //     limitString(
-                //         task.description,
-                //         NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT
-                //     ),
-                //     `./#/tasks/${task.id + 1}`
-                // )
-
                 const taskEl = taskCard(
                     task.name,
                     limitString(

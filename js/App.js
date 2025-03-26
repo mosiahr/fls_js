@@ -7,11 +7,13 @@ import Controller from "./controllers/controller.js"
 
 
 export default class App {
-    constructor(rootElement, routes, data) {
+	controller
+	constructor(rootElement, routes, data) {
         this._rootElement = rootElement
         this._router = new Router(routes)
 		this._objData = new Data(data)
 		this._objectsData = this.getObjectsData()
+		
     }
 
     initRoute() {
@@ -20,13 +22,6 @@ export default class App {
             const hash = window.location.hash
             this.goTo(hash)
         })
-        // window.addEventListener("popstate", (e) => {
-        //     console.log("popstate")
-        //     console.log(window.history)
-        //     // console.log("STATE: ", e.state)
-        //     // // router.render(new URL(window.location.href).pathname)
-        //     // if (e.state) this._router.goTo(e.state.pathname, false)
-        // })
 
         // document.querySelectorAll("[href^='/']").forEach((link) => {
         //     link.addEventListener("click", (e) => {
@@ -52,6 +47,22 @@ export default class App {
             this.goTo(new URL(location.href).pathname)
         }
     }
+	
+	initClick() {
+		// document.addEventListener("DOMContentLoaded", (event) => {
+            // console.log("DOM fully loaded and parsed")
+            const buttonStartTest = document.querySelector("#start-test-button")
+            console.log(buttonStartTest)
+
+            buttonStartTest.addEventListener("click", (e) => {
+                e.preventDefault()
+				console.log("hi");
+				
+				if (this.controller.runSolutionFunc(0))
+					console.log(this.controller.runSolutionFunc(0))
+            })
+        // })
+	}
 
 	getObjectsData() {
 		try {
@@ -70,12 +81,13 @@ export default class App {
 			
             if (route) {
                 if (addToState) this.addPathToState(path)
-				const controller = 
+				this.controller = 
 					new route.controller(
 						Page,
 						this._objData.getQueryArrayByClass(route.dataClass),
 						id)
-				this.render(controller.show())
+				this.render(this.controller.show())
+				this.initClick()
             } else {
                 // TODO: Move render and notFoundPage to another place
                 this.render(notFoundPage.getHTML())

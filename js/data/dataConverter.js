@@ -31,6 +31,8 @@ export default class DataConverter {
                             // const funcLesson = getNumbersFromCurrentFileName(
                             //     func.solutionParams?.meta
                             // )
+                            // console.log(func.solutionParams?.code)
+
                             if (func.solutionParams?.lesson - 1 === lesson.id) {
                                 const taskFound =
                                     lesson.tasks[func.solutionParams?.task - 1]
@@ -43,6 +45,7 @@ export default class DataConverter {
                                             func.solutionParams?.task - 1
                                         ],
                                         func,
+                                        func.solutionParams?.code,
                                         func.solutionParams?.params
                                     )
                                     solutionsForTask.push(solution)

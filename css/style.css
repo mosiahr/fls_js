@@ -160,6 +160,7 @@ td {
     grid-auto-flow: row;
     gap: 20px;
     /* align-items: start; */
+    /* grid-template-columns: minmax(280px, 1fr); */
 }
 
 .page__list > li {
@@ -171,9 +172,11 @@ td {
     /* border: 1px solid #28293e; */
     /* padding: 20px 15px 10px; */
     border-radius: 5px;
+    flex-grow: 1;
 }
 .page__list > li > a {
     flex-grow: 1;
+    min-inline-size: 100%;
 }
 
 .page__list > li h3 {

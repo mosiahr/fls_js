@@ -17,6 +17,7 @@ const app = new App(document.getElementById("root"), routes, data)
 app.initRoute()
 app.initLoadPage()
 app.initController()
+// app.initClick()
 // export const objData = data.getObjectData()
 
 // Explanation: Let’s break down what each folder and file is used for.
