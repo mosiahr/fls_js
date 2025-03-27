@@ -2,7 +2,8 @@ import Controller from "./controller.js"
 import { pageTitle, button, solutionEl, codeEl } from "../components/index.js"
 // import { generateSubSetArray } from "../hw/hw13.js"
 import { runWithConfirmStart } from "../utils.js"
-import { messageNotFoundSolution } from "../components/messages.js"
+import { messageNotFound } from "../components/messages.js"
+import { NOT_FOUND_SOLUTION } from "../config.js"
 
 export default class TaskController extends Controller {
     constructor(page, objData, id) {
@@ -33,7 +34,10 @@ export default class TaskController extends Controller {
             )
             taskPage.updatePageElements(btn?.outerHTML)
             taskPage.updatePageElements(this.showSolutionCode(0).outerHTML)
-        } else taskPage.updatePageElements(messageNotFoundSolution().outerHTML)
+        } else
+            taskPage.updatePageElements(
+                messageNotFound(NOT_FOUND_SOLUTION).outerHTML
+            )
 
         return taskPage.getHTML()
     }

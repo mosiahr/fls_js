@@ -100,6 +100,7 @@ td {
 }
 .page__container {
     display: flex;
+    inline-size: 100%;
 }
 .page-block {
     padding-block: 20px;
