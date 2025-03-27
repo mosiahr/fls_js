@@ -2,6 +2,7 @@ import Controller from "./controller.js"
 import { pageTitle, button, solutionEl, codeEl } from "../components/index.js"
 // import { generateSubSetArray } from "../hw/hw13.js"
 import { runWithConfirmStart } from "../utils.js"
+import { messageNotFoundSolution } from "../components/messages.js"
 
 export default class TaskController extends Controller {
     constructor(page, objData, id) {
@@ -18,16 +19,21 @@ export default class TaskController extends Controller {
             pageTitle(this._taskData.name, this._taskData.description)
                 ?.outerHTML
         )
-        const btn = button(
-            "/#/",
-            "Start test",
-            "start-test-button",
-            "page-block__button",
-            "button",
-            "button--hover-purple-background"
-        )
-        taskPage.updatePageElements(btn?.outerHTML)
-        taskPage.updatePageElements(this.showSolutionCode(0).getHTML())
+
+        if (this._taskData.solutions && this._taskData.solutions.length !== 0) {
+            console.log(window.location.href)
+
+            const btn = button(
+                window.location.href,
+                "Start test",
+                "start-test-button",
+                "page-block__button",
+                "button",
+                "button--hover-purple-background"
+            )
+            taskPage.updatePageElements(btn?.outerHTML)
+            taskPage.updatePageElements(this.showSolutionCode(0).outerHTML)
+        } else taskPage.updatePageElements(messageNotFoundSolution().outerHTML)
 
         return taskPage.getHTML()
     }
@@ -43,6 +49,12 @@ export default class TaskController extends Controller {
 
         // const solutionResult = runWithConfirmStart(this.runSolutionFunc())
         // console.log(solutionResult, this._taskData.solutions[id]?.code)
+
+        if (this._taskData.solutions && this._taskData.solutions.length !== 0) {
+            console.log("YES", this._taskData.solutions)
+        }
+        // const messageNotFoundSolution = document.createElement("h1")
+        // messageNotFoundSolution.textContent = NOT_FOUND_SOLUTION
         return solutionEl(
             this._taskData.solutions[id]?.code,
             "",
