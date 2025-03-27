@@ -6,3 +6,4 @@ export const NOT_FOUND_MESSAGE = "404 Not Found"
 export const NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT = 120
 export const SOLUTION_CODE_TITLE = "Solution Code"
 export const SOLUTION_RESULT_TITLE = "Solution Result"
+export const NOT_FOUND_SOLUTION = "Solution Not Found"

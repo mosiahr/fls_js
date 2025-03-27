@@ -54,10 +54,8 @@ export default class App {
             const buttonStartTest = document.querySelector("#start-test-button")
             console.log(buttonStartTest)
 
-            buttonStartTest.addEventListener("click", (e) => {
+            buttonStartTest?.addEventListener("click", (e) => {
                 e.preventDefault()
-				console.log("hi");
-				
 				if (this.controller.runSolutionFunc(0))
 					console.log(this.controller.runSolutionFunc(0))
             })

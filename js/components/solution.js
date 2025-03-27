@@ -7,20 +7,50 @@ export default function solutionEl(
     solutionResult = "",
     ...attrClass
 ) {
-    const solutionEl = document.createElement("div")
-    attrClass.forEach((el) => solutionEl.classList.add(el))
+    const container = document.createElement("div")
+    attrClass.forEach((el) => container.classList.add(el))
+    const codeDiv = codeEl(code, "solution-code")
+    console.log("codeDiv", codeDiv)
 
-    const codeDivEl = codeEl(code, "solution-item")
-    const headerCodeDivEl = document.createElement("h3")
-    headerCodeDivEl.textContent = SOLUTION_CODE_TITLE
-    codeDivEl.prepend(headerCodeDivEl)
+    container.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="solution-item">
+		<h3>${SOLUTION_CODE_TITLE}</h3>
+		${codeDiv.outerHTML}
+		</div>
+		<div class="solution-item"><h3>${SOLUTION_RESULT_TITLE}</h3></div>`
+    )
 
-    const resultDivEl = codeEl(solutionResult, "solution-item")
-    const headerResultDivEl = document.createElement("h3")
-    headerResultDivEl.textContent = SOLUTION_RESULT_TITLE
-    resultDivEl.prepend(headerResultDivEl)
+    // const solutionBlock = document.createElement("div")
 
-    solutionEl.appendChild(codeDivEl)
-    solutionEl.appendChild(resultDivEl)
-    return solutionEl
+    // const codeBock = document.createElement("div")
+    // codeBock.className = "solution-item"
+
+    // const headerCode = document.createElement("h3")
+    // headerCode.textContent = SOLUTION_CODE_TITLE
+
+    // const solutionItem = codeEl(code, "solution-code")
+
+    // codeBock.appendChild(headerCode)
+    // codeBock.appendChild(solutionItem)
+
+    // const resultBock = document.createElement("div")
+    // codeBock.className = "solution-code"
+
+    // const headerResult = document.createElement("h3")
+    // headerResult.textContent = SOLUTION_RESULT_TITLE
+
+    // // const solutionItem = codeEl(code, "solution-item")
+
+    // resultBock.appendChild(headerResult)
+    // resultBock.appendChild(solutionItem)
+
+    // const resultDivEl = codeEl(solutionResult, "solution-item")
+    // const headerResultDivEl = document.createElement("h3")
+    // headerResultDivEl.textContent = SOLUTION_RESULT_TITLE
+    // resultDivEl.prepend(headerResultDivEl)
+
+    // solutionBlock.appendChild(codeBock)
+    // solutionBlock.appendChild(resultBock)
+    return container
 }
