@@ -20,5 +20,7 @@ export default class Page extends BasicPage {
         this.pageElements = args || []
     }
 
-
+    getClassName() {
+        return this.constructor.name
+    }
 }

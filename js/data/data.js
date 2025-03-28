@@ -21,8 +21,9 @@ class QueryArray extends Array {
 }
 
 export default class Data {
+    #data
     constructor(data) {
-        this._data = data
+        this.#data = data
         this._resObjectArr = this.#getObjectData()
         this._lessons = this._resObjectArr.lessons || []
         this._tasks = this._resObjectArr.tasks || []
@@ -30,7 +31,7 @@ export default class Data {
     }
 
     get data() {
-        return this._data
+        return this.#data
     }
 
     get objects() {
@@ -38,7 +39,7 @@ export default class Data {
     }
 
     #getObjectData() {
-        return new DataConverter(this._data).convertData()
+        return new DataConverter(this.#data).convertData()
     }
 
     getQueryArrayByClass = (dataClass) => {

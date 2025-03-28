@@ -4,5 +4,11 @@ export default class Controller {
         this.objData = objData
     }
 
-    show() {}
+    getClassName() {
+        return this.constructor.name
+    }
+
+    toString() {
+        return `<Controller: ${this.getClassName()}>`
+    }
 }

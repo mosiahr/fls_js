@@ -41,4 +41,8 @@ export default class BasicPage {
     // set pageElements(arr) {
     //     this.pageElements = arr
     // }
+
+    getClassName() {
+        return this.constructor.name
+    }
 }
