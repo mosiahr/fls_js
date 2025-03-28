@@ -15,7 +15,7 @@
                 {
                     "id": 0,
                     "name": "",
-                    "description": "Обчислити значення виразів",
+                    "description": "Обчислити значення виразів: \n\t1) S1 = a + 12 + b \n\t2) S2 = sqrt((a + b) / (2 * a)) \n\t3) S3 = cbrt((a + b) * c) \n\t4) S4 = cbrt((a + b) * c) \n\t5) S5 = sin(a / -b)",
                     "solutions": [],
                     "available": true
                 },

@@ -20,7 +20,8 @@ export function task1() {
     const s1 = a + 12 + b
     const s2 = Math.sqrt((a + b) / (2 * a))
     const s3 = Math.cbrt((a + b) * c)
-    const s4 = Math.sin(a / (-1 * b))
+    const s4 = Math.sin(a / -b)
+    // console.log(s1, s2, s3, s4)
 
     return `<ol>
 		<li>a = ${a}</li>
@@ -47,7 +48,7 @@ const c = Math.round(parseFloat(prompt("Enter third number, please", 0)) * 100) 
 const s1 = a + 12 + b
 const s2 = Math.sqrt((a + b) / (2 * a))
 const s3 = Math.cbrt((a + b) * c)
-const s4 = Math.sin(a / (-1 * b))`,
+const s4 = Math.sin(a / -b)`,
     name: "Вступ до веб-програмування. Вступ до JS. Лінійні алгоритми.",
     title: "",
     lesson,
@@ -56,3 +57,8 @@ const s4 = Math.sin(a / (-1 * b))`,
 }
 
 console.log(lesson)
+
+// naxtVal = (val - min + delta) % (max - min + 1) + min
+
+//* =========================  Task #2  ===========================
+

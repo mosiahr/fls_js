@@ -10,14 +10,16 @@ export default class TaskController extends Controller {
         super(page, objData)
         this._id = id
         this._taskData = objData.get(id - 1)
-        // console.log(this._taskData)
+        console.log(this._taskData)
         // console.log(this._taskData.solutions)
     }
 
     show() {
+        if (!this._taskData) throw new Error("Task Data doesn't exist!")
+
         const taskPage = new this.page()
         taskPage.updatePageElements(
-            pageTitle(this._taskData.name, this._taskData.description)
+            pageTitle(this._taskData?.name, this._taskData?.description)
                 ?.outerHTML
         )
 
@@ -43,22 +45,9 @@ export default class TaskController extends Controller {
     }
     // TODO: If it is multiple solutions, need to implement them
     showSolutionCode(id = 0) {
-        // if (solutionFunc && solutionParams)
-        // solutionResult = solutionFunc(...solutionParams)
-        // if (solutionResult instanceof Array)
-        // console.log(this._taskData.solutions[id]?.code)
-        // console.log(codeEl(this.getSolutions(id), "solution-item"))
-
-        // return codeEl(this.getSolutions(id), "solution-item")
-
-        // const solutionResult = runWithConfirmStart(this.runSolutionFunc())
-        // console.log(solutionResult, this._taskData.solutions[id]?.code)
-
         if (this._taskData.solutions && this._taskData.solutions.length !== 0) {
             console.log("YES", this._taskData.solutions)
         }
-        // const messageNotFoundSolution = document.createElement("h1")
-        // messageNotFoundSolution.textContent = NOT_FOUND_SOLUTION
         return solutionEl(
             this._taskData.solutions[id]?.code,
             "",
