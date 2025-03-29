@@ -3,8 +3,6 @@ import jsonData from "../data.json" with { type: "json" }
 import Data from "./data/data.js"
 import { Page, notFoundPage } from "./pages/index.js"
 import Controller from "./controllers/controller.js"
-// import LessonController from "./controllers/lessonController.js"
-
 
 export default class App {
 	controller
@@ -13,7 +11,6 @@ export default class App {
         this._router = new Router(routes)
 		this._objData = new Data(data)
 		this._objectsData = this.getObjectsData()
-		
     }
 
     initRoute() {
@@ -38,7 +35,7 @@ export default class App {
     }
 
     initLoadPage() {
-        // Using when page load first time or when user reload page
+        //* Using when page load first time or when user reload page
         const location = window.location
 
         if (location.hash) {
@@ -48,20 +45,6 @@ export default class App {
         }
     }
 	
-	initClick() {
-		// document.addEventListener("DOMContentLoaded", (event) => {
-            // console.log("DOM fully loaded and parsed")
-            const buttonStartTest = document.querySelector("#start-test-button")
-            console.log(buttonStartTest)
-
-            buttonStartTest?.addEventListener("click", (e) => {
-                e.preventDefault()
-				if (this.controller.runSolutionFunc(0))
-					console.log(this.controller.runSolutionFunc(0))
-            })
-        // })
-	}
-
 	getObjectsData() {
 		try {
 			return this._objData.objects	
@@ -72,8 +55,8 @@ export default class App {
 
 	goTo(path, addToState = false) {
         try {
-            console.log(`goTo(${path})`)
-            const [route, id] = path.match("#")
+            console.log(`goTo(${path}) ${path.match("#")}`)
+            const [route, id, solutionId] = path.match("#")
                 ? this._router.getRoute(path.replace("#", ""))
                 : this._router.getRoute(path)
 			
@@ -83,16 +66,19 @@ export default class App {
 					new route.controller(
 						Page,
 						this._objData.getQueryArrayByClass(route.dataClass),
-						id)
-				this.render(this.controller.show())
-				this.initClick()
+						id,
+						solutionId
+					)
+
+				this.controller.render(this._rootElement, this.controller.show())
+				this.controller.initClick()
+
             } else {
-                // TODO: Move render and notFoundPage to another place
-                this.render(notFoundPage.getHTML())
+                this.controller.render(this._rootElement, notFoundPage.getHTML())
             }
         } catch (error) {
             console.log(error)
-            this.render(notFoundPage.getHTML())
+            this.controller.render(this._rootElement, notFoundPage.getHTML())
         }
     }
 
@@ -104,42 +90,4 @@ export default class App {
             console.log(error)
         }
     }
-
-    render(page) {
-        try {
-            console.log("render()")
-            this._rootElement.innerHTML = page
-        } catch (error) {
-            console.log(err)
-        }
-    }
-
-	initController() {
-		// const d = this._objData
-		// console.log("d.all(): ", d.all())
-		// // console.log("ObjD:: ", new Data(this._data).objData)
-		
-		// console.log("d.lessons: ", d.lessons)
-		// console.log("d.lessons: typeof:  ", typeof d.lessons)
-
-		// console.log("d.getLesson(2): ", d.lessons.get(2))
-		// console.log("d.getLesson(2) typeof: ", typeof d.lessons.get(2))
-		// console.log("d.lessons.all(): ", d.lessons.all())
-		
-
-		// const path = "/lessons/"
-		// const route = path.match("#")
-        //         ? this._router.getRoute(path.replace("#", ""))
-        //         : this._router.getRoute(path)
-		
-
-		// Get all lessons
-
-		// if (route){
-		// 	const controller = new route.controller(MainPage, d.getQueryArrayByClassName(route.dataClass).all())
-		// 	this.render(controller.show())
-		// }
-
-			
-	}
 }

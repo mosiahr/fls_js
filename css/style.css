@@ -341,22 +341,32 @@ li.reload img:hover {
     font-size: 14px;
     grid-template-columns: 1fr 1fr;
 }
-.solution-item {
+.solution__item {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    border: 1px solid rgb(57, 20, 0);
 }
-.solution-item h3 {
+.solution__item h3 {
     background-color: rgb(57, 20, 0);
     color: #fff;
     font-size: 20px;
     font-weight: 700;
     padding-block: 20px;
-    inline-size: 100%;
+    /* inline-size: 100%; */
     text-align: center;
 }
-.solution-code {
+.solution__code,
+.solution__result {
     padding: 20px;
-    border: 1px solid rgb(57, 20, 0);
     overflow: auto;
+    /* block-size: 100%; */
+}
+.solution__result {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 1069.98px) {

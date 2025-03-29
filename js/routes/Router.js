@@ -26,10 +26,15 @@ export default class Router {
 
     getRoute(path) {
         try {
-            for (const [name, route] of Object.entries(this._availableRoutes)) {
+            for (const [_, route] of Object.entries(this._availableRoutes)) {
                 const matchResult = route.match(path)
+
                 if (matchResult) {
-                    return [route, parseInt(matchResult?.groups?.id)]
+                    return [
+                        route,
+                        parseInt(matchResult?.groups?.id),
+                        parseInt(matchResult?.groups?.solutionId),
+                    ]
                 }
             }
         } catch (error) {

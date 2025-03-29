@@ -32,7 +32,9 @@ export const routes = {
         false
     ),
     task: new Route(
-        new RegExp(/^\/tasks\/(?<id>[0-9]+)\/?$/),
+        new RegExp(
+            /^\/tasks\/(?<id>[0-9]+)\/?(\/solutions\/(?<solutionId>[0-9]+)\/?)?$/
+        ),
         TaskController,
         TaskModel
     ),

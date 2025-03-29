@@ -11,4 +11,12 @@ export default class Controller {
     toString() {
         return `<Controller: ${this.getClassName()}>`
     }
+
+    render(domEl, html) {
+        try {
+            domEl.innerHTML = html
+        } catch (error) {
+            console.log(err)
+        }
+    }
 }
