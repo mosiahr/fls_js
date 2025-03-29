@@ -69,9 +69,10 @@ export default class App {
 						id,
 						solutionId
 					)
-
+				// console.log(this.controller);
+				
 				this.controller.render(this._rootElement, this.controller.show())
-				this.controller.initClick()
+				if (this.controller.initClick) this.controller.initClick()
 
             } else {
                 this.controller.render(this._rootElement, notFoundPage.getHTML())

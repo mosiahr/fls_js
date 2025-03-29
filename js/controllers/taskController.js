@@ -117,14 +117,12 @@ export default class TaskController extends Controller {
     }
 
     initClick() {
-        document.addEventListener("DOMContentLoaded", (event) => {
-            const buttonStartTest = document.querySelector("#start-test-button")
+        const buttonStartTest = document.querySelector("#start-test-button")
 
-            buttonStartTest?.addEventListener("click", (e) => {
-                e.preventDefault()
-                // this.clearSolutionResult()
-                this.showSolutionResult()
-            })
+        buttonStartTest?.addEventListener("click", (e) => {
+            e.preventDefault()
+            // this.clearSolutionResult()
+            this.showSolutionResult()
         })
     }
 }
