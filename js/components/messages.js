@@ -1,4 +1,4 @@
-export const messageNotFound = (msgText) => {
+export default function messageNotFound(msgText) {
     const div = document.createElement("div")
 
     div.className = "page-block__message"

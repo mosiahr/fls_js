@@ -1,8 +1,14 @@
 import Controller from "./controller.js"
-import { pageTitle, button, solutionEl, codeEl } from "../components/index.js"
-// import { generateSubSetArray } from "../hw/hw13.js"
+import {
+    pageTitle,
+    button,
+    solutionEl,
+    codeEl,
+    messageNotFound,
+    arrow,
+} from "../components/index.js"
 import { runWithConfirmStart } from "../utils.js"
-import { messageNotFound } from "../components/messages.js"
+// import { messageNotFound } from "../components/messages.js"
 import {
     NOT_FOUND_SOLUTION,
     DONT_HAVE_SOLUTION_RESULT_MESSAGE,
@@ -55,6 +61,20 @@ export default class TaskController extends Controller {
         if (!this.#taskData) throw new Error("Task Data doesn't exist!")
 
         const taskPage = new this.page()
+        taskPage.updatePageElements(
+            arrow(
+                "#/",
+                "./img/arrow-left.svg",
+                ["page-block__link", "link", "link--previous"],
+                ["page-block__arrow", "arrow"]
+            ).outerHTML,
+            arrow(
+                "#/",
+                "./img/arrow-right.svg",
+                ["page-block__link", "link", "link--next"],
+                ["page-block__arrow", "arrow"]
+            ).outerHTML
+        )
         taskPage.updatePageElements(
             pageTitle(this.#taskData?.name, this.#taskData?.description)
                 ?.outerHTML

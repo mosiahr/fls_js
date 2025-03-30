@@ -23,8 +23,8 @@ export default class BasicPage {
 			</body>`
     }
 
-    updatePageElements(el) {
-        this.pageElements.push(el)
+    updatePageElements(...elems) {
+        elems.forEach((el) => this.pageElements.push(el))
     }
 
     createHighlightedCode(code) {
@@ -35,11 +35,16 @@ export default class BasicPage {
     }
 
     // get pageElements() {
+    //     console.log("RRR")
+
     //     return this.pageElements
     // }
 
-    // set pageElements(arr) {
-    //     this.pageElements = arr
+    // set pageElements(elems) {
+    //     console.log(elems)
+
+    //     elems.forEach((el) => this.pageElements.push(el))
+    //     // this.pageElements = arr
     // }
 
     getClassName() {

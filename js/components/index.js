@@ -12,4 +12,6 @@ export { default as button } from "./button.js"
 export { default as solutionEl } from "./solution.js"
 export { default as codeEl } from "./codeEl.js"
 export { default as taskCard } from "./taskCard.js"
-export { messageNotFound } from "./messages.js"
+export { default as messageNotFound } from "./messages.js"
+export { default as arrow } from "./arrow.js"
+
