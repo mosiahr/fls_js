@@ -5,13 +5,23 @@ import { Page, notFoundPage } from "./pages/index.js"
 import Controller from "./controllers/controller.js"
 
 export default class App {
-	controller
+	state = {}
 	constructor(rootElement, routes, data) {
         this._rootElement = rootElement
         this._router = new Router(routes)
 		this._objData = new Data(data)
 		this._objectsData = this.getObjectsData()
+		// console.log(this._objectsData);
+		
     }
+
+	get state() {
+		return this.state
+	}
+
+	set state(obj) {
+		this.state =  Object.assign(this.state, obj)
+	}
 
     initRoute() {
         window.addEventListener("hashchange", () => {
@@ -62,26 +72,37 @@ export default class App {
 			
             if (route) {
                 if (addToState) this.addPathToState(path)
-				this.controller = 
+				this.state.route = route
+				console.log(this.state);
+
+				const controller = 
 					new route.controller(
 						Page,
 						this._objData.getQueryArrayByClass(route.dataClass),
 						id,
 						solutionId
 					)
-				// console.log(this.controller);
+				console.log(controller);
 				
-				this.controller.render(this._rootElement, this.controller.show())
-				if (this.controller.initClick) this.controller.initClick()
+				controller.state.route = route
+				this.state.controller = controller
+
+				console.log(this.state);
+				
+				this.state.controller.render(this._rootElement, this.state.controller.show())
+				if (this.state?.controller?.initClick) this.state.controller.initClick()
 
             } else {
-                this.controller.render(this._rootElement, notFoundPage.getHTML())
+                this.state.controller.render(this._rootElement, notFoundPage.getHTML())
             }
         } catch (error) {
             console.log(error)
-            this.controller.render(this._rootElement, notFoundPage.getHTML())
+            this.state.controller.render(this._rootElement, notFoundPage.getHTML())
         }
     }
+	nextItem() {
+
+	}
 
     addPathToState(path) {
         try {

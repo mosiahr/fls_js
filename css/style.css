@@ -160,10 +160,10 @@ td {
         background-color: var(--label-color);
         border: 0.5px solid var(--label-color);
     }
-    .page-block a:nth-child(1) .arrow:hover img {
+    .link--previous .arrow:hover img {
         animation: move-left-element 1s linear 0s 2;
     }
-    .page-block a:nth-child(2) .arrow:hover img {
+    .link--next .arrow:hover img {
         animation: move-right-element 1s linear 0s 2;
     }
 }

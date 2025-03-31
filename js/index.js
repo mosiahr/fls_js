@@ -12,7 +12,7 @@ import Data from "./data/data.js"
 // export const objD = new Data(data).getObjectData()
 // console.log(objD);
 
-const app = new App(document.getElementById("root"), routes, data)
+export const app = new App(document.getElementById("root"), routes, data)
 
 app.initRoute()
 app.initLoadPage()

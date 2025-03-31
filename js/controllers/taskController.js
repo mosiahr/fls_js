@@ -1,4 +1,5 @@
 import Controller from "./controller.js"
+import { app } from "../index.js"
 import {
     pageTitle,
     button,
@@ -18,13 +19,13 @@ export default class TaskController extends Controller {
     #id
     #solutionId
     #taskData
-
     constructor(page, objData, id, solutionId) {
         super(page, objData)
         this.id = id
         this.solutionId = solutionId
         this.taskData = objData.get(id - 1)
-        // console.log(this.taskData)
+        this.taskListData = objData.all()
+        // console.log(this.taskListData)
         // console.log(this._taskData.solutions)
         // this.initClick()
     }
@@ -59,22 +60,30 @@ export default class TaskController extends Controller {
 
     show() {
         if (!this.#taskData) throw new Error("Task Data doesn't exist!")
-
         const taskPage = new this.page()
-        taskPage.updatePageElements(
-            arrow(
-                "#/",
-                "./img/arrow-left.svg",
-                ["page-block__link", "link", "link--previous"],
-                ["page-block__arrow", "arrow"]
-            ).outerHTML,
-            arrow(
-                "#/",
-                "./img/arrow-right.svg",
-                ["page-block__link", "link", "link--next"],
-                ["page-block__arrow", "arrow"]
-            ).outerHTML
-        )
+
+        if (this.id > 1) {
+            taskPage.updatePageElements(
+                arrow(
+                    `#/tasks/${this.id - 1}/`,
+                    "./img/arrow-left.svg",
+                    ["page-block__link", "link", "link--previous"],
+                    ["page-block__arrow", "arrow"]
+                ).outerHTML
+            )
+        }
+
+        if (this.id < this.objData.all().length) {
+            taskPage.updatePageElements(
+                arrow(
+                    `#/tasks/${this.id + 1}/`,
+                    "./img/arrow-right.svg",
+                    ["page-block__link", "link", "link--next"],
+                    ["page-block__arrow", "arrow"]
+                ).outerHTML
+            )
+        }
+
         taskPage.updatePageElements(
             pageTitle(this.#taskData?.name, this.#taskData?.description)
                 ?.outerHTML
@@ -138,11 +147,35 @@ export default class TaskController extends Controller {
 
     initClick() {
         const buttonStartTest = document.querySelector("#start-test-button")
-
         buttonStartTest?.addEventListener("click", (e) => {
             e.preventDefault()
             // this.clearSolutionResult()
             this.showSolutionResult()
         })
+
+        // const buttonPreviousLink = document.querySelector(".link--previous")
+        // if (buttonPreviousLink) {
+        //     buttonPreviousLink.addEventListener("click", (e) => {
+        //         e.preventDefault()
+        //         const path = `#/tasks/${this.id - 1}/`
+        //         app.goTo(path, true)
+        //     })
+        // }
+
+        // const buttonNextLink = document.querySelector(".link--next")
+        // if (buttonNextLink) {
+        //     buttonNextLink?.addEventListener("click", (e) => {
+        //         e.preventDefault()
+        //         const path = `#/tasks/${this.id + 1}/`
+        //         app.goTo(path, true)
+
+        //         // this.addPathToState(path)
+        //         // this.render(document.getElementById("root"), this.show())
+        //     })
+        // }
+    }
+
+    getPattern() {
+        return this.state?.route?.pattern
     }
 }
