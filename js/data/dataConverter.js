@@ -46,8 +46,11 @@ export default class DataConverter {
                                         ],
                                         func,
                                         func.solutionParams?.code,
-                                        func.solutionParams?.params
+                                        func.solutionParams?.params,
+                                        func.solutionParams?.resultAsCode
                                     )
+                                    // console.log(solution)
+
                                     solutionsForTask.push(solution)
                                 }
                             }

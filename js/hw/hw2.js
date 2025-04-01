@@ -62,7 +62,7 @@ const s4 = Math.sin(a / -b)`,
     params: [],
 }
 
-console.log(lesson)
+// console.log(lesson)
 
 // naxtVal = (val - min + delta) % (max - min + 1) + min
 

@@ -21,16 +21,32 @@ export function generateSubSetArray(arr) {
 
     return [...subSetArrWithoutFirst, ...subSetArrWithFirst]
 }
+console.log(generateSubSetArray([1, 2, 3]))
 
 generateSubSetArray.solutionParams = {
+    code: String.raw`export function generateSubSetArray(arr) {
+    if (arr.length === 0) return [[]]
+
+    const [firstEl, ...restEl] = arr
+    const subSetArrWithoutFirst = generateSubSetArray(restEl)
+    const subSetArrWithFirst = []
+
+    subSetArrWithoutFirst.forEach((comb) => {
+        const combWithFirst = [firstEl, ...comb]
+        subSetArrWithFirst.push(combWithFirst)
+    })
+
+    return [...subSetArrWithoutFirst, ...subSetArrWithFirst]
+}`,
     name: "Генерація всіх підмножин. Рекурсія",
-    title: "Lesson 13",
+    title: "",
     lesson,
     task: 1,
     params: [[1, 2, 3]],
+    resultAsCode: true,
 }
 
-const res = generateSubSetArray([1, 2, 3])
+// const res = generateSubSetArray([1, 2, 3])
 // console.log(res)
 
 //* =========================  Task #2  ===========================

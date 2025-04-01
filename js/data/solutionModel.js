@@ -9,6 +9,7 @@ export default class SolutionModel extends Model {
         func,
         code,
         params = [],
+        resultAsCode = false,
         available = true
     ) {
         super(id, name, available)
@@ -17,6 +18,7 @@ export default class SolutionModel extends Model {
         this._func = func
         this._code = code
         this._params = params
+        this._resultAsCode = resultAsCode
     }
 
     get title() {
@@ -57,5 +59,13 @@ export default class SolutionModel extends Model {
 
     set params(value) {
         this._params = value
+    }
+
+    get resultAsCode() {
+        return this._resultAsCode
+    }
+
+    set resultAsCode(value) {
+        this._resultAsCode = value
     }
 }

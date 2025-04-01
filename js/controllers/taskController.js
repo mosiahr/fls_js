@@ -107,6 +107,7 @@ export default class TaskController extends Controller {
             )
         return taskPage.getHTML()
     }
+
     // TODO: If it is multiple solutions, need to implement them
     showSolutionCode() {
         return solutionEl(
@@ -120,10 +121,19 @@ export default class TaskController extends Controller {
         const solutionFunc = this.#taskData.solutions[this.#solutionId]?.func
         const solutionParams =
             this.#taskData.solutions[this.#solutionId]?.params
+        const resultAsCode =
+            this.#taskData.solutions[this.#solutionId]?.resultAsCode
+        console.log(resultAsCode)
 
         let solutionResult
         if (solutionFunc && solutionParams)
             solutionResult = solutionFunc(...solutionParams)
+
+        if (resultAsCode) {
+            const newSolutionResult = JSON.stringify(solutionResult, null, "\t")
+            // console.log(solutionResult, newSolutionResult)
+            return codeEl(newSolutionResult).outerHTML
+        }
         return solutionResult
     }
 
@@ -138,8 +148,8 @@ export default class TaskController extends Controller {
         } else {
             this.render(solutionResultDiv, DONT_HAVE_SOLUTION_RESULT_MESSAGE)
         }
-        document.addEventListener("DOMContentLoaded", (event) => {})
     }
+
     clearSolutionResult() {
         const solutionResultDiv = document.querySelector("#solution__result")
         this.render(solutionResultDiv, "")
