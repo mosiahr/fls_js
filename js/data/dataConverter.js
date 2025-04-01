@@ -12,6 +12,7 @@ export default class DataConverter {
             const lessonObjectList = []
             const taskObjectList = []
             const solutionObjectList = []
+            let nextTaskId = 0
             let nextSolutionID = 0
 
             if (this._data.hasOwnProperty("lessons")) {
@@ -27,12 +28,8 @@ export default class DataConverter {
                     } of lesson["tasks"]) {
                         const solutionsForTask = []
 
+                        //* Create Solution Object
                         for (const [_, func] of Object.entries(hw)) {
-                            // const funcLesson = getNumbersFromCurrentFileName(
-                            //     func.solutionParams?.meta
-                            // )
-                            // console.log(func.solutionParams?.code)
-
                             if (func.solutionParams?.lesson - 1 === lesson.id) {
                                 const taskFound =
                                     lesson.tasks[func.solutionParams?.task - 1]
@@ -49,15 +46,14 @@ export default class DataConverter {
                                         func.solutionParams?.params,
                                         func.solutionParams?.resultAsCode
                                     )
-                                    // console.log(solution)
-
                                     solutionsForTask.push(solution)
                                 }
                             }
                         }
 
+                        //* Create Task Object
                         const taskObj = new TaskModel(
-                            id,
+                            nextTaskId++,
                             name,
                             description,
                             lesson.id,
@@ -68,6 +64,7 @@ export default class DataConverter {
                         solutionObjectList.push(...solutionsForTask)
                     }
 
+                    //* Create Lesson Object
                     const lessonObj = new LessonModel(
                         lesson.id,
                         lesson.name,
