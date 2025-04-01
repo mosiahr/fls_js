@@ -123,7 +123,6 @@ export default class TaskController extends Controller {
             this.#taskData.solutions[this.#solutionId]?.params
         const resultAsCode =
             this.#taskData.solutions[this.#solutionId]?.resultAsCode
-        console.log(resultAsCode)
 
         let solutionResult
         if (solutionFunc && solutionParams)

@@ -14,4 +14,4 @@ export { default as codeEl } from "./codeEl.js"
 export { default as taskCard } from "./taskCard.js"
 export { default as messageNotFound } from "./messages.js"
 export { default as arrow } from "./arrow.js"
-
+export { default as table } from "./table.js"

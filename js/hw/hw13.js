@@ -1,5 +1,6 @@
 import SolutionModel from "../data/solutionModel.js"
 import { getNumbersFromCurrentFileName } from "../utils.js"
+import { table } from "../components/index.js"
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
 
@@ -21,7 +22,7 @@ export function generateSubSetArray(arr) {
 
     return [...subSetArrWithoutFirst, ...subSetArrWithFirst]
 }
-console.log(generateSubSetArray([1, 2, 3]))
+// console.log(generateSubSetArray([1, 2, 3]))
 
 generateSubSetArray.solutionParams = {
     code: String.raw`export function generateSubSetArray(arr) {
@@ -83,19 +84,14 @@ export function makePermutations(elements) {
 
 export const renderMakePermutations = (arr) => {
     const resMakePermutations = makePermutations(arr)
-    const res = []
-    for (let i = 0; i < resMakePermutations.length; i++) {
-        // for (let col = 0; col < resMakePermutations[i].length; col++) {
-        //     console.log(resMakePermutations[i])
-        // }
-        // console.log(resMakePermutations[i])
-        const row = resMakePermutations[i].join(" || ")
-        res.push(row)
-    }
-    return res
+
+    const res = table(
+        ["Place 1", "Place 2", "Place 3", "Place 4"],
+        resMakePermutations
+    )
+    return res.outerHTML
 }
 const arrTask2 = ["Serhiy", "Mariana", "Oleh", "Inna"]
-// console.log(renderMakePermutations(arrTask2))
 
 renderMakePermutations.solutionParams = {
     code: makePermutations.toString(),
@@ -104,6 +100,5 @@ renderMakePermutations.solutionParams = {
     lesson,
     task: 2,
     params: [arrTask2],
+    resultAsCode: false,
 }
-
-console.log(typeof renderMakePermutations)
