@@ -26,6 +26,9 @@ export default class TaskController extends Controller {
         this.taskData = objData.get(id - 1)
         this.taskListData = objData.all()
         // console.log(this.taskListData)
+        console.log(this.taskData)
+        console.log(this.#taskData?.lessonId)
+
         // console.log(this._taskData.solutions)
         // this.initClick()
     }
@@ -85,8 +88,12 @@ export default class TaskController extends Controller {
         }
 
         taskPage.updatePageElements(
-            pageTitle(this.#taskData?.name, this.#taskData?.description)
-                ?.outerHTML
+            pageTitle(
+                this.#taskData?.name,
+                `Lesson #${this.#taskData?.lessonId + 1}`,
+                `#/lessons/${this.#taskData?.lessonId + 1}/`,
+                this.#taskData?.description
+            )?.outerHTML
         )
 
         if (this.#taskData.solutions && this.#taskData.solutions.length !== 0) {

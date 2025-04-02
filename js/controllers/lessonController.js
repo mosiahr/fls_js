@@ -21,7 +21,8 @@ export default class LessonController extends Controller {
     show() {
         const lessonPage = new this.page()
         lessonPage.updatePageElements(
-            pageTitle(this._lessonData.name, this._lessonData.title)?.outerHTML
+            pageTitle(this._lessonData.name, "", "", this._lessonData.title)
+                ?.outerHTML
         )
         lessonPage.updatePageElements(this.createTaskList())
         return lessonPage.getHTML()

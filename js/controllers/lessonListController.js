@@ -30,7 +30,7 @@ export default class LessonListController extends Controller {
                         "\n" +
                         createElem("p", lesson.title),
                     {
-                        class: "item-homework",
+                        class: "item-lesson",
                         href: `#/lessons/${lesson.id + 1}/`,
                     }
                 )

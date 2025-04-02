@@ -180,6 +180,20 @@ td {
     padding-inline: 20px;
     white-space: pre-wrap;
 }
+.page-block__label {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.page-block__label h5:last-child {
+    font-size: 28px;
+    transition: color 0.5s;
+}
+.page-block__label h5:last-child:hover {
+    color: var(--primary-color);
+}
 
 .page-block__message {
     color: #28293e;
@@ -206,7 +220,8 @@ td {
     row-gap: 10px;
 }
 
-.item-homework {
+.item-homework,
+.item-lesson {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -223,9 +238,13 @@ td {
     white-space: pre-wrap;
 }
 
-.item-homework:hover {
+.item-homework:hover,
+.item-lesson:hover {
     background-color: var(--primary-color);
     color: #fff;
+}
+.item-lesson {
+    flex-direction: row;
 }
 
 .page__main-list > li h3 {

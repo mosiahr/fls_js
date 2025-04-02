@@ -5,13 +5,13 @@ export default class TaskModel extends Model {
         id,
         name,
         description,
-        lesson,
+        lessonId,
         solutions = [],
         available = true
     ) {
         super(id, name, available)
         this._description = description
-        this._lesson = lesson
+        this._lessonId = lessonId
         this._solutions = solutions
     }
 
@@ -27,12 +27,12 @@ export default class TaskModel extends Model {
         this._description = value
     }
 
-    get lesson() {
-        return this._lesson
+    get lessonId() {
+        return this._lessonId
     }
 
-    set lesson(value) {
-        this._lesson = value
+    set lessonId(value) {
+        this._lessonId = value
     }
 
     get solutions() {
