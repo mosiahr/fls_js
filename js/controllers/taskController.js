@@ -26,11 +26,7 @@ export default class TaskController extends Controller {
         this.taskData = objData.get(id - 1)
         this.taskListData = objData.all()
         // console.log(this.taskListData)
-        console.log(this.taskData)
-        console.log(this.#taskData?.lessonId)
-
-        // console.log(this._taskData.solutions)
-        // this.initClick()
+        // console.log(this.taskData)
     }
 
     get id() {

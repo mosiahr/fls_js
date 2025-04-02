@@ -189,7 +189,7 @@ td {
 }
 .page-block__label h5:last-child {
     font-size: 28px;
-    transition: color 0.5s;
+    transition: color 0.4s;
 }
 .page-block__label h5:last-child:hover {
     color: var(--primary-color);

@@ -73,7 +73,7 @@ export default class App {
             if (route) {
                 if (addToState) this.addPathToState(path)
 				this.state.route = route
-				console.log(this.state);
+				// console.log(this.state);
 
 				const controller = 
 					new route.controller(
@@ -82,12 +82,12 @@ export default class App {
 						id,
 						solutionId
 					)
-				console.log(controller);
+				// console.log(controller);
 				
 				controller.state.route = route
 				this.state.controller = controller
 
-				console.log(this.state);
+				// console.log(this.state);
 				
 				this.state.controller.render(this._rootElement, this.state.controller.show())
 				if (this.state?.controller?.initClick) this.state.controller.initClick()

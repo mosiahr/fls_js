@@ -30,6 +30,8 @@ export default class DataConverter {
 
                         //* Create Solution Object
                         for (const [_, func] of Object.entries(hw)) {
+                            // console.log(func.name)
+
                             if (func.solutionParams?.lesson - 1 === lesson.id) {
                                 const taskFound =
                                     lesson.tasks[func.solutionParams?.task - 1]
