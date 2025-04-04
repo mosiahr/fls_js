@@ -39,7 +39,7 @@ export default class Data {
     }
 
     #getObjectData() {
-        return new DataConverter(this.#data).convertData()
+        return DataConverter.convertData(this.#data)
     }
 
     getQueryArrayByClass = (dataClass) => {

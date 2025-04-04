@@ -2,7 +2,6 @@ import { getNumbersFromCurrentFileName } from "../utils.js"
 import { table } from "../components/index.js"
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
-console.log(lesson)
 
 //* =========================  Task #1  ===========================
 // Створити клас, що дозволяє виконувати такі операції над масивами: знаходження кількості додатних,

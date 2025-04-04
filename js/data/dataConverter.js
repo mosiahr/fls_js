@@ -3,20 +3,34 @@ import { getRandomNumber, getNumbersFromCurrentFileName } from "../utils.js"
 import * as hw from "../hw/index.js"
 
 export default class DataConverter {
-    constructor(data) {
-        this._data = data
-    }
+    static addTaskId(data) {
+        try {
+            let nextTaskId = 0
 
-    convertData() {
+            if (data.hasOwnProperty("lessons")) {
+                data.lessons.forEach((lesson) => {
+                    for (const task of lesson["tasks"]) {
+                        task["id"] = nextTaskId++
+                    }
+                })
+            }
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    static convertData(dataWithTaskId) {
         try {
             const lessonObjectList = []
             const taskObjectList = []
             const solutionObjectList = []
-            let nextTaskId = 0
             let nextSolutionID = 0
 
-            if (this._data.hasOwnProperty("lessons")) {
-                this._data.lessons.forEach((lesson) => {
+            //* Add id to every task
+            const data = DataConverter.addTaskId(dataWithTaskId)
+
+            if (data.hasOwnProperty("lessons")) {
+                data.lessons.forEach((lesson) => {
                     const taskListForLesson = []
 
                     for (const {
@@ -35,7 +49,8 @@ export default class DataConverter {
                             if (func.solutionParams?.lesson - 1 === lesson.id) {
                                 const taskFound =
                                     lesson.tasks[func.solutionParams?.task - 1]
-                                if (id === taskFound.id) {
+
+                                if (taskFound.id === id) {
                                     const solution = new SolutionModel(
                                         nextSolutionID++,
                                         func.solutionParams?.name,
@@ -55,7 +70,7 @@ export default class DataConverter {
 
                         //* Create Task Object
                         const taskObj = new TaskModel(
-                            nextTaskId++,
+                            id,
                             name,
                             description,
                             lesson.id,
