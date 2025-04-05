@@ -17,14 +17,15 @@ export default function solutionEl(
     container.insertAdjacentHTML(
         "afterbegin",
         `<div class="solution__item">
-		<h3>${SOLUTION_CODE_TITLE}</h3>
-			${codeDiv.outerHTML}
-		</div>
-		<div class="solution__item">
 			<h3>${SOLUTION_RESULT_TITLE}</h3>
 			<div id="solution__result" class="solution__result">
 			${ADVISE_START_TEST_MESSAGE}
 			</div>
+		</div>
+		
+		<div class="solution__item">
+		<h3>${SOLUTION_CODE_TITLE}</h3>
+			${codeDiv.outerHTML}
 		</div>`
     )
     return container

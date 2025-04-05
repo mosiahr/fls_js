@@ -19,6 +19,7 @@ export default class TaskController extends Controller {
     #id
     #solutionId
     #taskData
+
     constructor(page, objData, id, solutionId) {
         super(page, objData)
         this.id = id
@@ -130,6 +131,7 @@ export default class TaskController extends Controller {
         let solutionResult
         if (solutionFunc && solutionParams)
             solutionResult = solutionFunc(...solutionParams)
+        // else solutionResult = ""
 
         if (resultAsCode) {
             const newSolutionResult = JSON.stringify(solutionResult, null, "\t")
@@ -154,14 +156,14 @@ export default class TaskController extends Controller {
 
     clearSolutionResult() {
         const solutionResultDiv = document.querySelector("#solution__result")
-        this.render(solutionResultDiv, "")
+        solutionResultDiv.childNodes.forEach((elem) => elem.remove())
     }
 
     initClick() {
         const buttonStartTest = document.querySelector("#start-test-button")
         buttonStartTest?.addEventListener("click", (e) => {
             e.preventDefault()
-            // this.clearSolutionResult()
+            this.clearSolutionResult()
             this.showSolutionResult()
         })
 

@@ -25,7 +25,7 @@ export default class Controller {
         try {
             domEl.innerHTML = html
         } catch (error) {
-            console.log(err)
+            console.log(error)
         }
     }
 

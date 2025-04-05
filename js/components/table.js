@@ -1,5 +1,10 @@
-export default function table(headers = [], arrayOfArray) {
+export default function table(headers = [], arrayOfArray, caption = "") {
     const table = document.createElement("table")
+
+    if (caption) {
+        const captionTable = table.createCaption()
+        captionTable.textContent = caption
+    }
 
     if (headers) {
         let header = table.createTHead()

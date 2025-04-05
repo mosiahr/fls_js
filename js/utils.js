@@ -77,3 +77,9 @@ export const getNumbersFromCurrentFileName = (meta) => {
         console.log(error)
     }
 }
+
+export const getFunctionBody = (func) => {
+    let entire = func.toString()
+
+    return entire.slice(entire.indexOf("{") + 1, entire.lastIndexOf("}"))
+}

@@ -6,7 +6,7 @@ export default function codeEl(code = "", ...attrClass) {
 
     const preEl = document.createElement("pre")
     const codeEl = document.createElement("code")
-    preEl.appendChild(codeEl)
+    preEl.append(codeEl)
 
     if (code) {
         const highlightedCode = hljs.highlight(code.toString(), {
@@ -14,6 +14,6 @@ export default function codeEl(code = "", ...attrClass) {
         }).value
         codeEl.innerHTML = highlightedCode
     }
-    codeResultEl.appendChild(preEl)
+    codeResultEl.append(preEl)
     return codeResultEl
 }
