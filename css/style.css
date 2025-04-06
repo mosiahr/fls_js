@@ -445,6 +445,30 @@ li.reload img:hover {
     justify-content: start;
     align-items: center;
 }
+.solution__result caption {
+    color: #ef6d58;
+    font-size: 24px;
+    font-weight: 700;
+    padding-block: 10px;
+}
+
+.solution__result thead {
+    background-color: #28293e;
+    color: #ffffff;
+}
+/* .solution__result tbody tr:hover:nth-child(odd) {
+    background-color: #e7e7f2;
+} */
+.solution__result tbody tr:hover {
+    background-color: #e7e7f2;
+}
+/* .solution__result tbody tr:nth-child(even) {
+    background-color: #74759e;
+    color: #ffffff;
+} */
+/* .solution__result tbody tr:hover:nth-child(even) {
+    background-color: #4f4f82;
+} */
 .solution-notice {
     inline-size: 100%;
     padding: 10px;

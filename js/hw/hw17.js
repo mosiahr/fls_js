@@ -260,9 +260,67 @@ Reminder.tickerRef = null`,
 // фільтрація за назвою товару, фільтрація за назвою фірми
 
 class Company {
+    _name
+    _licenceNumber
+
     constructor(name, licenceNumber) {
         this.name = name
         this.licenceNumber = licenceNumber
+    }
+
+    get name() {
+        return this._name
+    }
+
+    set name(value) {
+        try {
+            if (!value) throw new Error(Product.VALUE_CANT_EMPTY)
+            this._name = value
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    get licenceNumber() {
+        return this._licenceNumber
+    }
+
+    set licenceNumber(value) {
+        try {
+            if (!value) throw new Error(Product.VALUE_CANT_EMPTY)
+            this._licenceNumber = value
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    equals(obj) {
+        try {
+            if (this === obj) return true
+            if (obj == null || this.constructor.name !== obj.constructor.name)
+                return false
+
+            if (parseInt(this._licenceNumber) === parseInt(obj._licenceNumber))
+                return true
+
+            return false
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    equalsByName(obj) {
+        try {
+            if (this === obj) return true
+            if (obj == null || this.constructor.name !== obj.constructor.name)
+                return false
+
+            if (this._name === obj._name) return true
+
+            return false
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     toString() {
@@ -272,6 +330,8 @@ class Company {
 
 class Product {
     static VALUE_INCORRECT_ERR = "The value is incorrect"
+    static VALUE_CANT_EMPTY = "Value can't be empty!"
+    static CANT_INIT_NEW_OBJ = "Can't initialize new object"
     static #nextId = 0
 
     static get nextId() {
@@ -285,6 +345,8 @@ class Product {
 
     _id
     _title
+    _amount
+    _unit
 
     constructor({ title, amount, unit, companyName, companyLicenceNumber }) {
         if (
@@ -294,7 +356,7 @@ class Product {
             !companyName ||
             !companyLicenceNumber
         ) {
-            throw new Error("Can't initialize new object")
+            throw new Error(Product.CANT_INIT_NEW_OBJ)
         }
         this.addId()
         this.title = title
@@ -319,19 +381,64 @@ class Product {
 
     set title(value) {
         try {
-            if (!value) throw new Error("Title can't be empty!")
+            if (!value) throw new Error(Product.VALUE_CANT_EMPTY)
             this._title = value
         } catch (error) {
             console.log(error)
         }
     }
 
-    // set company(companyObj) {
-    // 	if
-    // }
-    // isCompanyById(id) {
+    get amount() {
+        return this._amount
+    }
 
-    // }
+    set amount(value) {
+        try {
+            if (!value) throw new Error(Product.VALUE_CANT_EMPTY)
+            this._amount = value
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    addAmount(value) {
+        try {
+            this._amount += value
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    get unit() {
+        return this._unit
+    }
+
+    set unit(value) {
+        try {
+            if (!value) throw new Error(Product.VALUE_CANT_EMPTY)
+            this._unit = value
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    equals(obj) {
+        try {
+            if (this === obj) return true
+            if (obj == null || this.constructor.name !== obj.constructor.name)
+                return false
+
+            if (
+                this._title.localeCompare(obj.title) === 0 &&
+                this.company.name.localeCompare(obj.company.name) === 0
+            ) {
+                return true
+            }
+            return false
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     toString() {
         return `Title: ${this._title} amount: ${this.amount} ${this.unit} Company: ${this.company}`
@@ -343,6 +450,8 @@ class Warehouse {
     static ANOTHER_CLASS_ERROR = `Can't add another class than ${Warehouse.agregationClass.name} one!`
     static caption = "Warehouse # 1"
 
+    _title
+
     constructor(title) {
         this.title = title
 
@@ -350,26 +459,96 @@ class Warehouse {
         this._products = []
     }
 
-    // get products() {
-    //     return this._products
-    // }
+    get title() {
+        return this._title
+    }
 
-    addProduct(...newProducts) {
+    set title(value) {
         try {
-            newProducts.forEach((prod) => {
-                if (prod instanceof Warehouse.agregationClass) {
-                    this._products.push(prod)
-                } else throw new Error(Warehouse.ANOTHER_CLASS_ERROR)
-            })
+            if (!value) this._title = Warehouse.caption
+            this._title = value
         } catch (error) {
             console.log(error)
         }
     }
 
-    removeProduct(productIdToRemove) {
+    get products() {
+        return this._products
+    }
+
+    addProducts(...newProducts) {
+        try {
+            for (const newProduct of newProducts) {
+                if (!(newProduct instanceof Warehouse.agregationClass))
+                    throw new Error(Warehouse.ANOTHER_CLASS_ERROR)
+
+                //* Find equal products
+                const equalProductArr = []
+                for (let i = 0; i < this._products.length; i++) {
+                    if (this._products[i].equals(newProduct)) {
+                        equalProductArr.push([i, newProduct])
+                    }
+                }
+
+                //* Push new product or add to exist product
+                if (equalProductArr.length === 0) {
+                    for (const prod of this._products) {
+                        if (newProduct.company.equalsByName(prod.company)) {
+                            newProduct.company.licenceNumber =
+                                prod.company.licenceNumber
+                        }
+                    }
+                    this._products.push(newProduct)
+                } else {
+                    for (const equalsProduct of equalProductArr) {
+                        this._products[equalsProduct[0]].addAmount(
+                            newProduct.amount
+                        )
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    hasCompany(company) {
+        return this._products.some((prod) => company.equals(prod.company))
+    }
+
+    getCompanyByLicenceNumber(licenceNumber) {
+        try {
+            const product = this._products.find(
+                (item) => item.company.licenceNumber === licenceNumber
+            )
+            return product.company
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    removeProductById(productId) {
         try {
             this._products = this._products.filter(
-                (product) => product.id !== productIdToRemove
+                (product) => product.id !== productId
+            )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    getProductById(id) {
+        try {
+            return this._products.find((item) => item._id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    filterByProductTitle(productTitle) {
+        try {
+            return this._products.filter(
+                (product) => product._title === productTitle
             )
         } catch (error) {
             console.log(error)
@@ -377,21 +556,34 @@ class Warehouse {
     }
 
     toString() {
-        const res = []
+        try {
+            const res = []
+            let headers
 
-        for (const prod of this._products) {
-            const prodArr = []
-
-            for (const [_, value] of Object.entries(prod)) {
-                prodArr.push(value)
+            if (this._products && this._products.length !== 0) {
+                headers = Object.getOwnPropertyNames(this._products[0])
+                headers.forEach(
+                    (el, i, arrRef) =>
+                        (arrRef[i] = el.replace("_", "").toUpperCase())
+                )
+            } else {
+                headers = []
             }
-            res.push(prodArr)
+
+            for (const prod of this._products) {
+                const prodArr = []
+
+                for (const [_, value] of Object.entries(prod)) {
+                    prodArr.push(value)
+                }
+                res.push(prodArr)
+            }
+
+            const prodTable = table(headers, res, this._title)
+            return prodTable.outerHTML
+        } catch (error) {
+            console.log(error)
         }
-
-        const headers = Object.getOwnPropertyNames(this._products[0])
-        const prodTable = table(headers, res, Warehouse.caption)
-
-        return prodTable.outerHTML
     }
 }
 
@@ -407,7 +599,8 @@ export function task4_17() {
         companyLicenceNumber: getRandomNumber(100000, 200000),
     })
 
-    warehouse.addProduct(product1)
+    //* Registration of goods
+    warehouse.addProducts(product1)
 
     const product2 = new Product({
         title: "Whole Milk",
@@ -441,21 +634,82 @@ export function task4_17() {
         companyLicenceNumber: getRandomNumber(100000, 200000),
     })
 
-    console.log(product5)
+    const product6 = new Product({
+        title: "Yogurt",
+        amount: 50,
+        unit: "PK",
+        companyName: "SuperValu",
+        companyLicenceNumber: getRandomNumber(100000, 200000),
+    })
 
-    warehouse.addProduct(product2, product3, product4, product5)
-    // console.log(warehouse.toString())
+    const product7 = new Product({
+        title: "Digestives",
+        amount: 79,
+        unit: "PK",
+        companyName: "Lidl",
+        companyLicenceNumber: getRandomNumber(100000, 200000),
+    })
 
-    warehouse.removeProduct(2)
-    // console.log(warehouse.toString())
+    const product8 = new Product({
+        title: "Yogurt",
+        amount: 100,
+        unit: "PK",
+        companyName: "SuperValu",
+        companyLicenceNumber: getRandomNumber(100000, 200000),
+    })
 
-    // console.log(product1)
-    console.log(Warehouse.caption)
+    const product9 = new Product({
+        title: "Extra Virgin Olive Oil",
+        amount: 19,
+        unit: "PK",
+        companyName: "Aldi",
+        companyLicenceNumber: getRandomNumber(100000, 200000),
+    })
+    const product10 = new Product({
+        title: "Extra Virgin Olive Oil",
+        amount: 12,
+        unit: "PK",
+        companyName: "Tesco",
+        companyLicenceNumber: getRandomNumber(100000, 200000),
+    })
+
+    //* Registration of goods
+    warehouse.addProducts(
+        product2,
+        product3,
+        product4,
+        product5,
+        product6,
+        product7,
+        product8,
+        product9,
+        product10
+    )
+    // console.log(warehouse.getProductById(product3.id))
+    // console.log(warehouse.hasCompany(product3.company))
+
+    const screenshot1 = warehouse.toString()
+
+    //* Shipment of goods
+    warehouse.title = "Super Store After Shipment of Goods"
+    warehouse.removeProductById(product3.id)
+    warehouse.removeProductById(product4.id)
+
+    const screenshot2 = warehouse.toString()
+
+    //* Filter by product title
+    console.log(warehouse.filterByProductTitle("Extra Virgin Olive Oil"))
+
+    const warehouseForFilterByProductTitle = new Warehouse(
+        "Super Store After Shipment of goods and filter by Product title"
+    )
+    warehouseForFilterByProductTitle.addProducts(
+        ...warehouse.filterByProductTitle("Extra Virgin Olive Oil")
+    )
+    const screenshot3 = warehouseForFilterByProductTitle.toString()
 
     Product.nextId = null
-    // Warehouse.caption = null
-
-    return warehouse.toString()
+    return screenshot1 + "<br><br>" + screenshot2 + "<br><br>" + screenshot3
 }
 
 task4_17.solutionParams = {
@@ -465,7 +719,8 @@ task4_17.solutionParams = {
         Product.toString() +
         "\n\n" +
         Warehouse.toString() +
-        ``,
+        "\n\n" +
+        task4_17.toString(),
     name: "",
     title: "",
     lesson,

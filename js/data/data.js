@@ -9,8 +9,7 @@ class QueryArray extends Array {
     }
     get(id) {
         try {
-            for (const element of this._array)
-                if (element.id === id) return element
+            return this._array.find((item) => item.id === id)
         } catch (error) {
             console.log(error)
         }

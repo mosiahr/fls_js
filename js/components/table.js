@@ -1,9 +1,11 @@
+import { toUpperCaseFirstLetterEveryWord } from "../utils.js"
+
 export default function table(headers = [], arrayOfArray, caption = "") {
     const table = document.createElement("table")
 
     if (caption) {
         const captionTable = table.createCaption()
-        captionTable.textContent = caption
+        captionTable.textContent = toUpperCaseFirstLetterEveryWord(caption)
     }
 
     if (headers) {

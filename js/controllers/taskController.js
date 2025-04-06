@@ -1,5 +1,4 @@
 import Controller from "./controller.js"
-import { app } from "../index.js"
 import {
     pageTitle,
     button,
@@ -9,7 +8,6 @@ import {
     arrow,
 } from "../components/index.js"
 import { runWithConfirmStart } from "../utils.js"
-// import { messageNotFound } from "../components/messages.js"
 import {
     NOT_FOUND_SOLUTION,
     DONT_HAVE_SOLUTION_RESULT_MESSAGE,

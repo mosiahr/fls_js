@@ -1,23 +1,20 @@
 import hljs  from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/es/highlight.min.js';
 import javascript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/es/languages/javascript.min.js';
 // import javascript from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/javascript.min.js';
+
+
 hljs.registerLanguage('javascript', javascript);
 
 
 import App from "./App.js"
 import { routes } from "./routes/routes.conf.js"
 import data from "../data.json" with { type: "json" }
-import Data from "./data/data.js"
-
-// export const objD = new Data(data).getObjectData()
-// console.log(objD);
 
 export const app = new App(document.getElementById("root"), routes, data)
 
 app.initRoute()
 app.initLoadPage()
 // app.initClick()
-// export const objData = data.getObjectData()
 
 // Explanation: Let’s break down what each folder and file is used for.
 // /assets: This folder holds all the static files for your project, like images, logos, fonts, and favicons.
