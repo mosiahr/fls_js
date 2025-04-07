@@ -9,8 +9,12 @@ export default class DataConverter {
 
             if (data.hasOwnProperty("lessons")) {
                 data.lessons.forEach((lesson) => {
-                    for (const task of lesson["tasks"]) {
-                        task["id"] = nextTaskId++
+                    if (lesson.available === true) {
+                        for (const task of lesson["tasks"]) {
+                            if (task.available === true) {
+                                task["id"] = nextTaskId++
+                            }
+                        }
                     }
                 })
             }
@@ -21,7 +25,7 @@ export default class DataConverter {
             console.log(error)
         }
     }
-    static filterAvailableElements() {}
+
     static convertData(dataWithoutTaskId) {
         try {
             const lessonObjectList = []
@@ -29,71 +33,81 @@ export default class DataConverter {
             const solutionObjectList = []
             let nextSolutionID = 0
 
-            //* Add id to every task
+            //* Add id for every task
             const data = DataConverter.addTaskId(dataWithoutTaskId)
 
             if (data.hasOwnProperty("lessons")) {
                 data.lessons.forEach((lesson) => {
-                    const taskListForLesson = []
+                    if (lesson.available === true) {
+                        const taskListForLesson = []
 
-                    for (const {
-                        id,
-                        name,
-                        description,
-                        solutions,
-                        available,
-                    } of lesson["tasks"]) {
-                        const solutionsForTask = []
-
-                        //* Create Solution Object
-                        for (const [_, func] of Object.entries(hw)) {
-                            // console.log(func.name)
-
-                            if (func.solutionParams?.lesson - 1 === lesson.id) {
-                                const taskFound =
-                                    lesson.tasks[func.solutionParams?.task - 1]
-
-                                if (taskFound.id === id) {
-                                    const solution = new SolutionModel(
-                                        nextSolutionID++,
-                                        func.solutionParams?.name,
-                                        func.solutionParams?.title,
-                                        lesson.tasks[
-                                            func.solutionParams?.task - 1
-                                        ],
-                                        func,
-                                        func.solutionParams?.code,
-                                        func.solutionParams?.params,
-                                        func.solutionParams?.resultAsCode
-                                    )
-                                    solutionsForTask.push(solution)
-                                }
-                            }
-                        }
-
-                        //* Create Task Object
-                        const taskObj = new TaskModel(
+                        for (const {
                             id,
                             name,
                             description,
-                            lesson.id,
-                            solutionsForTask,
-                            available
-                        )
-                        taskListForLesson.push(taskObj)
-                        solutionObjectList.push(...solutionsForTask)
-                    }
+                            solutions,
+                            available,
+                        } of lesson["tasks"]) {
+                            if (available) {
+                                const solutionsForTask = []
 
-                    //* Create Lesson Object
-                    const lessonObj = new LessonModel(
-                        lesson.id,
-                        lesson.name,
-                        lesson.title,
-                        taskListForLesson || [],
-                        lesson.available
-                    )
-                    lessonObjectList.push(lessonObj)
-                    taskObjectList.push(...taskListForLesson)
+                                //* Create Solution Object
+                                for (const [_, func] of Object.entries(hw)) {
+                                    // console.log(func.name)
+
+                                    if (
+                                        func.solutionParams?.lesson - 1 ===
+                                        lesson.id
+                                    ) {
+                                        const taskFound =
+                                            lesson.tasks[
+                                                func.solutionParams?.task - 1
+                                            ]
+
+                                        if (taskFound.id === id) {
+                                            const solution = new SolutionModel(
+                                                nextSolutionID++,
+                                                func.solutionParams?.name,
+                                                func.solutionParams?.title,
+                                                lesson.tasks[
+                                                    func.solutionParams?.task -
+                                                        1
+                                                ],
+                                                func,
+                                                func.solutionParams?.code,
+                                                func.solutionParams?.params,
+                                                func.solutionParams?.resultAsCode
+                                            )
+                                            solutionsForTask.push(solution)
+                                        }
+                                    }
+                                }
+
+                                //* Create Task Object
+                                const taskObj = new TaskModel(
+                                    id,
+                                    name,
+                                    description,
+                                    lesson.id,
+                                    solutionsForTask,
+                                    available
+                                )
+                                taskListForLesson.push(taskObj)
+                                solutionObjectList.push(...solutionsForTask)
+                            }
+                        }
+
+                        //* Create Lesson Object
+                        const lessonObj = new LessonModel(
+                            lesson.id,
+                            lesson.name,
+                            lesson.title,
+                            taskListForLesson || [],
+                            lesson.available
+                        )
+                        lessonObjectList.push(lessonObj)
+                        taskObjectList.push(...taskListForLesson)
+                    }
                 })
             }
             return {

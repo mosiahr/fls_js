@@ -22,11 +22,8 @@ export default class TaskController extends Controller {
         super(page, objData)
         this.id = id
         this.solutionId = solutionId
-        this.taskData = objData.getFromAvailable(id - 1)
+        this.taskData = objData.get(id - 1)
         this.taskListData = objData.allAvailable()
-
-        console.log(objData.allAvailable())
-
         // console.log(this.taskListData)
         // console.log(this.taskData)
     }
