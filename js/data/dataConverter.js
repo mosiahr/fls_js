@@ -14,12 +14,15 @@ export default class DataConverter {
                     }
                 })
             }
+            // console.log(data.lessons)
+
             return data
         } catch (error) {
             console.log(error)
         }
     }
-    static convertData(dataWithTaskId) {
+    static filterAvailableElements() {}
+    static convertData(dataWithoutTaskId) {
         try {
             const lessonObjectList = []
             const taskObjectList = []
@@ -27,7 +30,7 @@ export default class DataConverter {
             let nextSolutionID = 0
 
             //* Add id to every task
-            const data = DataConverter.addTaskId(dataWithTaskId)
+            const data = DataConverter.addTaskId(dataWithoutTaskId)
 
             if (data.hasOwnProperty("lessons")) {
                 data.lessons.forEach((lesson) => {

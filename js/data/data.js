@@ -7,6 +7,7 @@ class QueryArray extends Array {
         this._array = array
         // this._array = array.filter((el) => el instanceof className)
     }
+
     get(id) {
         try {
             return this._array.find((item) => item.id === id)
@@ -14,8 +15,22 @@ class QueryArray extends Array {
             console.log(error)
         }
     }
+
+    getFromAvailable(id) {
+        try {
+            // return this._array.find((item) => item.id === id)
+            return this.allAvailable().find((item) => item.id === id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     all() {
         return this._array
+    }
+
+    allAvailable() {
+        return this._array.filter((el) => el.available === true)
     }
 }
 

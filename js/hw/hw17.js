@@ -555,6 +555,17 @@ class Warehouse {
         }
     }
 
+    filterByCompanyName(companyName) {
+        try {
+            return this._products.filter((product) => {
+                // console.log(product.company.name === companyName)
+                return product.company.name === companyName
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     toString() {
         try {
             const res = []
@@ -698,18 +709,34 @@ export function task4_17() {
     const screenshot2 = warehouse.toString()
 
     //* Filter by product title
-    console.log(warehouse.filterByProductTitle("Extra Virgin Olive Oil"))
-
+    // console.log(warehouse.filterByProductTitle("Extra Virgin Olive Oil"))
     const warehouseForFilterByProductTitle = new Warehouse(
-        "Super Store After Shipment of goods and filter by Product title"
+        "super store after shipment of goods and filter by product title"
     )
     warehouseForFilterByProductTitle.addProducts(
         ...warehouse.filterByProductTitle("Extra Virgin Olive Oil")
     )
     const screenshot3 = warehouseForFilterByProductTitle.toString()
 
+    //* Filter by company name
+    const warehouseForFilterByCompanyName = new Warehouse(
+        "super store after shipment of goods and filter by company name"
+    )
+    warehouseForFilterByCompanyName.addProducts(
+        ...warehouse.filterByCompanyName("Tesco")
+    )
+    const screenshot4 = warehouseForFilterByCompanyName.toString()
+
     Product.nextId = null
-    return screenshot1 + "<br><br>" + screenshot2 + "<br><br>" + screenshot3
+    return (
+        screenshot1 +
+        "<br><br>" +
+        screenshot2 +
+        "<br><br>" +
+        screenshot3 +
+        "<br><br>" +
+        screenshot4
+    )
 }
 
 task4_17.solutionParams = {

@@ -25,7 +25,7 @@ export default class App {
 
     initRoute() {
         window.addEventListener("hashchange", () => {
-            console.log("hashchange")
+            // console.log("hashchange")
             const hash = window.location.hash
             this.goTo(hash)
         })
@@ -65,7 +65,7 @@ export default class App {
 
 	goTo(path, addToState = false) {
         try {
-            console.log(`goTo(${path}) ${path.match("#")}`)
+            // console.log(`goTo(${path}) ${path.match("#")}`)
             const [route, id, solutionId] = path.match("#")
                 ? this._router.getRoute(path.replace("#", ""))
                 : this._router.getRoute(path)
