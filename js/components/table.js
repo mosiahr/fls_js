@@ -30,14 +30,14 @@ export default function table(headers = [], arrayOfArray, caption = "") {
             // the end of the table row
             const cell = document.createElement("td")
             const cellText = document.createTextNode(arrayOfArray[i][j])
-            cell.appendChild(cellText)
-            row.appendChild(cell)
+            cell.append(cellText)
+            row.append(cell)
         }
 
         // add the row to the end of the table body
-        tableBody.appendChild(row)
+        tableBody.append(row)
     }
 
-    table.appendChild(tableBody)
+    table.append(tableBody)
     return table
 }

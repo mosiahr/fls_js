@@ -1,4 +1,8 @@
-import { getNumbersFromCurrentFileName, getRandomNumber } from "../utils.js"
+import {
+    getNumbersFromCurrentFileName,
+    getRandomNumber,
+    toUpperCaseFirstLetterEveryWord,
+} from "../utils.js"
 import { table } from "../components/index.js"
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
@@ -653,19 +657,21 @@ export function task4_17() {
         companyLicenceNumber: getRandomNumber(100000, 200000),
     })
 
+    //* product7 object will not add, because that product with  title: "Yogurt"
+    //* and company: "SuperValu" already are existing. But them property "amount" are adding.
     const product7 = new Product({
-        title: "Digestives",
-        amount: 79,
-        unit: "PK",
-        companyName: "Lidl",
-        companyLicenceNumber: getRandomNumber(100000, 200000),
-    })
-
-    const product8 = new Product({
         title: "Yogurt",
         amount: 100,
         unit: "PK",
         companyName: "SuperValu",
+        companyLicenceNumber: getRandomNumber(100000, 200000),
+    })
+
+    const product8 = new Product({
+        title: "Digestives",
+        amount: 79,
+        unit: "PK",
+        companyName: "Lidl",
         companyLicenceNumber: getRandomNumber(100000, 200000),
     })
 
@@ -747,7 +753,11 @@ task4_17.solutionParams = {
         "\n\n" +
         Warehouse.toString() +
         "\n\n" +
-        task4_17.toString(),
+        task4_17.toString() +
+        "\n\n" +
+        toUpperCaseFirstLetterEveryWord.toString() +
+        "\n\n" +
+        table.toString(),
     name: "",
     title: "",
     lesson,
