@@ -13,7 +13,7 @@ export default function table(headers = [], arrayOfArray, caption = "") {
         let headerRow = header.insertRow(0)
 
         for (let i = 0; i < headers.length; i++) {
-            headerRow.insertCell(i).innerHTML = headers[i]
+            headerRow.insertCell(i).innerHTML = headers[i].toUpperCase()
         }
     }
 

@@ -197,14 +197,23 @@ class Reminder {
         this.#delay = value
     }
 
+    createNotice(message, className) {
+        const divSolutionResult = document.getElementById("solution__result")
+        const note = document.createElement("div")
+        note.className = className
+        note.innerHTML = message
+        return this.render(divSolutionResult, note)
+    }
+
     startRemind() {
+        setTimeout(() => this.createNotice("START", "test-start"), 1000)
+
         this.timeoutID = setInterval(() => {
-            const divSolutionResult =
-                document.getElementById("solution__result")
-            const note = document.createElement("div")
-            note.className = "solution-notice"
-            note.textContent = `${Reminder.count++ + 1}  ${this.message}`
-            return this.render(divSolutionResult, note)
+            this.createNotice(
+                `${Reminder.count++ + 1}  ${this.message}`,
+                "solution-notice"
+            )
+            console.log("hi")
         }, this.delay)
     }
 
@@ -223,33 +232,23 @@ class Reminder {
 
 export function task3_17() {
     const reminder1 = new Reminder("Get Up!", 1000)
-    const reminder2 = new Reminder("Hey!", 1000)
+    const reminder2 = new Reminder("Hey!", 2000)
     // console.log(reminder1 === reminder2)
 
     reminder1.startRemind()
-    setTimeout(() => (reminder1.message = "You're Late!"), 5000)
+    setTimeout(() => (reminder1.message = "You may be late!"), 3000)
+    setTimeout(() => (reminder1.message = "How long can you sleep?!"), 5000)
+    setTimeout(() => (reminder1.message = "You're Late!"), 7000)
+    setTimeout(() => (reminder1.message = "Сan sleep more!"), 9000)
     setTimeout(() => reminder1.stopRemind(), 10000)
 
     Reminder.count = null
     Reminder.tickerRef = null
-
-    return "Start"
+    return " "
 }
 
 task3_17.solutionParams = {
-    code:
-        Reminder.toString() +
-        "\n\n" +
-        `const reminder1 = new Reminder("Get Up!", 1000)
-const reminder2 = new Reminder("Hey!", 1000)
-// console.log(reminder1 === reminder2)
-
-reminder1.startRemind()
-setTimeout(() => (reminder1.message = "You're Late!"), 5000)
-setTimeout(() => reminder1.stopRemind(), 10000)
-
-Reminder.count = null
-Reminder.tickerRef = null`,
+    code: Reminder.toString() + "\n\n" + task3_17.toString(),
     name: "",
     title: "",
     lesson,
@@ -259,9 +258,9 @@ Reminder.tickerRef = null`,
 }
 
 //* =========================  Task #4  ===========================
-// Склад. База товарів, які зберігаються на складі: назва товару, одиниця виміру, кількість,
-// фірма виробник (назва, реєстраційний номер). Організувати реєстрацію/відвантаження товарів,
-// фільтрація за назвою товару, фільтрація за назвою фірми
+//* Склад. База товарів, які зберігаються на складі: назва товару, одиниця виміру, кількість,
+//* фірма виробник (назва, реєстраційний номер). Організувати реєстрацію/відвантаження товарів,
+//* фільтрація за назвою товару, фільтрація за назвою фірми
 
 class Company {
     _name
@@ -328,7 +327,7 @@ class Company {
     }
 
     toString() {
-        return `Company: ${this.name} / Licence #${this.licenceNumber}`
+        return `${this.constructor.name}(name = ${this.name}, licence = ${this.licenceNumber})`
     }
 }
 
@@ -576,10 +575,21 @@ class Warehouse {
             let headers
 
             if (this._products && this._products.length !== 0) {
-                headers = Object.getOwnPropertyNames(this._products[0])
+                const prodHeaders = Object.getOwnPropertyNames(
+                    this._products[0]
+                )
+                const prodHeadersWithoutCompany = prodHeaders.filter((el) =>
+                    el !== "company" ? el : ""
+                )
+                const compHeaders = Object.getOwnPropertyNames(
+                    this._products[0].company
+                )
+
+                headers = prodHeadersWithoutCompany.concat(compHeaders)
+                headers.concat(compHeaders)
+
                 headers.forEach(
-                    (el, i, arrRef) =>
-                        (arrRef[i] = el.replace("_", "").toUpperCase())
+                    (el, i, arrRef) => (arrRef[i] = el.replace("_", ""))
                 )
             } else {
                 headers = []
@@ -588,8 +598,10 @@ class Warehouse {
             for (const prod of this._products) {
                 const prodArr = []
 
-                for (const [_, value] of Object.entries(prod)) {
-                    prodArr.push(value)
+                for (const [key, value] of Object.entries(prod)) {
+                    if (key === "company") {
+                        prodArr.push(value.name, value.licenceNumber)
+                    } else prodArr.push(value)
                 }
                 res.push(prodArr)
             }
@@ -767,3 +779,365 @@ task4_17.solutionParams = {
 }
 
 //* =========================  Task #5  ===========================
+//* Дано два класи MultChecker (клас для перевірки таблиці множення - рандомно генеруються числа,
+//*  які треба перемножати), AddChecker (клас для перевірки додавання - рандомно генеруються числа
+//*  у заданому діапазоні, які треба додавати). Обидва класи надсилають результати тестування обʼєкту
+//*  класу History, який зберігає історію тестування у масиві у вигляді обʼєктів
+
+//* Приклад.
+//* testsList=[{firstNum:1, secondNum:5,opration:'**', userAnswer:7, correctAnswer:5},
+//*  {firstNum:3, secondNum:4,opration:'+', userAnswer:7, correctAnswer:7}]
+
+//* Можна створити окремий клас TestData, який описує один такий тест і у якому будуть ці поля.
+//*  Розробити клас TestManager, який використовуючи ці класи за допомогою таймера періодично
+//* генерує якісь N задач (рандомно вибираємо, що опитувати: додавання чи множення)
+//*  і проводить опитування. Результати тестування додаються в обʼєкт History Зробити так,
+//* щоб обʼєкт такого класу можна було створити тільки один. Коли зроблено ці N задач вивести усю
+//* історію на екран.
+
+class MultChecker {
+    static multiply(firstNum, secondNum) {
+        return parseInt(firstNum) * parseInt(secondNum)
+    }
+}
+
+class AddChecker {
+    static add(firstNum, secondNum) {
+        return parseInt(firstNum) + parseInt(secondNum)
+    }
+}
+
+class TestData {
+    _firstNum
+    _secondNum
+    _operation
+    _userAnswer
+    _correctAnswer = 0
+
+    constructor(firstNum, secondNum, operation) {
+        this.firstNum = firstNum
+        this.secondNum = secondNum
+        this.operation = operation
+        // this.userAnswer = userAnswer
+        this.#addCorrectAnswer()
+    }
+
+    get firstNum() {
+        return this._firstNum
+    }
+
+    set firstNum(value) {
+        this._firstNum = parseInt(value)
+    }
+
+    get secondNum() {
+        return this._secondNum
+    }
+
+    set secondNum(value) {
+        this._secondNum = parseInt(value)
+    }
+
+    get operation() {
+        return this._operation
+    }
+
+    set operation(value) {
+        this._operation = value
+    }
+
+    get userAnswer() {
+        return this._userAnswer
+    }
+
+    set userAnswer(value) {
+        this._userAnswer = parseInt(value)
+    }
+
+    get correctAnswer() {
+        return this._correctAnswer
+    }
+
+    set correctAnswer(value) {
+        this._correctAnswer = value
+    }
+
+    #addCorrectAnswer() {
+        if (this.operation === "*") {
+            this._correctAnswer = MultChecker.multiply(
+                this._firstNum,
+                this._secondNum
+            )
+        } else if (this.operation === "+") {
+            this._correctAnswer = AddChecker.add(
+                this._firstNum,
+                this._secondNum
+            )
+        } else throw new Error("Operation can't another than '*' or '+'")
+    }
+
+    // toString() {
+    //     return `TestData(firstNum = ${this.firstNum}, secondNum = ${this.secondNum}, operation = ${this.operation}, userAnswer = ${this.userAnswer}, correctAnswer = ${this.correctAnswer})`
+    // }
+
+    toString() {
+        // const res = [
+        //     [this.firstNum, this.secondNum, this.operation, this.correctAnswer],
+        // ]
+        return `${this.firstNum} ${this.operation} ${this.secondNum} = ?`
+    }
+}
+
+class History {
+    // Singleton
+    static historyRef
+    static titleTable = "history of test data"
+
+    // Aggregation
+    #tests = []
+
+    constructor() {
+        if (History.historyRef) return History.historyRef
+
+        History.historyRef = this
+    }
+
+    get tests() {
+        return this.#tests
+    }
+
+    addTest(test) {
+        this.#tests.push(test)
+    }
+
+    toString() {
+        try {
+            // console.log(this.#tests[0][0])
+
+            const res = this.#tests.map((test, ind) => {
+                const taskStr = `${test.firstNum} ${test.operation} ${test.secondNum}`
+                return [
+                    ind + 1,
+                    taskStr,
+                    test.userAnswer,
+                    test.correctAnswer,
+                    test.userAnswer === test.correctAnswer,
+                ]
+            })
+
+            return table(
+                ["#", "Task", "User answer", "Correct answer", "Check"],
+                res,
+                History.titleTable
+            )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+class Timer {
+    _callback
+    _delay = 0
+    _amountRunCallback
+    _count = 0
+    _timeoutId = null
+
+    constructor(callback, delay, amountRunCallback, ...args) {
+        this.callback = callback
+        this.delay = delay
+        this.amountRunCallback = amountRunCallback
+        this.args = args
+    }
+
+    get callback() {
+        return this._callback
+    }
+
+    set callback(value) {
+        this._callback = value
+    }
+
+    get delay() {
+        return delay
+    }
+
+    set delay(value) {
+        this._delay = value
+    }
+
+    get amountRunCallback() {
+        return this._amountRunCallback
+    }
+
+    set amountRunCallback(value) {
+        this._amountRunCallback = value || Infinity
+    }
+
+    start() {
+        this._timeoutId = setInterval(
+            this.runCallback.bind(this),
+            this._delay,
+            ...this.args
+        )
+    }
+
+    stop() {
+        clearInterval(this._timeoutId)
+        this._timeoutId = null
+    }
+
+    runCallback() {
+        if (this.amountRunCallback === this._count) return this.stop()
+        this._callback()
+        this._count++
+    }
+}
+
+class TestManager {
+    taskList = []
+    #amountTaskInTest
+    #amountTest
+    #minNum = 0
+    #maxNum = 0
+    #taskCounter = 0
+
+    constructor(amountTaskInTest, amountTest, minNum, maxNum) {
+        this.amountTaskInTest = amountTaskInTest
+        this.amountTest = amountTest
+        this.minNum = minNum
+        this.maxNum = maxNum
+        this.history = new History()
+        this.timerForGenerateTasks = new Timer(
+            this.generateTest.bind(this),
+            1000,
+            this.#amountTest
+        )
+    }
+
+    get amountTaskInTest() {
+        return this.#amountTaskInTest
+    }
+
+    set amountTaskInTest(value) {
+        this.#amountTaskInTest = parseInt(value)
+    }
+
+    get amountTest() {
+        return this.amountTest
+    }
+
+    set amountTest(value) {
+        this.#amountTest = parseInt(value)
+    }
+
+    set minNum(value) {
+        this.#minNum = value
+    }
+
+    set maxNum(value) {
+        this.#maxNum = value
+    }
+
+    run() {
+        setTimeout(() => this.createNotice("START", "test-start"), 1000)
+        setTimeout(() => this.timerForGenerateTasks.start(), 1000)
+        this.runSurveyIntervalId = setInterval(() => this.runSurvey(), 1000)
+    }
+
+    runSurvey() {
+        if (!this.timerForGenerateTasks._timeoutId) {
+            clearInterval(this.runSurveyIntervalId)
+
+            for (const task of this.history.tests) {
+                const question = `${task.firstNum} ${task.operation} ${task.secondNum} = ?`
+                task.userAnswer = parseInt(prompt(question))
+            }
+            const divSolutionResult =
+                document.getElementById("solution__result")
+
+            return this.render(divSolutionResult, this.history.toString())
+        }
+    }
+
+    generateTest() {
+        const taskTest = []
+        for (let i = 0; i < this.#amountTaskInTest; i++) {
+            taskTest.push(
+                new TestData(
+                    this.getRandomNumber(this.#minNum, this.#maxNum),
+                    this.getRandomNumber(this.#minNum, this.#maxNum),
+                    this.getRandomOperation()
+                )
+            )
+        }
+
+        this.createNotice(
+            `Generating Test #${this.#taskCounter + 1} <br><br> ${taskTest.join(
+                "<br>"
+            )}`,
+            "solution-notice"
+        )
+        for (const test of taskTest) {
+            this.history.addTest(test)
+        }
+        this.#taskCounter++
+    }
+
+    createNotice(message, className) {
+        const divSolutionResult = document.getElementById("solution__result")
+        const note = document.createElement("div")
+        note.className = className
+        note.innerHTML = message
+        this.render(divSolutionResult, note)
+    }
+
+    render(domNode, domEl) {
+        try {
+            domNode.append(domEl)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    getRandomOperation() {
+        return Math.random() <= 0.5 ? "*" : "+"
+    }
+
+    getRandomNumber(minNumber, maxNumber) {
+        if (Number.isFinite(minNumber) && Number.isFinite(maxNumber)) {
+            return (
+                minNumber +
+                Math.floor(Math.random() * (maxNumber - minNumber + 1))
+            )
+        } else throw new Error("A minNumber and a maxNumber must be a number")
+    }
+}
+
+export function task5_17() {
+    const testManager = new TestManager(2, 3, 1, 10)
+    testManager.run()
+    return " "
+}
+task5_17.solutionParams = {
+    code:
+        MultChecker.toString() +
+        "\n\n" +
+        AddChecker.toString() +
+        "\n\n" +
+        TestData.toString() +
+        "\n\n" +
+        History.toString() +
+        "\n\n" +
+        Timer.toString() +
+        "\n\n" +
+        TestManager.toString() +
+        "\n\n" +
+        task5_17.toString(),
+    name: "",
+    title: "",
+    lesson,
+    task: 5,
+    params: [],
+    resultAsCode: false,
+}

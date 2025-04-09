@@ -477,6 +477,11 @@ li.reload img:hover {
     text-align: center;
     background: green;
 }
+.test-start {
+    color: #ef6d58;
+    font-weight: 700;
+    padding-block: 10px;
+}
 @media (max-width: 1400px) {
     .solution {
         grid-template-columns: 1fr;
