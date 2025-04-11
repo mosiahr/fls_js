@@ -1,6 +1,11 @@
 import { toUpperCaseFirstLetterEveryWord } from "../utils.js"
 
-export default function table(headers = [], arrayOfArray, caption = "") {
+export default function table(
+    headers = [],
+    arrayOfArray,
+    caption = "",
+    ...args
+) {
     const table = document.createElement("table")
 
     if (caption) {
@@ -19,22 +24,22 @@ export default function table(headers = [], arrayOfArray, caption = "") {
 
     const tableBody = document.createElement("tbody")
 
-    // creating all cells
     for (let i = 0; i < arrayOfArray.length; i++) {
-        // creates a table row
         const row = document.createElement("tr")
 
         for (let j = 0; j < arrayOfArray[i].length; j++) {
-            // Create a <td> element and a text node, make the text
-            // node the contents of the <td>, and put the <td> at
-            // the end of the table row
+            let cellText
             const cell = document.createElement("td")
-            const cellText = document.createTextNode(arrayOfArray[i][j])
+            if (arrayOfArray[i][j] instanceof Element) {
+                cellText = arrayOfArray[i][j]
+            } else {
+                cellText = document.createTextNode(arrayOfArray[i][j])
+            }
+
             cell.append(cellText)
             row.append(cell)
         }
 
-        // add the row to the end of the table body
         tableBody.append(row)
     }
 

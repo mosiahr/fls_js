@@ -1,9 +1,10 @@
+import { PROJECT_FOLDER } from "../config.js"
 import {
     getNumbersFromCurrentFileName,
     getRandomNumber,
     toUpperCaseFirstLetterEveryWord,
 } from "../utils.js"
-import { table } from "../components/index.js"
+import { createElem, table, check } from "../components/index.js"
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
 
@@ -818,7 +819,6 @@ class TestData {
         this.firstNum = firstNum
         this.secondNum = secondNum
         this.operation = operation
-        // this.userAnswer = userAnswer
         this.#addCorrectAnswer()
     }
 
@@ -876,14 +876,7 @@ class TestData {
         } else throw new Error("Operation can't another than '*' or '+'")
     }
 
-    // toString() {
-    //     return `TestData(firstNum = ${this.firstNum}, secondNum = ${this.secondNum}, operation = ${this.operation}, userAnswer = ${this.userAnswer}, correctAnswer = ${this.correctAnswer})`
-    // }
-
     toString() {
-        // const res = [
-        //     [this.firstNum, this.secondNum, this.operation, this.correctAnswer],
-        // ]
         return `${this.firstNum} ${this.operation} ${this.secondNum} = ?`
     }
 }
@@ -893,8 +886,10 @@ class History {
     static historyRef
     static titleTable = "history of test data"
 
+    NOTICE_NO_ANSWER = "No answer"
+
     // Aggregation
-    #tests = []
+    #tasks = []
 
     constructor() {
         if (History.historyRef) return History.historyRef
@@ -902,26 +897,32 @@ class History {
         History.historyRef = this
     }
 
-    get tests() {
-        return this.#tests
+    get tasks() {
+        return this.#tasks
     }
 
-    addTest(test) {
-        this.#tests.push(test)
+    addTest(task) {
+        this.#tasks.push(task)
     }
 
     toString() {
         try {
-            // console.log(this.#tests[0][0])
+            const res = this.#tasks.map((task, ind) => {
+                const taskStr = `${task.firstNum} ${task.operation} ${task.secondNum}`
+                const userAnswerStr = !isNaN(task.userAnswer)
+                    ? task.userAnswer
+                    : this.NOTICE_NO_ANSWER.toUpperCase()
+                const checkEl =
+                    task.userAnswer === task.correctAnswer
+                        ? check("green")
+                        : check("red")
 
-            const res = this.#tests.map((test, ind) => {
-                const taskStr = `${test.firstNum} ${test.operation} ${test.secondNum}`
                 return [
                     ind + 1,
                     taskStr,
-                    test.userAnswer,
-                    test.correctAnswer,
-                    test.userAnswer === test.correctAnswer,
+                    userAnswerStr,
+                    task.correctAnswer,
+                    checkEl,
                 ]
             })
 
@@ -995,7 +996,8 @@ class Timer {
 }
 
 class TestManager {
-    taskList = []
+    NOTICE_START_TESTS = "Generating tests"
+    testList = []
     #amountTaskInTest
     #amountTest
     #minNum = 0
@@ -1040,7 +1042,14 @@ class TestManager {
     }
 
     run() {
-        setTimeout(() => this.createNotice("START", "test-start"), 1000)
+        setTimeout(
+            () =>
+                this.createNotice(
+                    this.NOTICE_START_TESTS.toUpperCase(),
+                    "test-start"
+                ),
+            500
+        )
         setTimeout(() => this.timerForGenerateTasks.start(), 1000)
         this.runSurveyIntervalId = setInterval(() => this.runSurvey(), 1000)
     }
@@ -1049,10 +1058,14 @@ class TestManager {
         if (!this.timerForGenerateTasks._timeoutId) {
             clearInterval(this.runSurveyIntervalId)
 
-            for (const task of this.history.tests) {
-                const question = `${task.firstNum} ${task.operation} ${task.secondNum} = ?`
-                task.userAnswer = parseInt(prompt(question))
+            for (const test of this.testList) {
+                for (const task of test) {
+                    const question = `${task.firstNum} ${task.operation} ${task.secondNum} = ?`
+                    task.userAnswer = parseInt(prompt(question))
+                    this.history.addTest(task)
+                }
             }
+
             const divSolutionResult =
                 document.getElementById("solution__result")
 
@@ -1073,14 +1086,11 @@ class TestManager {
         }
 
         this.createNotice(
-            `Generating Test #${this.#taskCounter + 1} <br><br> ${taskTest.join(
-                "<br>"
-            )}`,
+            `Test #${this.#taskCounter + 1} <br><br> ${taskTest.join("<br>")}`,
             "solution-notice"
         )
-        for (const test of taskTest) {
-            this.history.addTest(test)
-        }
+
+        this.testList.push(taskTest)
         this.#taskCounter++
     }
 
@@ -1117,6 +1127,7 @@ class TestManager {
 export function task5_17() {
     const testManager = new TestManager(2, 3, 1, 10)
     testManager.run()
+    testManager.history.tasks.length = 0
     return " "
 }
 task5_17.solutionParams = {
