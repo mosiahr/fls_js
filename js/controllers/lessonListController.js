@@ -1,16 +1,30 @@
+import { PROJECT_FOLDER } from "../config.js"
 import { Page } from "../pages/index.js"
 import Controller from "./controller.js"
-import { createElem, createList } from "../components/index.js"
+import { createElem, createList, Breadcrumb } from "../components/index.js"
 
 export default class LessonListController extends Controller {
     constructor(page, objData) {
         super(page, objData)
+        this._lessonListPage = new this.page()
+        this._lessonListPage.breadcrumb = this.#createBreadcrumb()
+    }
+
+    #createBreadcrumb() {
+        return new Breadcrumb([
+            {
+                href: `/${PROJECT_FOLDER}/`,
+                title: "Home",
+            },
+            {
+                title: "Lessons",
+            },
+        ])
     }
 
     show() {
-        const lessonListPage = new this.page()
-        lessonListPage.updatePageElements(this.createLessonList())
-        return lessonListPage.getHTML()
+        this._lessonListPage.updatePageElements(this.createLessonList())
+        return this._lessonListPage.getHTML()
     }
 
     createHeading() {

@@ -4,19 +4,17 @@ import {
     createFooter,
     createHeader,
     createLogo,
+    Breadcrumb,
 } from "../components/index.js"
-import { MAIN_HEADER_TITLE, FOOTER_INFO } from "../config.js"
+import { PROJECT_FOLDER, MAIN_HEADER_TITLE, FOOTER_INFO } from "../config.js"
 
 export default class Page extends BasicPage {
     constructor(...args) {
-        const header = createHeader(
-            createLogo(),
-            createElem("h1", MAIN_HEADER_TITLE)
-        )
-        const footer = createFooter(FOOTER_INFO)
         super(...args)
-        this.header = args[0] || header
-        this.footer = args[1] || footer
+        this.header =
+            args[0] ||
+            createHeader(createLogo(), createElem("h1", MAIN_HEADER_TITLE))
+        this.footer = args[1] || createFooter(FOOTER_INFO)
         this.pageElements = args || []
     }
 

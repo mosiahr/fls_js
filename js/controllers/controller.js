@@ -37,4 +37,12 @@ export default class Controller {
             console.log(error)
         }
     }
+
+    getRoute() {
+        return this.state?.route
+    }
+
+    getPattern() {
+        return this.state?.route?.pattern
+    }
 }

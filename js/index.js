@@ -1,20 +1,18 @@
 import hljs  from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/es/highlight.min.js';
 import javascript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/es/languages/javascript.min.js';
 // import javascript from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/javascript.min.js';
-
-
-hljs.registerLanguage('javascript', javascript);
-
-
 import App from "./App.js"
 import { routes } from "./routes/routes.conf.js"
 import data from "../data.json" with { type: "json" }
 
-export const app = new App(document.getElementById("root"), routes, data)
 
+export const app = new App(document.getElementById("root"), routes, data)
 app.initRoute()
 app.initLoadPage()
 // app.initClick()
+
+hljs.registerLanguage('javascript', javascript)
+export { hljs }
 
 // Explanation: Let’s break down what each folder and file is used for.
 // /assets: This folder holds all the static files for your project, like images, logos, fonts, and favicons.
@@ -27,4 +25,3 @@ app.initLoadPage()
 // App.js: The main component of your application. It acts as the central hub that connects all your components and pages.
 // index.js: The entry point of your React app. It initializes the app and mounts it to the root element in your HTML file.
 // index.css: The global stylesheet for your app. Any styles you write here will apply across the entire project.
-export { hljs }

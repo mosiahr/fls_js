@@ -6,9 +6,11 @@ import {
     codeEl,
     messageNotFound,
     arrow,
+    Breadcrumb,
 } from "../components/index.js"
 import { runWithConfirmStart } from "../utils.js"
 import {
+    PROJECT_FOLDER,
     NOT_FOUND_SOLUTION,
     DONT_HAVE_SOLUTION_RESULT_MESSAGE,
 } from "../config.js"
@@ -24,8 +26,33 @@ export default class TaskController extends Controller {
         this.solutionId = solutionId
         this.taskData = objData.get(id - 1)
         this.taskListData = objData.allAvailable()
+
+        this.taskPage = new this.page()
         // console.log(this.taskListData)
         // console.log(this.taskData)
+        this.taskPage.breadcrumb = this.#createBreadcrumb()
+    }
+
+    #createBreadcrumb() {
+        return new Breadcrumb([
+            {
+                href: `/${PROJECT_FOLDER}/`,
+                title: "Home",
+            },
+            {
+                href: `/${PROJECT_FOLDER}/#/lessons`,
+                title: "Lessons",
+            },
+            {
+                href: `/${PROJECT_FOLDER}/#/lessons/${
+                    this.taskData.lessonId + 1
+                }`,
+                title: `Lesson ${this.taskData.lessonId + 1}`,
+            },
+            {
+                title: this.taskData.name,
+            },
+        ])
     }
 
     get id() {
@@ -58,10 +85,9 @@ export default class TaskController extends Controller {
 
     show() {
         if (!this.#taskData) throw new Error("Task Data doesn't exist!")
-        const taskPage = new this.page()
 
         if (this.id > 1) {
-            taskPage.updatePageElements(
+            this.taskPage.updatePageElements(
                 arrow(
                     `#/tasks/${this.id - 1}/`,
                     "./img/arrow-left.svg",
@@ -72,7 +98,7 @@ export default class TaskController extends Controller {
         }
 
         if (this.id < this.objData.all().length) {
-            taskPage.updatePageElements(
+            this.taskPage.updatePageElements(
                 arrow(
                     `#/tasks/${this.id + 1}/`,
                     "./img/arrow-right.svg",
@@ -82,7 +108,7 @@ export default class TaskController extends Controller {
             )
         }
 
-        taskPage.updatePageElements(
+        this.taskPage.updatePageElements(
             pageTitle(
                 this.#taskData?.name,
                 `Lesson #${this.#taskData?.lessonId + 1}`,
@@ -100,14 +126,14 @@ export default class TaskController extends Controller {
                 "button",
                 "button--hover-purple-background"
             )
-            taskPage.updatePageElements(btn?.outerHTML)
-            taskPage.updatePageElements(this.showSolutionCode().outerHTML)
+            this.taskPage.updatePageElements(btn?.outerHTML)
+            this.taskPage.updatePageElements(this.showSolutionCode().outerHTML)
             // taskPage.updatePageElements(this.showSolutionResult().outerHTML)
         } else
-            taskPage.updatePageElements(
+            this.taskPage.updatePageElements(
                 messageNotFound(NOT_FOUND_SOLUTION).outerHTML
             )
-        return taskPage.getHTML()
+        return this.taskPage.getHTML()
     }
 
     // TODO: If it is multiple solutions, need to implement them
@@ -185,9 +211,5 @@ export default class TaskController extends Controller {
         //         // this.render(document.getElementById("root"), this.show())
         //     })
         // }
-    }
-
-    getPattern() {
-        return this.state?.route?.pattern
     }
 }

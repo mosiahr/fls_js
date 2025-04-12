@@ -1,12 +1,16 @@
 import { hljs } from "../index.js"
 
 export default class BasicPage {
-    constructor(header, footer, ...pageElements) {
+    constructor(header, breadcrumb = "", footer, ...pageElements) {
         this.header = header
+        this.breadcrumb = breadcrumb
         this.footer = footer
         this.pageElements = pageElements
     }
     getHTML() {
+        const breadcrumb = this.breadcrumb
+            ? this.breadcrumb?.getBreadcrumbElement?.outerHTML
+            : ""
         return `
 			<body>
 				<div class="wrapper">
@@ -14,6 +18,7 @@ export default class BasicPage {
 					<main class="page">
 						<div class="page__container">
 								<div class="page-block">
+									${breadcrumb}
 									${this.pageElements.join("")}
 								</div>
 						</div>

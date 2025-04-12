@@ -1,7 +1,9 @@
-import { NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT } from "../config.js"
+import {
+    PROJECT_FOLDER,
+    NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT,
+} from "../config.js"
 import { Page } from "../pages/index.js"
 import { taskCard } from "../components/index.js"
-
 import { limitString } from "../utils.js"
 import Controller from "./controller.js"
 import {
@@ -9,6 +11,7 @@ import {
     createList,
     createTask,
     pageTitle,
+    Breadcrumb,
 } from "../components/index.js"
 
 export default class LessonController extends Controller {
@@ -16,16 +19,33 @@ export default class LessonController extends Controller {
         super(page, objData)
         this._id = id
         this._lessonData = objData.get(id - 1)
+        this.lessonPage = new this.page()
+        this.lessonPage.breadcrumb = this.#createBreadcrumb()
+    }
+
+    #createBreadcrumb() {
+        return new Breadcrumb([
+            {
+                href: `/${PROJECT_FOLDER}/`,
+                title: "Home",
+            },
+            {
+                href: `/${PROJECT_FOLDER}/#/lessons`,
+                title: "Lessons",
+            },
+            {
+                title: this._lessonData._name,
+            },
+        ])
     }
 
     show() {
-        const lessonPage = new this.page()
-        lessonPage.updatePageElements(
+        this.lessonPage.updatePageElements(
             pageTitle(this._lessonData.name, "", "", this._lessonData.title)
                 ?.outerHTML
         )
-        lessonPage.updatePageElements(this.createTaskList())
-        return lessonPage.getHTML()
+        this.lessonPage.updatePageElements(this.createTaskList())
+        return this.lessonPage.getHTML()
     }
 
     createTaskList() {
@@ -48,12 +68,5 @@ export default class LessonController extends Controller {
             }
         }
         return createList(taskArr, "page__list")
-
-        // <li>
-        // 	<h3>Task 1</h3>
-        // 	<p>Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці</p>
-        // 	<a class="button button--hover-purple-background"
-        // 		href="./tasks/task1.html"><span>Solution</span></a>
-        // </li>
     }
 }

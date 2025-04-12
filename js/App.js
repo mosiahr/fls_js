@@ -100,9 +100,6 @@ export default class App {
             this.state.controller.render(this._rootElement, notFoundPage.getHTML())
         }
     }
-	nextItem() {
-
-	}
 
     addPathToState(path) {
         try {
