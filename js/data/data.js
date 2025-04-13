@@ -1,5 +1,5 @@
 import DataConverter from "./dataConverter.js"
-import { LessonModel, TaskModel, SolutionModel } from "./index.js"
+import { LessonModel, TaskModel, SolutionModel, TagModel } from "./index.js"
 
 class QueryArray extends Array {
     constructor(array) {
@@ -38,10 +38,11 @@ export default class Data {
     #data
     constructor(data) {
         this.#data = data
-        this._resObjectArr = this.#getObjectData()
-        this._lessons = this._resObjectArr.lessons || []
-        this._tasks = this._resObjectArr.tasks || []
-        this._solutions = this._resObjectArr.solutions || []
+        this._objectData = this.#getObjectData()
+        this._lessons = this._objectData.lessons || []
+        this._tasks = this._objectData.tasks || []
+        this._solutions = this._objectData.solutions || []
+        this._tags = this._objectData.tags || []
     }
 
     get data() {
@@ -49,7 +50,7 @@ export default class Data {
     }
 
     get objects() {
-        return this._resObjectArr
+        return this._objectData
     }
 
     #getObjectData() {
@@ -60,9 +61,10 @@ export default class Data {
         if (dataClass === LessonModel) return new QueryArray(this._lessons)
         if (dataClass === TaskModel) return new QueryArray(this._tasks)
         if (dataClass === SolutionModel) return new QueryArray(this._solutions)
+        if (dataClass === TagModel) return new QueryArray(this._tags)
     }
 
-    all() {
-        return this._resObjectArr
-    }
+    // all() {
+    //     return this._objectData
+    // }
 }

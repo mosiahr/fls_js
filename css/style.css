@@ -175,7 +175,7 @@ td {
     background-color: rgb(253, 240, 233);
     padding-block: 20px;
     color: rgb(57, 20, 0);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 800;
     padding-inline: 20px;
     white-space: pre-wrap;
@@ -245,7 +245,7 @@ td {
     row-gap: 10px;
 }
 
-.item-homework,
+.item-task,
 .item-lesson {
     display: flex;
     flex-wrap: wrap;
@@ -259,11 +259,11 @@ td {
     transition: all 0.3s;
     min-height: 100%;
 }
-.item-homework p {
+.item-task p {
     white-space: pre-wrap;
 }
 
-.item-homework:hover,
+.item-task:hover,
 .item-lesson:hover {
     background-color: var(--primary-color);
     color: #fff;
@@ -508,7 +508,7 @@ li.reload img:hover {
 
 @media (max-width: 1069.98px) {
     .page-block__title {
-        font-size: 20px;
+        font-size: 18px;
     }
     .page-block__title h5 {
         font-size: 16px;
@@ -527,7 +527,7 @@ li.reload img:hover {
     }
 
     .page-block__title {
-        font-size: 18px;
+        font-size: 16px;
     }
     .page-block__title h5 {
         font-size: 14px;

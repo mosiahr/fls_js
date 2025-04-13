@@ -1,4 +1,4 @@
-import { LessonModel, TaskModel, SolutionModel } from "./index.js"
+import { LessonModel, TaskModel, SolutionModel, TagModel } from "./index.js"
 import { getRandomNumber, getNumbersFromCurrentFileName } from "../utils.js"
 import * as hw from "../hw/index.js"
 
@@ -13,13 +13,12 @@ export default class DataConverter {
                         for (const task of lesson["tasks"]) {
                             if (task.available === true) {
                                 task["id"] = nextTaskId++
+                                if (!task.tags) task["tags"] = []
                             }
                         }
                     }
                 })
             }
-            // console.log(data.lessons)
-
             return data
         } catch (error) {
             console.log(error)
@@ -31,10 +30,13 @@ export default class DataConverter {
             const lessonObjectList = []
             const taskObjectList = []
             const solutionObjectList = []
+            const tagObjectList = []
             let nextSolutionID = 0
+            let nextTagId = 0
 
             //* Add id for every task
             const data = DataConverter.addTaskId(dataWithoutTaskId)
+            // console.log(data)
 
             if (data.hasOwnProperty("lessons")) {
                 data.lessons.forEach((lesson) => {
@@ -42,19 +44,18 @@ export default class DataConverter {
                         const taskListForLesson = []
 
                         for (const {
-                            id,
+                            id: taskId,
                             name,
                             description,
                             solutions,
                             available,
+                            tags,
                         } of lesson["tasks"]) {
                             if (available) {
                                 const solutionsForTask = []
 
                                 //* Create Solution Object
                                 for (const [_, func] of Object.entries(hw)) {
-                                    // console.log(func.name)
-
                                     if (
                                         func.solutionParams?.lesson - 1 ===
                                         lesson.id
@@ -64,7 +65,7 @@ export default class DataConverter {
                                                 func.solutionParams?.task - 1
                                             ]
 
-                                        if (taskFound.id === id) {
+                                        if (taskFound.id === taskId) {
                                             const solution = new SolutionModel(
                                                 nextSolutionID++,
                                                 func.solutionParams?.name,
@@ -83,14 +84,32 @@ export default class DataConverter {
                                     }
                                 }
 
+                                const tagsForTask = []
+
+                                //* Create Tag Object
+                                if (tags) {
+                                    for (const tag of tags) {
+                                        const tagObj = new TagModel(
+                                            nextTagId++,
+                                            tag.name,
+                                            tag.description,
+                                            taskId,
+                                            tag.available
+                                        )
+                                        tagsForTask.push(tagObj)
+                                    }
+                                    tagObjectList.push(...tagsForTask)
+                                }
+
                                 //* Create Task Object
                                 const taskObj = new TaskModel(
-                                    id,
+                                    taskId,
                                     name,
                                     description,
                                     lesson.id,
                                     solutionsForTask,
-                                    available
+                                    available,
+                                    tagsForTask
                                 )
                                 taskListForLesson.push(taskObj)
                                 solutionObjectList.push(...solutionsForTask)
@@ -114,6 +133,7 @@ export default class DataConverter {
                 lessons: lessonObjectList,
                 tasks: taskObjectList,
                 solutions: solutionObjectList,
+                tags: tagObjectList,
             }
         } catch (error) {
             console.log(error)

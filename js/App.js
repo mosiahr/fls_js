@@ -11,7 +11,7 @@ export default class App {
         this._router = new Router(routes)
 		this._objData = new Data(data)
 		this._objectsData = this.getObjectsData()
-		// console.log(this._objectsData);
+		console.log(this._objectsData);
 		
     }
 
@@ -74,7 +74,7 @@ export default class App {
                 if (addToState) this.addPathToState(path)
 				this.state.route = route
 				// console.log(this.state);
-
+				
 				const controller = 
 					new route.controller(
 						Page,

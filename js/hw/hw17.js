@@ -214,7 +214,6 @@ class Reminder {
                 `${Reminder.count++ + 1}  ${this.message}`,
                 "solution-notice"
             )
-            console.log("hi")
         }, this.delay)
     }
 
@@ -996,7 +995,7 @@ class Timer {
 }
 
 class TestManager {
-    NOTICE_START_TESTS = "Generating tests"
+    NOTICE_START_TESTS = "Generating tests..."
     testList = []
     #amountTaskInTest
     #amountTest

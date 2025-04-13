@@ -66,6 +66,15 @@ export const getRandomNumberArrFromUser = (
 export const limitString = (str, numChar) =>
     str.substring(0, numChar) + (str.length > numChar ? "..." : "")
 
+export const truncateStringFullWords = (str, max, suffix) => {
+    return str.length < max
+        ? str
+        : `${str.substr(
+              0,
+              str.substr(0, max - suffix.length).lastIndexOf(" ")
+          )}${suffix}`
+}
+
 export const getCurrentFileName = (meta) => meta.url.split("/").at(-1)
 
 export const getNumbersFromCurrentFileName = (meta) => {

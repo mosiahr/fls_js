@@ -3,16 +3,10 @@ import {
     NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT,
 } from "../config.js"
 import { Page } from "../pages/index.js"
-import { taskCard } from "../components/index.js"
+import { TaskCard } from "../components/index.js"
 import { limitString } from "../utils.js"
 import Controller from "./controller.js"
-import {
-    createElem,
-    createList,
-    createTask,
-    pageTitle,
-    Breadcrumb,
-} from "../components/index.js"
+import { createList, pageTitle, Breadcrumb } from "../components/index.js"
 
 export default class LessonController extends Controller {
     constructor(page, objData, id) {
@@ -54,17 +48,15 @@ export default class LessonController extends Controller {
 
         for (const task of tasks) {
             if (task.available) {
-                const taskEl = taskCard(
-                    task.name,
-                    limitString(
-                        task.description,
-                        NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT
-                    ),
-                    `./#/tasks/${task.id + 1}`,
-                    [],
-                    ["item-homework"]
+                // const tagsAvailable =
+                console.log(task.tags)
+
+                const taskEl = new TaskCard(
+                    task,
+                    `./#/tasks/${task.id + 1}`
+                    // tag ? tag : ""
                 )
-                taskArr.push(taskEl.outerHTML)
+                taskArr.push(taskEl.getTaskCardElement.outerHTML)
             }
         }
         return createList(taskArr, "page__list")

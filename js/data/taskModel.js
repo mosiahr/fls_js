@@ -7,12 +7,14 @@ export default class TaskModel extends Model {
         description,
         lessonId,
         solutions = [],
-        available = true
+        available = true,
+        tags = []
     ) {
         super(id, name, available)
         this._description = description
         this._lessonId = lessonId
         this._solutions = solutions
+        this._tags = tags
     }
 
     get name() {
@@ -43,5 +45,11 @@ export default class TaskModel extends Model {
         this._solutions = value
     }
 
-    // updateSolutions() {}
+    get tags() {
+        return this._tags
+    }
+
+    set tags(value) {
+        this._tags = value
+    }
 }

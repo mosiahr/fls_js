@@ -29,7 +29,7 @@ export default class TaskController extends Controller {
 
         this.taskPage = new this.page()
         // console.log(this.taskListData)
-        // console.log(this.taskData)
+        // console.log(objData)
         this.taskPage.breadcrumb = this.#createBreadcrumb()
     }
 
@@ -183,12 +183,18 @@ export default class TaskController extends Controller {
         solutionResultDiv.childNodes.forEach((elem) => elem.remove())
     }
 
+    runSolution() {
+        if (confirm("-= START TEST? =-")) {
+            this.clearSolutionResult()
+            this.showSolutionResult()
+        }
+    }
+
     initClick() {
         const buttonStartTest = document.querySelector("#start-test-button")
         buttonStartTest?.addEventListener("click", (e) => {
             e.preventDefault()
-            this.clearSolutionResult()
-            this.showSolutionResult()
+            this.runSolution()
         })
 
         // const buttonPreviousLink = document.querySelector(".link--previous")
