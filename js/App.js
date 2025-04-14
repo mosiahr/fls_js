@@ -69,9 +69,6 @@ export default class App {
             const [route, id, solutionId] = path.match("#")
                 ? this._router.getRoute(path.replace("#", ""))
                 : this._router.getRoute(path)
-
-			console.log(route, id, solutionId);
-			
 			
             if (route) {
                 if (addToState) this.addPathToState(path)
