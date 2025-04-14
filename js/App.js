@@ -69,6 +69,9 @@ export default class App {
             const [route, id, solutionId] = path.match("#")
                 ? this._router.getRoute(path.replace("#", ""))
                 : this._router.getRoute(path)
+
+			console.log(route, id, solutionId);
+			
 			
             if (route) {
                 if (addToState) this.addPathToState(path)
@@ -96,8 +99,8 @@ export default class App {
                 this.state.controller.render(this._rootElement, notFoundPage.getHTML())
             }
         } catch (error) {
-            console.log(error)
-            this.state.controller.render(this._rootElement, notFoundPage.getHTML())
+            // console.log(error)
+            this.render(this._rootElement, notFoundPage.getHTML())
         }
     }
 
@@ -105,6 +108,14 @@ export default class App {
         try {
             window.history.pushState({ pathname: path }, "", path)
             console.log("pushState()", window.history)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+	render(domEl, html) {
+        try {
+            domEl.innerHTML = html
         } catch (error) {
             console.log(error)
         }

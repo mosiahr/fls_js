@@ -11,8 +11,10 @@ export const routes = {
     home: new Route(
         new RegExp(
             `^\/?$|^\/${PROJECT_FOLDER}\/?$|^\/${PROJECT_FOLDER}\/index\.html$`
-        )
-        // homePage
+        ),
+        null,
+        TaskModel,
+        false
     ),
     lessons: new Route(
         new RegExp(/^\/lessons\/?$/),
@@ -25,12 +27,7 @@ export const routes = {
         LessonController,
         LessonModel
     ),
-    tasks: new Route(
-        new RegExp(/^\/tasks\/?$/),
-        // "tasksPage",
-        TaskModel,
-        false
-    ),
+    tasks: new Route(new RegExp(/^\/tasks\/?$/), null, TaskModel, false),
     task: new Route(
         new RegExp(
             /^\/tasks\/(?<id>[0-9]+)\/?(\/solutions\/(?<solutionId>[0-9]+)\/?)?$/
