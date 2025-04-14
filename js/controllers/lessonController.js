@@ -48,13 +48,14 @@ export default class LessonController extends Controller {
 
         for (const task of tasks) {
             if (task.available) {
-                // const tagsAvailable =
-                console.log(task.tags)
+                const tagNameListAvailable = task.tags.map((tag) => {
+                    if (tag.available) return tag.name
+                })
 
                 const taskEl = new TaskCard(
                     task,
-                    `./#/tasks/${task.id + 1}`
-                    // tag ? tag : ""
+                    `./#/tasks/${task.id + 1}`,
+                    tagNameListAvailable
                 )
                 taskArr.push(taskEl.getTaskCardElement.outerHTML)
             }
