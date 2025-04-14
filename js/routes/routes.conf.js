@@ -2,6 +2,7 @@ import Route from "./Route.js"
 import { PROJECT_FOLDER } from "../config.js"
 import { Data, LessonModel, TaskModel } from "../data/index.js"
 import {
+    HomePageController,
     LessonListController,
     LessonController,
     TaskController,
@@ -12,9 +13,9 @@ export const routes = {
         new RegExp(
             `^\/?$|^\/${PROJECT_FOLDER}\/?$|^\/${PROJECT_FOLDER}\/index\.html$`
         ),
-        null,
+        HomePageController,
         TaskModel,
-        false
+        true
     ),
     lessons: new Route(
         new RegExp(/^\/lessons\/?$/),

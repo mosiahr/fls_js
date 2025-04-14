@@ -1049,8 +1049,8 @@ class TestManager {
                 ),
             500
         )
-        setTimeout(() => this.timerForGenerateTasks.start(), 1000)
-        this.runSurveyIntervalId = setInterval(() => this.runSurvey(), 1000)
+        setTimeout(() => this.timerForGenerateTasks.start(), 500)
+        this.runSurveyIntervalId = setInterval(() => this.runSurvey(), 500)
     }
 
     runSurvey() {

@@ -8,7 +8,7 @@ export default function pageTitle(labelText1, labelText2, href, titleText) {
     const label2 = document.createElement("h5")
     const a = document.createElement("a")
     a.textContent = labelText2
-    a.href = href
+    if (href) a.href = href
     label2.appendChild(a)
 
     divLabel.append(label1, label2)

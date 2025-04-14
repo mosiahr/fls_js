@@ -1,7 +1,12 @@
 import { PROJECT_FOLDER } from "../config.js"
 import { Page } from "../pages/index.js"
 import Controller from "./controller.js"
-import { createElem, createList, Breadcrumb } from "../components/index.js"
+import {
+    pageTitle,
+    createElem,
+    createList,
+    Breadcrumb,
+} from "../components/index.js"
 
 export default class LessonListController extends Controller {
     constructor(page, objData) {
@@ -23,6 +28,9 @@ export default class LessonListController extends Controller {
     }
 
     show() {
+        this._lessonListPage.updatePageElements(
+            pageTitle("Home Works", "", "", "Lessons")?.outerHTML
+        )
         this._lessonListPage.updatePageElements(this.createLessonList())
         return this._lessonListPage.getHTML()
     }

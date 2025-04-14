@@ -99,7 +99,7 @@ export default class App {
                 this.state.controller.render(this._rootElement, notFoundPage.getHTML())
             }
         } catch (error) {
-            // console.log(error)
+            console.log(error)
             this.render(this._rootElement, notFoundPage.getHTML())
         }
     }
