@@ -20,7 +20,7 @@ export default class LessonController extends Controller {
     #createBreadcrumb() {
         return new Breadcrumb([
             {
-                href: `/${PROJECT_FOLDER}/`,
+                href: `/${PROJECT_FOLDER}/#`,
                 title: "Home",
             },
             {

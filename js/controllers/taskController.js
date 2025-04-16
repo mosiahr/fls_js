@@ -36,7 +36,7 @@ export default class TaskController extends Controller {
     #createBreadcrumb() {
         return new Breadcrumb([
             {
-                href: `/${PROJECT_FOLDER}/`,
+                href: `/${PROJECT_FOLDER}/#`,
                 title: "Home",
             },
             {
@@ -194,7 +194,8 @@ export default class TaskController extends Controller {
         const buttonStartTest = document.querySelector("#start-test-button")
         buttonStartTest?.addEventListener("click", (e) => {
             e.preventDefault()
-            this.runSolution()
+            // this.runSolution()
+            this.showSolutionResult()
         })
 
         // const buttonPreviousLink = document.querySelector(".link--previous")

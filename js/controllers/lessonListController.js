@@ -18,7 +18,7 @@ export default class LessonListController extends Controller {
     #createBreadcrumb() {
         return new Breadcrumb([
             {
-                href: `/${PROJECT_FOLDER}/`,
+                href: `/${PROJECT_FOLDER}/#`,
                 title: "Home",
             },
             {

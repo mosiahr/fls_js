@@ -17,10 +17,10 @@ export default class BasicPage {
 					${this.header}
 					<main class="page">
 						<div class="page__container">
-								<div class="page-block">
-									${breadcrumb}
-									${this.pageElements.join("")}
-								</div>
+							<div class="page-block">
+								${breadcrumb}
+								${this.pageElements.join("")}
+							</div>
 						</div>
 					</main>
 					${this.footer}

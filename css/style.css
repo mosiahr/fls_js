@@ -297,8 +297,12 @@ td {
     transition: all 0.3s;
     min-height: 100%;
 }
+
 .item-task p {
     white-space: pre-wrap;
+}
+.item-task {
+    align-items: start;
 }
 
 .item-task:hover,
@@ -583,11 +587,18 @@ li.reload img:hover {
     .page-block__title h5 {
         font-size: 16px;
     }
+
+    .page-block__label h5:last-child {
+        font-size: 26px;
+    }
 }
 
 @media (max-width: 991.98px) {
     .page__list {
         grid-template-columns: 1fr 1fr;
+    }
+    .page-block__label h5:last-child {
+        font-size: 24px;
     }
 }
 
@@ -601,6 +612,9 @@ li.reload img:hover {
     }
     .page-block__title h5 {
         font-size: 14px;
+    }
+    .page-block__label h5:last-child {
+        font-size: 22px;
     }
 
     .page__list {

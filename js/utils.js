@@ -94,11 +94,15 @@ export const getFunctionBody = (func) => {
 }
 
 export function toUpperCaseFirstLetterEveryWord(str) {
-    const strRes = str.toLowerCase()
-    const wordArr = strRes.split(" ")
-    wordArr.forEach(
-        (word, i, arrRef) =>
-            (arrRef[i] = word[0].toUpperCase() + word.substring(1))
-    )
-    return wordArr.join(" ")
+    try {
+        const strRes = str.toLowerCase()
+        const wordArr = strRes.split(" ")
+        wordArr.forEach(
+            (word, i, arrRef) =>
+                (arrRef[i] = word[0].toUpperCase() + word.substring(1))
+        )
+        return wordArr.join(" ")
+    } catch (error) {
+        console.log(error)
+    }
 }
