@@ -151,6 +151,8 @@ export default class TaskController extends Controller {
             this.#taskData.solutions[this.#solutionId]?.params
         const resultAsCode =
             this.#taskData.solutions[this.#solutionId]?.resultAsCode
+        // const initClick =
+        //     this.#taskData.solutions[this.#solutionId]?.initClickMethod
 
         let solutionResult
         if (solutionFunc && solutionParams)
@@ -162,21 +164,30 @@ export default class TaskController extends Controller {
             // console.log(solutionResult, newSolutionResult)
             return codeEl(newSolutionResult).outerHTML
         }
+
         return solutionResult
     }
 
     getSolutions = (id) => this.#taskData.solutions[id]?.code
 
-    showSolutionResult() {
+    renderSolutionResult() {
         const solutionResultDiv = document.querySelector("#solution__result")
         const solutionResult = this.getSolutionResult()
 
         if (solutionResult) {
             this.render(solutionResultDiv, solutionResult)
+            // this.initEventMethod()
         } else {
             this.render(solutionResultDiv, DONT_HAVE_SOLUTION_RESULT_MESSAGE)
         }
     }
+
+    // initEventMethod() {
+    // const initEventMethod =
+    // this.#taskData.solutions[this.#solutionId]?.initEventMethod
+    // if (initEventMethod) initEventMethod()
+    // console.log(initEventMethod.)
+    // }
 
     clearSolutionResult() {
         const solutionResultDiv = document.querySelector("#solution__result")
@@ -186,7 +197,7 @@ export default class TaskController extends Controller {
     runSolution() {
         if (confirm("-= START TEST? =-")) {
             this.clearSolutionResult()
-            this.showSolutionResult()
+            this.renderSolutionResult()
         }
     }
 
@@ -195,8 +206,23 @@ export default class TaskController extends Controller {
         buttonStartTest?.addEventListener("click", (e) => {
             e.preventDefault()
             // this.runSolution()
-            this.showSolutionResult()
+            this.renderSolutionResult()
+
+            // const btn = document.querySelector("#calculator-button-plus")
+            // console.log("BTN", btn)
+            // btn.onclick = function () {
+            //     console.log("hi")
+            // }
         })
+
+        // const solutionResultDiv = document.querySelector("#solution__result")
+        // console.log(solutionResultDiv)
+        // solutionResultDiv.addEventListener("click", (e) => {
+        //     // console.log("hi")
+        //     if (e.target.tagName === "BUTTON") {
+        //         console.log(e.target)
+        //     }
+        // })
 
         // const buttonPreviousLink = document.querySelector(".link--previous")
         // if (buttonPreviousLink) {

@@ -82,7 +82,7 @@ export function makePermutations(elements) {
     return res
 }
 
-export const renderMakePermutations = (arr) => {
+export function renderMakePermutations(arr) {
     const resMakePermutations = makePermutations(arr)
 
     const res = table(
@@ -94,7 +94,10 @@ export const renderMakePermutations = (arr) => {
 const arrTask2 = ["Serhiy", "Mariana", "Oleh", "Inna"]
 
 renderMakePermutations.solutionParams = {
-    code: makePermutations.toString(),
+    code:
+        makePermutations.toString() +
+        "\n\n" +
+        renderMakePermutations.toString(),
     name: "Генерація всіх підмножин. Рекурсія",
     title: "Lesson 13",
     lesson,

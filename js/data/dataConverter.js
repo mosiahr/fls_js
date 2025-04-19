@@ -66,19 +66,26 @@ export default class DataConverter {
                                             ]
 
                                         if (taskFound.id === taskId) {
-                                            const solution = new SolutionModel(
-                                                nextSolutionID++,
-                                                func.solutionParams?.name,
-                                                func.solutionParams?.title,
-                                                lesson.tasks[
+                                            const solution = new SolutionModel({
+                                                id: nextSolutionID++,
+                                                name: func.solutionParams?.name,
+                                                title: func.solutionParams
+                                                    ?.title,
+                                                task: lesson.tasks[
                                                     func.solutionParams?.task -
                                                         1
                                                 ],
                                                 func,
-                                                func.solutionParams?.code,
-                                                func.solutionParams?.params,
-                                                func.solutionParams?.resultAsCode
-                                            )
+                                                code: func.solutionParams?.code,
+                                                params: func.solutionParams
+                                                    ?.params,
+                                                resultAsCode:
+                                                    func.solutionParams
+                                                        ?.resultAsCode,
+                                                initEventMethod:
+                                                    func.solutionParams
+                                                        ?.initEventMethod,
+                                            })
                                             solutionsForTask.push(solution)
                                         }
                                     }
