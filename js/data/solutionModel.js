@@ -13,7 +13,6 @@ export default class SolutionModel extends Model {
         params = [],
         resultAsCode = false,
         available = true,
-        initEventMethod,
     }) {
         super(id, name, available)
         this._title = title
@@ -22,7 +21,6 @@ export default class SolutionModel extends Model {
         this._code = code
         this._params = params
         this._resultAsCode = resultAsCode
-        this.initEventMethod = initEventMethod
     }
 
     get title() {
@@ -71,12 +69,5 @@ export default class SolutionModel extends Model {
 
     set resultAsCode(value) {
         this._resultAsCode = value
-    }
-
-    get initEventMethod() {
-        return this.#initEventMethod
-    }
-    set initEventMethod(value) {
-        this.#initEventMethod = value
     }
 }

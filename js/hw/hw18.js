@@ -21,6 +21,8 @@ class FieldElement {
     #label
     #input
     #textNode
+    #errorField
+    #textErrorField
 
     constructor(
         textLabel,
@@ -28,7 +30,8 @@ class FieldElement {
         idInput,
         forInput,
         placeholderInput = "",
-        containerClassList = []
+        containerClassList = [],
+        textErrorField
     ) {
         this.textLabel = textLabel
         this.typeInput = typeInput
@@ -37,9 +40,12 @@ class FieldElement {
         this.placeholderInput = placeholderInput
         this.container = document.createElement("div")
         this.containerClassList = containerClassList
+        this.textErrorField = textErrorField
         this.label = document.createElement("label")
         this.textNode = document.createTextNode(this.textLabel)
         this.input = document.createElement("input")
+        this.errorField = document.createElement("div")
+        this.textErrorField = textErrorField
         this.createElement(typeInput, placeholderInput)
     }
 
@@ -116,6 +122,20 @@ class FieldElement {
         this.#textNode = value
     }
 
+    get errorField() {
+        return this.#errorField
+    }
+    set errorField(value) {
+        this.#errorField = value
+    }
+
+    get textErrorField() {
+        return this.#textErrorField
+    }
+    set textErrorField(value) {
+        this.#textErrorField = value
+    }
+
     updateTextLabel(value) {
         this.textNode.nodeValue = value
     }
@@ -126,12 +146,30 @@ class FieldElement {
 
     createElement() {
         this.#label.append(this.#textNode)
-        this.#container.append(this.#label, this.#input)
+        this.#errorField.className = "error-message"
+        this.#container.append(this.#label, this.#input, this.#errorField)
         if (this.#typeInput) this.#input.type = this.#typeInput
         if (this.#placeholderInput)
             this.#input.placeholder = this.#placeholderInput
         if (this.#idInput) this.#input.id = this.#idInput
         if (this.#forInput) this.#label.setAttribute("for", this.#forInput)
+    }
+
+    get renderedInput() {
+        return document.getElementById(this.idInput)
+    }
+
+    get renderedErrorField() {
+        return document.querySelector(
+            `#${this.#idInput} + .${this.#errorField.className}`
+        )
+    }
+
+    renderErrorField({
+        errorField = this.renderedErrorField,
+        value = this.#textErrorField,
+    } = {}) {
+        errorField.textContent = value
     }
 }
 
@@ -142,7 +180,6 @@ class Button {
     #color
     #id
     #attrClass
-    #funcOnClick
 
     constructor({
         text,
@@ -150,7 +187,6 @@ class Button {
         color = "",
         id = "",
         attrClass = [],
-        funcOnClick = Function,
     }) {
         this.#button = document.createElement("button")
         this.text = text
@@ -158,7 +194,6 @@ class Button {
         this.color = color
         this.id = id
         this.attrClass = attrClass
-        this.funcOnClick = funcOnClick
         this.#createElement()
     }
 
@@ -217,6 +252,7 @@ class Button {
 }
 
 class Calculator {
+    ERROR_MESSAGE = "Enter correct number!"
     #section = document.createElement("section")
     #title
 
@@ -229,7 +265,8 @@ class Calculator {
             "first-num",
             "first-num",
             "enter number",
-            ["simple-calculator__field"]
+            ["simple-calculator__field"],
+            this.ERROR_MESSAGE
         )
         this.secondNumFieldElement = new FieldElement(
             "second number",
@@ -237,7 +274,8 @@ class Calculator {
             "second-num",
             "second-num",
             "enter number",
-            ["simple-calculator__field"]
+            ["simple-calculator__field"],
+            this.ERROR_MESSAGE
         )
         this.resultNumFieldElement = new FieldElement(
             "Result",
@@ -269,6 +307,8 @@ class Calculator {
         })
 
         this.#createElement()
+
+        this.solutionResultDiv = document.querySelector("#solution__result")
     }
 
     get section() {
@@ -315,12 +355,6 @@ class Calculator {
         this.#section.append(titleCalcEl, bodyCalcEl, buttonsEl)
     }
 
-    initOperations(e) {
-        if (e.target.tagName === "BUTTON") {
-            console.log("HE")
-        }
-    }
-
     getHTML() {
         return this.#section.outerHTML
     }
@@ -345,42 +379,130 @@ class Calculator {
         return parseFloat(firstNum) / parseFloat(secondNum)
     }
 
-    initClick() {
-        const solutionResultDiv = document.querySelector("#solution__result")
+    initClickListener() {
+        try {
+            this.solutionResultDiv.addEventListener("click", (e) => {
+                if (e.target.tagName === "BUTTON") {
+                    const firstNum = this.firstNumFieldElement.renderedInput
+                    const firstNumValue = parseFloat(firstNum?.value)
 
-        solutionResultDiv.addEventListener("click", (e) => {
-            const firstNum = document.getElementById("first-num")?.value
-            const secondNum = document.getElementById("second-num")?.value
-            const resultInput = document.getElementById("result")
+                    const secondNum = this.secondNumFieldElement.renderedInput
+                    const secondNumValue = parseFloat(secondNum?.value)
 
-            if (e.target.tagName === "BUTTON") {
-                if (e.target?.id === this.buttonPlus.id) {
-                    resultInput.value = this.plus(firstNum, secondNum)
-                } else if (e.target?.id === this.buttonMinus.id) {
-                    resultInput.value = this.minus(firstNum, secondNum)
-                } else if (e.target?.id === this.buttonMultiply.id) {
-                    resultInput.value = this.multiply(firstNum, secondNum)
-                } else if (e.target?.id === this.buttonDivide.id) {
-                    resultInput.value = this.divide(firstNum, secondNum)
+                    const resultInput = this.resultNumFieldElement.renderedInput
+
+                    if (!Number.isFinite(firstNumValue)) {
+                        this.firstNumFieldElement.renderErrorField()
+                    } else {
+                        this.firstNumFieldElement.renderErrorField({
+                            value: "",
+                        })
+                    }
+
+                    if (!Number.isFinite(secondNumValue)) {
+                        this.secondNumFieldElement.renderErrorField()
+                    } else {
+                        this.secondNumFieldElement.renderErrorField({
+                            value: "",
+                        })
+                    }
+
+                    if (
+                        Number.isFinite(firstNumValue) &&
+                        Number.isFinite(secondNumValue)
+                    ) {
+                        if (e.target.matches("#" + this.buttonPlus.id)) {
+                            resultInput.value = this.plus(
+                                firstNumValue,
+                                secondNumValue
+                            )
+                        } else if (
+                            e.target.matches("#" + this.buttonMinus.id)
+                        ) {
+                            resultInput.value = this.minus(
+                                firstNumValue,
+                                secondNumValue
+                            )
+                        } else if (
+                            e.target.matches("#" + this.buttonMultiply.id)
+                        ) {
+                            resultInput.value = this.multiply(
+                                firstNumValue,
+                                secondNumValue
+                            )
+                        } else if (
+                            e.target.matches("#" + this.buttonDivide.id)
+                        ) {
+                            resultInput.value = this.divide(
+                                firstNumValue,
+                                secondNumValue
+                            )
+                        }
+                    }
                 }
-            }
-        })
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    initInputListener() {
+        try {
+            this.solutionResultDiv.addEventListener("input", (e) => {
+                const resultInput = this.resultNumFieldElement.renderedInput
+
+                if (
+                    e.target.matches("#" + this.firstNumFieldElement.idInput) ||
+                    e.target.matches("#" + this.secondNumFieldElement.idInput)
+                ) {
+                    resultInput.value = ""
+                }
+                console.log(!this.firstNumFieldElement.renderedInput.value)
+
+                if (
+                    e.target.matches("#" + this.firstNumFieldElement.idInput) &&
+                    this.firstNumFieldElement.renderedInput.value
+                ) {
+                    this.firstNumFieldElement.renderedErrorField.textContent =
+                        ""
+                }
+
+                if (
+                    e.target.matches(
+                        "#" + this.secondNumFieldElement.idInput
+                    ) &&
+                    this.secondNumFieldElement.renderedInput.value
+                ) {
+                    this.secondNumFieldElement.renderedErrorField.textContent =
+                        ""
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
 export function task1_18() {
     const calc = new Calculator()
-    calc.initClick()
+    calc.initClickListener()
+    calc.initInputListener()
     return calc.section.outerHTML
 }
 
 task1_18.solutionParams = {
-    code: "",
+    code:
+        FieldElement.toString() +
+        "\n\n" +
+        Button.toString() +
+        "\n\n" +
+        Calculator.toString() +
+        "\n\n" +
+        task1_18.toString(),
     name: "",
     title: "",
     lesson,
     task: 1,
     params: [],
     resultAsCode: false,
-    initEventMethod: new Calculator().initClick,
 }

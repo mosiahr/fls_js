@@ -151,8 +151,6 @@ export default class TaskController extends Controller {
             this.#taskData.solutions[this.#solutionId]?.params
         const resultAsCode =
             this.#taskData.solutions[this.#solutionId]?.resultAsCode
-        // const initClick =
-        //     this.#taskData.solutions[this.#solutionId]?.initClickMethod
 
         let solutionResult
         if (solutionFunc && solutionParams)
@@ -176,18 +174,10 @@ export default class TaskController extends Controller {
 
         if (solutionResult) {
             this.render(solutionResultDiv, solutionResult)
-            // this.initEventMethod()
         } else {
             this.render(solutionResultDiv, DONT_HAVE_SOLUTION_RESULT_MESSAGE)
         }
     }
-
-    // initEventMethod() {
-    // const initEventMethod =
-    // this.#taskData.solutions[this.#solutionId]?.initEventMethod
-    // if (initEventMethod) initEventMethod()
-    // console.log(initEventMethod.)
-    // }
 
     clearSolutionResult() {
         const solutionResultDiv = document.querySelector("#solution__result")
@@ -207,12 +197,6 @@ export default class TaskController extends Controller {
             e.preventDefault()
             // this.runSolution()
             this.renderSolutionResult()
-
-            // const btn = document.querySelector("#calculator-button-plus")
-            // console.log("BTN", btn)
-            // btn.onclick = function () {
-            //     console.log("hi")
-            // }
         })
 
         // const solutionResultDiv = document.querySelector("#solution__result")

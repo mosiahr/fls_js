@@ -82,9 +82,6 @@ export default class DataConverter {
                                                 resultAsCode:
                                                     func.solutionParams
                                                         ?.resultAsCode,
-                                                initEventMethod:
-                                                    func.solutionParams
-                                                        ?.initEventMethod,
                                             })
                                             solutionsForTask.push(solution)
                                         }
