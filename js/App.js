@@ -85,12 +85,13 @@ export default class App {
 				// console.log(controller);
 				
 				controller.state.route = route
+				// console.log("OK: ", controller.state.route)
 				this.state.controller = controller
 
 				// console.log(this.state);
 				
 				this.state.controller.render(this._rootElement, this.state.controller.show())
-				if (this.state?.controller?.initClick) this.state.controller.initClick()
+				if (this.state?.controller?.initEventListener) this.state.controller.initEventListener()
 
             } else {
                 this.state.controller.render(this._rootElement, notFoundPage.getHTML())

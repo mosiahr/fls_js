@@ -457,7 +457,6 @@ class Calculator {
                 ) {
                     resultInput.value = ""
                 }
-                console.log(!this.firstNumFieldElement.renderedInput.value)
 
                 if (
                     e.target.matches("#" + this.firstNumFieldElement.idInput) &&
@@ -503,6 +502,297 @@ task1_18.solutionParams = {
     title: "",
     lesson,
     task: 1,
+    params: [],
+    resultAsCode: false,
+}
+
+//* =========================  Task #2  ===========================
+// Розробити конвертер валют (курси валют - константи у скрипті)
+
+class FieldCurrencyConverter {
+    #title
+    #labelId
+    #autofocus
+
+    #labelClassNameFocusIn = "label--focusin"
+    #titleClassNameFocusIn = "title--focusin"
+    solutionResultDiv = document.querySelector("#solution__result")
+
+    constructor(title, labelId, autofocus = false) {
+        this.title = title
+        this.labelId = labelId
+        this.autofocus = autofocus
+    }
+
+    get title() {
+        return this.#title
+    }
+    set title(value) {
+        this.#title = value
+    }
+
+    get labelId() {
+        return this.#labelId
+    }
+    set labelId(value) {
+        this.#labelId = value
+    }
+
+    get autofocus() {
+        return this.#autofocus
+    }
+    set autofocus(value) {
+        this.#autofocus = value
+    }
+
+    get labelClassFocusIn() {
+        return this.#labelClassNameFocusIn
+    }
+    set labelClassFocusIn(value) {
+        this.#labelClassNameFocusIn = value
+    }
+
+    get titleClassNameFocusIn() {
+        return this.#titleClassNameFocusIn
+    }
+    set titleClassNameFocusIn(value) {
+        this.#titleClassNameFocusIn = value
+    }
+
+    render() {
+        const container = document.createElement("div")
+        container.classList.add("currency-converter__field-converter")
+        container.classList.add("field-converter")
+
+        this.label = document.createElement("label")
+        this.label.classList.add("field-converter__label")
+        if (this.labelId) this.label.setAttribute("id", this.labelId)
+
+        const title = document.createElement("span")
+        title.classList.add("field-converter__title")
+        title.innerText = this.#title
+
+        const exchangeRate = document.createElement("span")
+        exchangeRate.classList.add("field-converter__exchange-rate")
+        exchangeRate.textContent = "1 USD = 41.2 UAH"
+
+        this.input = document.createElement("input")
+        this.input.classList.add("field-converter__input")
+        this.input.type = "number"
+        this.input.setAttribute("value", 0)
+        // this.input.setAttribute("autofocus", this.#autofocus)
+
+        this.label.append(title, this.input, exchangeRate)
+        container.append(this.label)
+
+        this.initEventListener()
+        return container
+    }
+
+    initFocusIn(e) {
+        if (e.target.closest("label").matches("#" + this.labelId)) {
+            console.log("In", this.labelId)
+
+            const fieldLabel = document.getElementById(this.labelId)
+
+            e.target?.previousElementSibling?.classList?.add(
+                this.#titleClassNameFocusIn
+            )
+            fieldLabel.classList.add(this.#labelClassNameFocusIn)
+        }
+    }
+    initFocusOut(e) {
+        if (e.target.closest("label").matches("#" + this.labelId)) {
+            console.log("Out", this.labelId)
+
+            const fieldLabel = document.getElementById(this.labelId)
+
+            e.target?.previousElementSibling?.classList?.remove(
+                this.#titleClassNameFocusIn
+            )
+            fieldLabel.classList.remove(this.#labelClassNameFocusIn)
+        }
+    }
+
+    initEventListener() {
+        this.solutionResultDiv.addEventListener(
+            "focusin",
+            this.initFocusIn.bind(this)
+        )
+        this.solutionResultDiv.addEventListener(
+            "focusout",
+            this.initFocusOut.bind(this)
+        )
+    }
+}
+
+class CurrencyConverter {
+    #title
+    #fromLabelName
+    #toLabelName
+    #fromLabelId
+    #toLabelId
+    solutionResultDiv = document.querySelector("#solution__result")
+
+    constructor(
+        title = "Converter",
+        fromLabelName = "From",
+        toLabelName = "To",
+        fromLabelId = "from-field",
+        toLabelId = "to-field"
+    ) {
+        this.title = title
+        this.fromLabelName = fromLabelName
+        this.toLabelName = toLabelName
+        this.fromLabelId = fromLabelId
+        this.toLabelId = toLabelId
+        this.fromField = new FieldCurrencyConverter(
+            this.#fromLabelName,
+            this.#fromLabelId,
+            true
+        )
+        this.toField = new FieldCurrencyConverter(
+            this.#toLabelName,
+            this.#toLabelId
+        )
+    }
+
+    get title() {
+        return this.#title
+    }
+    set title(value) {
+        this.#title = value
+    }
+
+    get fromLabelName() {
+        return this.#fromLabelName
+    }
+    set fromLabelName(value) {
+        this.#fromLabelName = value
+    }
+
+    get toLabelName() {
+        return this.#toLabelName
+    }
+    set toLabelName(value) {
+        this.#toLabelName = value
+    }
+
+    get fromLabelId() {
+        return this.#fromLabelId
+    }
+    set fromLabelId(value) {
+        this.#fromLabelId = value
+    }
+
+    get toLabelId() {
+        return this.#toLabelId
+    }
+    set toLabelId(value) {
+        this.#toLabelId = value
+    }
+
+    render() {
+        const container = document.createElement("div")
+        container.className = "currency-converter"
+
+        this.titleDiv = document.createElement("div")
+        this.titleDiv.className = "currency-converter__title"
+        this.titleDiv.textContent = this.title
+
+        console.log(this.fromField)
+
+        this.bodyDiv = document.createElement("div")
+        this.bodyDiv.className = "currency-converter__body"
+
+        this.arrowsButton = document.createElement("button")
+        this.arrowsButton.className = "currency-converter__button"
+
+        this.arrowsSpan = document.createElement("span")
+        this.arrowsSpan.className = "currency-converter__button-label"
+        this.arrowsSpan.textContent = "⇌"
+
+        this.arrowsButton.append(this.arrowsSpan)
+
+        this.bodyDiv.append(
+            this.fromField.render(),
+            this.arrowsButton,
+            this.toField.render()
+        )
+
+        container.append(this.titleDiv, this.bodyDiv)
+        return container
+    }
+
+    // initInputListener() {
+    //     const fieldInputClassName =
+    //         "." + this.firstField.input.getAttribute("class")
+    //     console.log(Object.getOwnPropertyNames(this))
+
+    //     const labelClassNameFocusIn = this.firstField.labelClassFocusIn
+
+    //     this.solutionResultDiv.addEventListener("focusin", function (e) {
+    //         if (
+    //             e.target.matches(fieldInputClassName) ||
+    //             e.target.matches(fieldInputClassName)
+    //         ) {
+    //             console.log("HOH")
+    //             console.log(Object.getOwnPropertyNames(this))
+
+    //             const [firstInput, secondInput] =
+    //                 document.querySelectorAll(fieldInputClassName)
+    //             console.log(firstInput, secondInput)
+
+    //             firstInput.classList.add(labelClassNameFocusIn)
+    //         }
+    //     })
+    // }
+
+    // initClick(e) {
+    //     console.log("clickk")
+
+    //     if (e.target.matches("#" + this.fromField.labelId)) {
+    //         console.log(this.fromField)
+    //     }
+    // }
+    initEventListener() {
+        this.solutionResultDiv.addEventListener(
+            "load",
+            this.initAutoFocus.bind(this)
+        )
+    }
+    initAutoFocus() {
+        setTimeout(function () {
+            const input = document.getElementById(this.fromField)
+            console.log(input)
+
+            // $("#input-field").focus();
+        }, 1000)
+    }
+}
+
+export function task2_18() {
+    const converter = new CurrencyConverter("Currency Converter")
+    const converterEl = converter.render()
+    // converter.fromField.input.focus()
+    // converter.fromField.initEventListener()
+    // converter.toField.initEventListener()
+
+    converter.initEventListener()
+    return converterEl.outerHTML
+}
+
+task2_18.solutionParams = {
+    code:
+        FieldCurrencyConverter.toString() +
+        "\n\n" +
+        CurrencyConverter.toString() +
+        "\n\n" +
+        task2_18.toString(),
+    name: "",
+    title: "",
+    lesson,
+    task: 2,
     params: [],
     resultAsCode: false,
 }

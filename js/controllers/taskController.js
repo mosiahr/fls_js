@@ -15,6 +15,8 @@ import {
     DONT_HAVE_SOLUTION_RESULT_MESSAGE,
 } from "../config.js"
 
+import { app } from "../index.js"
+
 export default class TaskController extends Controller {
     #id
     #solutionId
@@ -191,13 +193,38 @@ export default class TaskController extends Controller {
         }
     }
 
-    initClick() {
+    initEventListener() {
         const buttonStartTest = document.querySelector("#start-test-button")
         buttonStartTest?.addEventListener("click", (e) => {
             e.preventDefault()
             // this.runSolution()
             this.renderSolutionResult()
         })
+
+        // const buttonPreviousLink = document.querySelector(".link--previous")
+        // // if (buttonPreviousLink) console.log(buttonPreviousLink)
+
+        // document.addEventListener("keyup", (e) => {
+        //     if (buttonPreviousLink && e.code == "ArrowLeft") {
+        //         // console.log(window.location.hash)
+        //         // console.log(this.state.route)
+
+        //         const hash = window.location.hash
+
+        //         // console.log(this.state.route.match(hash.replace("#", "")))
+
+        //         if (this.state.route.match(hash.replace("#", ""))) {
+        //             const path = `#/tasks/${this.id - 1}/`
+        //             app.goTo(path)
+        //             // app.addPathToState(path)
+
+        //             // window.location = `/${PROJECT_FOLDER}/#/tasks/${
+        //             //     this.id - 1
+        //             // }`
+        //         }
+        //     }
+        //     // buttonPreviousLink = null
+        // })
 
         // const solutionResultDiv = document.querySelector("#solution__result")
         // console.log(solutionResultDiv)
