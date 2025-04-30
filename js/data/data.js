@@ -36,6 +36,7 @@ class QueryArray extends Array {
 
 export default class Data {
     #data
+	
     constructor(data) {
         this.#data = data
         this._objectData = this.#getObjectData()
