@@ -875,8 +875,8 @@ class ExchangerateData {
                 this.data = data
                 return data
             })
-            .then((data) => console.log("Data:", this.data))
-            .then((data) => this.getRates())
+            .then(() => console.log("Data:", this.data))
+            .then(() => this.getRates())
             .then((rates) => console.log(rates))
             .catch((error) => console.error("Fetch error:", error.message))
     }

@@ -65,7 +65,7 @@ export default class DataConverter {
                                                 func.solutionParams?.task - 1
                                             ]
 
-                                        if (taskFound.id === taskId) {
+                                        if (taskFound?.id === taskId) {
                                             const solution = new SolutionModel({
                                                 id: nextSolutionID++,
                                                 name: func.solutionParams?.name,
