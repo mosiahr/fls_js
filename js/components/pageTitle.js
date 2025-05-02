@@ -14,7 +14,7 @@ export default function pageTitle(labelText1, labelText2, href, titleText) {
     divLabel.append(label1, label2)
 
     const title = document.createElement("h2")
-    title.innerHTML = titleText
+    title.innerText = titleText
 
     const pageTitle = document.createElement("div")
     pageTitle.className = "page-block__title"

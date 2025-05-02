@@ -244,8 +244,9 @@ class Button {
     }
 
     #createElement() {
-        this.#button.style.cssText = `
-		background-color: ${this.#backgroundColor}; color: ${this.#color}`
+        this.#button.style.cssText = `background-color: ${
+            this.#backgroundColor
+        }; color: ${this.#color}`
     }
 
     getHTML() {
