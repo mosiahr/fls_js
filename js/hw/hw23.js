@@ -358,6 +358,20 @@ task17_23.solutionParams = {
 
 class LocalStorageManager {
     /**
+     * Gets the value associated with the given key from localStorage.
+     *
+     * @param {string} keyName - The name of the key to retrieve from localStorage.
+     * @returns {string | null} - The value associated with the key, or `null` if the key does not exist.
+     *
+     * @example
+     * const storageManager = new LocalStorageManager();
+     * const theme = storageManager.getItem("theme"); // Retrieves the value of the "theme" key from localStorage
+     */
+    getItem(keyName) {
+        return localStorage.getItem(keyName)
+    }
+
+    /**
      * Adds or updates a key-value pair in the localStorage.
      *
      * @param {string} keyName - A string containing the name of the key you want to create/update.
@@ -367,34 +381,54 @@ class LocalStorageManager {
      * storageManager.setItem("theme", "dark"); // Adds or updates the "theme" key in localStorage
      */
     setItem(keyName, keyValue) {
-        if (localStorage[keyName]) {
-            const countKeyName = `count${toUpperCaseFirstLetterEveryWord(
-                keyName
-            )}`
+        localStorage.setItem(keyName, keyValue)
 
-            if (
-                !Number.isFinite(parseInt(localStorage.getItem(countKeyName)))
-            ) {
+        if (localStorage[keyName]) {
+            const countKeyName = this.createCountKeyName(keyName)
+
+            if (!Number.isFinite(this.getCountKeyValue(countKeyName))) {
                 localStorage.setItem(countKeyName, 0)
             }
 
-            // console.log(localStorage.getItem(countKeyName))
-
-            let countKeyValue = parseInt(localStorage.getItem(countKeyName))
-            // console.log(countKeyValue)
-
+            let countKeyValue = this.getCountKeyValue(countKeyName)
             localStorage.setItem(countKeyName, ++countKeyValue)
         }
-        localStorage.setItem(keyName, keyValue)
+    }
+
+    createCountKeyName(keyName) {
+        return `count${toUpperCaseFirstLetterEveryWord(keyName)}`
+    }
+
+    getCountKeyValue(countKeyName) {
+        return parseInt(localStorage.getItem(countKeyName))
+    }
+
+    /**
+     * Removes the key-value pair associated with the given key from localStorage.
+     *
+     * @param {string} keyName - The name of the key to remove from localStorage.
+     *
+     * @example
+     * const storageManager = new LocalStorageManager();
+     * storageManager.removeItem("theme"); // Removes the "theme" key from localStorage
+     */
+    removeItem(keyName) {
+        if (localStorage[keyName]) {
+            const countKeyName = this.createCountKeyName(keyName)
+            localStorage.removeItem(countKeyName)
+        }
+        localStorage.removeItem(keyName)
     }
 }
 
-class ColorChanger {
+class ColorPicker {
+    DEFAULT_PICKER_COLOR = "#ef6d58"
+    DEFAULT_PLACEHOLDER = "Change color"
     solutionResultDiv = document.querySelector("#solution__result")
     #title
     #colorKeyName
 
-    constructor(title, colorKeyName = "color") {
+    constructor(title = "Color Picker", colorKeyName = "color") {
         this.title = title
         this.colorKeyName = colorKeyName
         this.localStorageManager = new LocalStorageManager()
@@ -420,7 +454,8 @@ class ColorChanger {
         container.style.gap = "10px"
         container.style.flexDirection = "column"
         container.style.justifyContent = "center"
-
+        container.style.backgroundColor = "#ffffff"
+        container.style.padding = "20px"
         return container
     }
 
@@ -445,79 +480,163 @@ class ColorChanger {
         return inputBlock
     }
 
-    createInput() {
+    createPicker(color) {
         const input = document.createElement("input")
         input.setAttribute("id", "color-changer")
         input.type = "color"
-        // input.style.width = "100px"
+        input.setAttribute("value", color || this.DEFAULT_PICKER_COLOR)
+        input.style.width = "30%"
         input.style.height = "100%"
 
         this.inputEl = input
         return input
     }
 
-    createColorValueBlock() {
+    updatePicker() {
+        const picker = document.getElementById("color-changer")
+        picker.setAttribute(
+            "value",
+            this.localStorageManager.getItem(this.colorKeyName) ||
+                this.DEFAULT_PICKER_COLOR
+        )
+    }
+
+    createColorValueBlock(value) {
+        if (!value) value = ""
+
         const colorValueBlockInput = document.createElement("input")
         colorValueBlockInput.setAttribute("id", "color-block")
         colorValueBlockInput.setAttribute("maxlength", "7")
         colorValueBlockInput.style.border = "1px solid black"
         colorValueBlockInput.style.fontSize = "18px"
-        colorValueBlockInput.style.padding = "10px"
+        colorValueBlockInput.style.padding = "6px"
+        colorValueBlockInput.setAttribute("value", value)
+        colorValueBlockInput.setAttribute(
+            "placeholder",
+            this.DEFAULT_PLACEHOLDER
+        )
 
         this.colorValueBlockInput = colorValueBlockInput
         return colorValueBlockInput
     }
 
-    createCountChangeColorBlock() {
-        const countChangeColorBlock = document.createElement("div")
-        countChangeColorBlock.style.backgroundColor = "red"
-        countChangeColorBlock.style.width = "100%"
+    updateCreateColorValueBlock() {
+        const colorValueBlock = document.getElementById("color-block")
+        colorValueBlock.setAttribute(
+            "value",
+            this.localStorageManager.getItem(this.colorKeyName) || ""
+        )
+    }
 
-        return countChangeColorBlock
+    createCountBlock(volume = 0) {
+        if (!volume) volume = 0
+
+        const countBlock = document.createElement("div")
+        countBlock.setAttribute("id", "count-block")
+        countBlock.style.display = "flex"
+        countBlock.style.justifyContent = "center"
+        countBlock.style.width = "100%"
+
+        const spanCountBlock = document.createElement("span")
+        spanCountBlock.style.fontSize = "24px"
+        spanCountBlock.style.fontWeight = 700
+        spanCountBlock.textContent = volume
+
+        countBlock.append(spanCountBlock)
+        return countBlock
+    }
+
+    updateCountBlock() {
+        const countBlockSpan = document.querySelector("#count-block span")
+        const countKeyName = this.localStorageManager.createCountKeyName(
+            this.colorKeyName
+        )
+        const count = this.localStorageManager.getCountKeyValue(countKeyName)
+        countBlockSpan.textContent = count || 0
+    }
+
+    updateSolutionResultDiv() {
+        this.solutionResultDiv.style.backgroundColor =
+            this.localStorageManager.getItem(this.colorKeyName) ||
+            this.DEFAULT_PICKER_COLOR
     }
 
     render() {
         const container = this.createContainer()
-        const createInputBlock = this.createInputBlock()
+        const inputBlock = this.createInputBlock()
 
         const div = document.createElement("div")
         div.style.display = "flex"
 
-        div.style.width = "100%"
-        div.style.height = "100px"
-        div.append(this.createCountChangeColorBlock(), this.createInput())
+        const countBlock = this.createCountBlock(
+            this.localStorageManager.getCountKeyValue(
+                this.localStorageManager.createCountKeyName(this.colorKeyName)
+            )
+        )
+        const colorValueBlock = this.createColorValueBlock(
+            this.localStorageManager.getItem(this.colorKeyName)
+        )
 
-        createInputBlock.append(div, this.createColorValueBlock())
-        container.append(this.createTitle(), createInputBlock)
+        const picker = this.createPicker(
+            this.localStorageManager.getItem(this.colorKeyName)
+        )
+
+        div.append(colorValueBlock, picker)
+
+        inputBlock.append(countBlock, div)
+        container.append(this.createTitle(), inputBlock)
+
         this.initEventListener()
+        this.updateSolutionResultDiv()
         return container
     }
 
-    renderCountColor() {}
-
     initInputEl(e) {
         if (e.target.matches("#" + this.inputEl?.id)) {
+            const eventTargetValue = e.target.value
+
             const colorValueBlockInput = document.getElementById(
                 this.colorValueBlockInput.id
             )
-            colorValueBlockInput.value = e.target.value
-            this.localStorageManager.setItem(this.colorKeyName, e.target.value)
+            colorValueBlockInput.value = eventTargetValue
+
+            this.localStorageManager.setItem(
+                this.colorKeyName,
+                eventTargetValue
+            )
+
+            this.updateCountBlock()
+            this.updatePicker()
+            this.updateSolutionResultDiv()
         }
     }
 
     initChangeColorValueBlock(e) {
         if (e.target.matches("#" + this.colorValueBlockInput?.id)) {
+            const eventTargetValue = e.target.value
             const inputEl = document.getElementById(this.inputEl.id)
-            inputEl.value = e.target.value
-            this.localStorageManager.setItem(this.colorKeyName, e.target.value)
+            inputEl.value = eventTargetValue
+            this.localStorageManager.setItem(
+                this.colorKeyName,
+                eventTargetValue
+            )
+
+            this.updateCountBlock()
+            this.updatePicker()
+            this.updateSolutionResultDiv()
         }
     }
 
+    initChangeStorage() {
+        console.log(this.localStorageManager.getItem(this.colorKeyName))
+
+        this.updateCountBlock()
+        this.updatePicker()
+        this.updateCreateColorValueBlock()
+        this.updateSolutionResultDiv()
+    }
+
     initEventListener() {
-        window.addEventListener("storage", () => {
-            // console.log(localStorage)
-            console.log("OJ")
-        })
         this.solutionResultDiv.addEventListener(
             "input",
             this.initInputEl.bind(this)
@@ -526,17 +645,12 @@ class ColorChanger {
             "change",
             this.initChangeColorValueBlock.bind(this)
         )
+        window.addEventListener("storage", this.initChangeStorage.bind(this))
     }
 }
 
 export function task18_23() {
-    const colorChanger = new ColorChanger("Choice the color")
-
-    // const localStorageManager = new LocalStorageManager()
-    // console.log(localStorageManager.localStorage.length)
-
-    // console.log(input)
-
+    const colorChanger = new ColorPicker()
     return colorChanger.render().outerHTML
 }
 
@@ -544,13 +658,38 @@ task18_23.solutionParams = {
     code:
         LocalStorageManager.toString() +
         "\n\n" +
-        ColorChanger.toString() +
+        ColorPicker.toString() +
         "\n\n" +
         task18_23.toString(),
     name: "",
     title: "",
     lesson,
     task: 18,
+    params: [],
+    resultAsCode: false,
+}
+
+//* =========================  Task #19  ===========================
+// Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage).
+//  Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm).
+//  Якщо користувач натискає на «Ок», то видаляти цю задачу.
+
+export function task19_23() {
+    // const colorChanger = new ColorPicker()
+    // return colorChanger.render().outerHTML
+}
+
+task19_23.solutionParams = {
+    code:
+        // LocalStorageManager.toString() +
+        // "\n\n" +
+        // ColorPicker.toString() +
+        // "\n\n" +
+        task19_23.toString(),
+    name: "",
+    title: "",
+    lesson,
+    task: 19,
     params: [],
     resultAsCode: false,
 }
