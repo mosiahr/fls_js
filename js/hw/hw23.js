@@ -356,42 +356,36 @@ task17_23.solutionParams = {
 // Зберігати цей колір і відновлювати при наступному відкритті.
 // Також зберігати і відображати кількість змін протягом одного сеансу.
 
-class LocalStorageManager {
-    /**
-     * Gets the value associated with the given key from localStorage.
-     *
-     * @param {string} keyName - The name of the key to retrieve from localStorage.
-     * @returns {string | null} - The value associated with the key, or `null` if the key does not exist.
-     *
-     * @example
-     * const storageManager = new LocalStorageManager();
-     * const theme = storageManager.getItem("theme"); // Retrieves the value of the "theme" key from localStorage
-     */
+class StorageManager {
     getItem(keyName) {
         return localStorage.getItem(keyName)
     }
 
-    /**
-     * Adds or updates a key-value pair in the localStorage.
-     *
-     * @param {string} keyName - A string containing the name of the key you want to create/update.
-     * @param {string} keyValue - A string containing the value you want to give the key you are creating/updating.
-     * @example
-     * const storageManager = new LocalStorageManager();
-     * storageManager.setItem("theme", "dark"); // Adds or updates the "theme" key in localStorage
-     */
     setItem(keyName, keyValue) {
-        localStorage.setItem(keyName, keyValue)
+        try {
+            localStorage.setItem(keyName, keyValue)
 
-        if (localStorage[keyName]) {
             const countKeyName = this.createCountKeyName(keyName)
+            let countKeyValue = parseInt(this.getCountKeyValue(countKeyName))
 
-            if (!Number.isFinite(this.getCountKeyValue(countKeyName))) {
-                localStorage.setItem(countKeyName, 0)
+            if (Number.isFinite(countKeyValue))
+                sessionStorage.setItem(countKeyName, ++countKeyValue)
+            else sessionStorage.setItem(countKeyName, 1)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    removeItem(keyName) {
+        try {
+            const countKeyName = this.createCountKeyName(keyName)
+            if (sessionStorage[countKeyName]) {
+                sessionStorage.removeItem(countKeyName)
             }
 
-            let countKeyValue = this.getCountKeyValue(countKeyName)
-            localStorage.setItem(countKeyName, ++countKeyValue)
+            localStorage.removeItem(keyName)
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -400,24 +394,7 @@ class LocalStorageManager {
     }
 
     getCountKeyValue(countKeyName) {
-        return parseInt(localStorage.getItem(countKeyName))
-    }
-
-    /**
-     * Removes the key-value pair associated with the given key from localStorage.
-     *
-     * @param {string} keyName - The name of the key to remove from localStorage.
-     *
-     * @example
-     * const storageManager = new LocalStorageManager();
-     * storageManager.removeItem("theme"); // Removes the "theme" key from localStorage
-     */
-    removeItem(keyName) {
-        if (localStorage[keyName]) {
-            const countKeyName = this.createCountKeyName(keyName)
-            localStorage.removeItem(countKeyName)
-        }
-        localStorage.removeItem(keyName)
+        return sessionStorage.getItem(countKeyName)
     }
 }
 
@@ -431,7 +408,7 @@ class ColorPicker {
     constructor(title = "Color Picker", colorKeyName = "color") {
         this.title = title
         this.colorKeyName = colorKeyName
-        this.localStorageManager = new LocalStorageManager()
+        this.storageManager = new StorageManager()
     }
 
     get title() {
@@ -496,7 +473,7 @@ class ColorPicker {
         const picker = document.getElementById("color-changer")
         picker.setAttribute(
             "value",
-            this.localStorageManager.getItem(this.colorKeyName) ||
+            this.storageManager.getItem(this.colorKeyName) ||
                 this.DEFAULT_PICKER_COLOR
         )
     }
@@ -524,7 +501,7 @@ class ColorPicker {
         const colorValueBlock = document.getElementById("color-block")
         colorValueBlock.setAttribute(
             "value",
-            this.localStorageManager.getItem(this.colorKeyName) || ""
+            this.storageManager.getItem(this.colorKeyName) || ""
         )
     }
 
@@ -548,16 +525,16 @@ class ColorPicker {
 
     updateCountBlock() {
         const countBlockSpan = document.querySelector("#count-block span")
-        const countKeyName = this.localStorageManager.createCountKeyName(
+        const countKeyName = this.storageManager.createCountKeyName(
             this.colorKeyName
         )
-        const count = this.localStorageManager.getCountKeyValue(countKeyName)
+        const count = this.storageManager.getCountKeyValue(countKeyName)
         countBlockSpan.textContent = count || 0
     }
 
     updateSolutionResultDiv() {
         this.solutionResultDiv.style.backgroundColor =
-            this.localStorageManager.getItem(this.colorKeyName) ||
+            this.storageManager.getItem(this.colorKeyName) ||
             this.DEFAULT_PICKER_COLOR
     }
 
@@ -569,16 +546,16 @@ class ColorPicker {
         div.style.display = "flex"
 
         const countBlock = this.createCountBlock(
-            this.localStorageManager.getCountKeyValue(
-                this.localStorageManager.createCountKeyName(this.colorKeyName)
+            this.storageManager.getCountKeyValue(
+                this.storageManager.createCountKeyName(this.colorKeyName)
             )
         )
         const colorValueBlock = this.createColorValueBlock(
-            this.localStorageManager.getItem(this.colorKeyName)
+            this.storageManager.getItem(this.colorKeyName)
         )
 
         const picker = this.createPicker(
-            this.localStorageManager.getItem(this.colorKeyName)
+            this.storageManager.getItem(this.colorKeyName)
         )
 
         div.append(colorValueBlock, picker)
@@ -586,8 +563,8 @@ class ColorPicker {
         inputBlock.append(countBlock, div)
         container.append(this.createTitle(), inputBlock)
 
-        this.initEventListener()
         this.updateSolutionResultDiv()
+        this.initEventListener()
         return container
     }
 
@@ -600,10 +577,7 @@ class ColorPicker {
             )
             colorValueBlockInput.value = eventTargetValue
 
-            this.localStorageManager.setItem(
-                this.colorKeyName,
-                eventTargetValue
-            )
+            this.storageManager.setItem(this.colorKeyName, eventTargetValue)
 
             this.updateCountBlock()
             this.updatePicker()
@@ -616,10 +590,7 @@ class ColorPicker {
             const eventTargetValue = e.target.value
             const inputEl = document.getElementById(this.inputEl.id)
             inputEl.value = eventTargetValue
-            this.localStorageManager.setItem(
-                this.colorKeyName,
-                eventTargetValue
-            )
+            this.storageManager.setItem(this.colorKeyName, eventTargetValue)
 
             this.updateCountBlock()
             this.updatePicker()
@@ -628,8 +599,7 @@ class ColorPicker {
     }
 
     initChangeStorage() {
-        console.log(this.localStorageManager.getItem(this.colorKeyName))
-
+        // console.log(this.storageManager.getItem(this.colorKeyName))
         this.updateCountBlock()
         this.updatePicker()
         this.updateCreateColorValueBlock()
@@ -656,7 +626,7 @@ export function task18_23() {
 
 task18_23.solutionParams = {
     code:
-        LocalStorageManager.toString() +
+        StorageManager.toString() +
         "\n\n" +
         ColorPicker.toString() +
         "\n\n" +
@@ -674,15 +644,54 @@ task18_23.solutionParams = {
 //  Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm).
 //  Якщо користувач натискає на «Ок», то видаляти цю задачу.
 
+class ToDoListManager {
+    constructor(storageKeyName = "toDoList", taskList = []) {
+        this.storageKeyName = storageKeyName
+        this.taskList = taskList
+        this.initStorage()
+    }
+
+    initStorage() {
+        // if (this.taskList.length)
+        localStorage.setItem(this.storageKeyName, JSON.stringify(this.taskList))
+        // if (localStorage.getItem(this))
+    }
+}
+
 export function task19_23() {
+    const toDoList = [
+        "Clean the house",
+        "Buy groceries",
+        "Finish homework",
+        "Call a friend",
+        "Pay utility bills",
+        "Read a book",
+        "Exercise for 30 minutes",
+        "Prepare dinner",
+        "Organize the workspace",
+        "Water the plants",
+        "Write a journal entry",
+        "Plan the next day",
+        "Fix a broken item",
+        "Learn a new skill",
+        "Watch an educational video",
+        "Go for a walk",
+        "Reply to emails",
+        "Declutter a room",
+        "Meditate for 10 minutes",
+        "Schedule a doctor’s appointment",
+    ]
+
+    const toDoListManager = new ToDoListManager(toDoList)
+
     // const colorChanger = new ColorPicker()
     // return colorChanger.render().outerHTML
 }
 
 task19_23.solutionParams = {
     code:
-        // LocalStorageManager.toString() +
-        // "\n\n" +
+        ToDoListManager.toString() +
+        "\n\n" +
         // ColorPicker.toString() +
         // "\n\n" +
         task19_23.toString(),
