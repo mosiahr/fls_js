@@ -4,6 +4,8 @@ import {
     toUpperCaseFirstLetterEveryWord,
 } from "../utils.js"
 
+import Timer from "../helpers/timer.js"
+
 const lesson = getNumbersFromCurrentFileName(import.meta)
 
 //* =========================  Task #1  ===========================
@@ -599,7 +601,6 @@ class ColorPicker {
     }
 
     initChangeStorage() {
-        // console.log(this.storageManager.getItem(this.colorKeyName))
         this.updateCountBlock()
         this.updatePicker()
         this.updateCreateColorValueBlock()
@@ -644,17 +645,79 @@ task18_23.solutionParams = {
 //  Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm).
 //  Якщо користувач натискає на «Ок», то видаляти цю задачу.
 
-class ToDoListManager {
-    constructor(storageKeyName = "toDoList", taskList = []) {
-        this.storageKeyName = storageKeyName
-        this.taskList = taskList
+class ListStorage {
+    constructor(storageName, dataList) {
+        this.storageName = storageName
+        this.dataList = dataList
         this.initStorage()
     }
 
     initStorage() {
-        // if (this.taskList.length)
-        localStorage.setItem(this.storageKeyName, JSON.stringify(this.taskList))
-        // if (localStorage.getItem(this))
+        if (
+            !localStorage.getItem(this.storageName) ||
+            this.getDataList().length === 0
+        )
+            localStorage.setItem(
+                this.storageName,
+                JSON.stringify(this.dataList)
+            )
+    }
+
+    getDataList() {
+        return JSON.parse(localStorage.getItem(this.storageName)) || []
+    }
+
+    addDataList(...newItem) {
+        const localStorageDataList = this.getDataList()
+
+        localStorage.setItem(
+            this.storageName,
+            JSON.stringify(localStorageDataList.concat(newItem))
+        )
+    }
+
+    removeItem(listItem) {
+        const localStorageDataList = this.getDataList()
+        const newList = localStorageDataList.filter((el) => el !== listItem)
+        localStorage.setItem(this.storageName, JSON.stringify(newList))
+    }
+}
+
+class ToDoListManager {
+    constructor(taskList = [], amountTest, storageName = "toDoList") {
+        this.taskList = taskList
+        this.storageName = storageName
+        this.amountTest = amountTest
+        this.listStorage = new ListStorage(storageName, taskList)
+        this.timerForGenerateTasks = new Timer(
+            this.pickRandomTask.bind(this),
+            2000,
+            this.amountTest
+        )
+    }
+
+    pickRandomTask() {
+        const tasks = this.listStorage.getDataList()
+        if (tasks.length === 0) {
+            this.timerForGenerateTasks.stop()
+            alert("No tasks available!")
+            return
+        }
+
+        const randomIndex = this.getRandomInt(tasks.length)
+        const userConfirmed = confirm(
+            `Your task: "${tasks[randomIndex]}". Mark as done?`
+        )
+
+        if (userConfirmed) this.listStorage.removeItem(tasks[randomIndex])
+    }
+
+    getRandomInt(max) {
+        return Math.floor(Math.random() * max)
+    }
+
+    run() {
+        this.timerForGenerateTasks.start()
     }
 }
 
@@ -670,30 +733,21 @@ export function task19_23() {
         "Prepare dinner",
         "Organize the workspace",
         "Water the plants",
-        "Write a journal entry",
-        "Plan the next day",
-        "Fix a broken item",
-        "Learn a new skill",
-        "Watch an educational video",
-        "Go for a walk",
-        "Reply to emails",
-        "Declutter a room",
-        "Meditate for 10 minutes",
-        "Schedule a doctor’s appointment",
     ]
 
-    const toDoListManager = new ToDoListManager(toDoList)
-
-    // const colorChanger = new ColorPicker()
-    // return colorChanger.render().outerHTML
+    const toDoListManager = new ToDoListManager(toDoList, Infinity)
+    toDoListManager.run()
+    return " "
 }
 
 task19_23.solutionParams = {
     code:
+        ListStorage.toString() +
+        "\n\n" +
         ToDoListManager.toString() +
         "\n\n" +
-        // ColorPicker.toString() +
-        // "\n\n" +
+        Timer.toString() +
+        "\n\n" +
         task19_23.toString(),
     name: "",
     title: "",
