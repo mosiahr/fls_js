@@ -36,6 +36,10 @@ export default class Timer {
         this.#amountRunCallback = value || Infinity
     }
 
+    get timeoutId() {
+        return this.#timeoutId
+    }
+
     start() {
         this.#timeoutId = setInterval(
             this.runCallback.bind(this),

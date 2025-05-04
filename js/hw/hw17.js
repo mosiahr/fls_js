@@ -5,6 +5,7 @@ import {
     toUpperCaseFirstLetterEveryWord,
 } from "../utils.js"
 import { createElem, table, check } from "../components/index.js"
+import Timer from "../helpers/timer.js"
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
 
@@ -40,7 +41,7 @@ class MyArray {
                 [
                     // In order to call a static method or property within
                     // another static method of the same class, you can use
-                    // the this keyword.
+                    // this keyword.
                     MyArray.countPositiveElements(arr),
                     this.countNegativeElements(arr),
                     this.countOccurrenceElement(arr, arrEl),
@@ -936,64 +937,6 @@ class History {
     }
 }
 
-class Timer {
-    _callback
-    _delay = 0
-    _amountRunCallback
-    _count = 0
-    _timeoutId = null
-
-    constructor(callback, delay, amountRunCallback, ...args) {
-        this.callback = callback
-        this.delay = delay
-        this.amountRunCallback = amountRunCallback
-        this.args = args
-    }
-
-    get callback() {
-        return this._callback
-    }
-
-    set callback(value) {
-        this._callback = value
-    }
-
-    get delay() {
-        return delay
-    }
-
-    set delay(value) {
-        this._delay = value
-    }
-
-    get amountRunCallback() {
-        return this._amountRunCallback
-    }
-
-    set amountRunCallback(value) {
-        this._amountRunCallback = value || Infinity
-    }
-
-    start() {
-        this._timeoutId = setInterval(
-            this.runCallback.bind(this),
-            this._delay,
-            ...this.args
-        )
-    }
-
-    stop() {
-        clearInterval(this._timeoutId)
-        this._timeoutId = null
-    }
-
-    runCallback() {
-        if (this.amountRunCallback === this._count) return this.stop()
-        this._callback()
-        this._count++
-    }
-}
-
 class TestManager {
     NOTICE_START_TESTS = "Generating tests..."
     testList = []
@@ -1054,7 +997,7 @@ class TestManager {
     }
 
     runSurvey() {
-        if (!this.timerForGenerateTasks._timeoutId) {
+        if (!this.timerForGenerateTasks.timeoutId) {
             clearInterval(this.runSurveyIntervalId)
 
             for (const test of this.testList) {
