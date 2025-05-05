@@ -11,7 +11,7 @@ const lesson = getNumbersFromCurrentFileName(import.meta)
 //* =========================  Task #1  ===========================
 // Створити функцію, яка за номером місяця повертає пору року, до якої відноситься цей місяць.
 
-export function task7_1() {
+export function task1_7() {
     const MESSAGE_NOT_CORRECTED_NUMBER =
         "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 12."
 
@@ -60,8 +60,8 @@ export function task7_1() {
 	</ol>`
 }
 
-task7_1.solutionParams = {
-    code: task7_1.toString(),
+task1_7.solutionParams = {
+    code: task1_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -73,7 +73,7 @@ task7_1.solutionParams = {
 //* =========================  Task #2  ===========================
 // Створити функцію, яка за номером місяця повертає його назву.
 
-export function task7_2() {
+export function task2_7() {
     const MESSAGE_NOT_CORRECTED_NUMBER =
         "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 12."
 
@@ -126,8 +126,8 @@ export function task7_2() {
     return renderResultGetMonthName(monthNumber)
 }
 
-task7_2.solutionParams = {
-    code: task7_2.toString(),
+task2_7.solutionParams = {
+    code: task2_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -138,7 +138,7 @@ task7_2.solutionParams = {
 
 //* =========================  Task #3  ===========================
 
-export function task7_3() {
+export function task3_7() {
     const MESSAGE_NOT_CORRECTED_NUMBER =
         "Sorry, you entered not corrected number.\nYou need to enter a number from 1 to 7."
 
@@ -171,8 +171,8 @@ export function task7_3() {
     return renderResultIsWorkingDay(dayNumber)
 }
 
-task7_3.solutionParams = {
-    code: task7_3.toString(),
+task3_7.solutionParams = {
+    code: task3_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -183,7 +183,7 @@ task7_3.solutionParams = {
 
 //* =========================  Task #4  ===========================
 // Створити окремі функції, які для 4 чисел знаходять: суму; добуток; середнє арифметичне; мінімальне значення.
-export function task7_4() {
+export function task4_7() {
     const MESSAGE_NOT_CORRECTED_NUMBER =
         "Sorry, you entered not a number.\nYou need to enter a number."
 
@@ -239,8 +239,8 @@ export function task7_4() {
     return renderResult(num1, num2, num3, num4)
 }
 
-task7_4.solutionParams = {
-    code: task7_4.toString(),
+task4_7.solutionParams = {
+    code: task4_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -253,7 +253,7 @@ task7_4.solutionParams = {
 // Створити функцію, яка для 3 заданих чисел знаходить одночасно декілька результатів: кількість
 // парних, кількість додатних, кількість більших за 100.
 
-export function task7_5() {
+export function task5_7() {
     const MESSAGE_NOT_CORRECTED_NUMBER =
         "Sorry, you entered not a number.\nYou need to enter a number."
 
@@ -309,8 +309,8 @@ export function task7_5() {
     return renderResult(num1, num2, num3)
 }
 
-task7_5.solutionParams = {
-    code: task7_5.toString(),
+task5_7.solutionParams = {
+    code: task5_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -321,7 +321,7 @@ task7_5.solutionParams = {
 
 //* =========================  Task #6  ===========================
 
-export function task7_6() {
+export function task6_7() {
     const MESSAGE_NOT_CORRECTED_NUMBER =
         "Sorry, you entered not a number.\nYou need to enter a number."
 
@@ -362,8 +362,8 @@ export function task7_6() {
     return renderResult(number)
 }
 
-task7_6.solutionParams = {
-    code: task7_6.toString(),
+task6_7.solutionParams = {
+    code: task6_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -436,7 +436,7 @@ task7_7.solutionParams = {
 //* =========================  Task #8  ===========================
 // Створити функцію, яка випадковим чином виводить на екран одне із 4 зображень (шляхи до зображень передаються у функцію).
 
-export function task7_8() {
+export function task8_7() {
     const getRandomPath = (...path) => path[getRandomNumber(0, path.length - 1)]
 
     const renderResult = (path) => {
@@ -453,8 +453,8 @@ export function task7_8() {
     return renderResult(path)
 }
 
-task7_8.solutionParams = {
-    code: task7_8.toString(),
+task8_7.solutionParams = {
+    code: task8_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -468,7 +468,7 @@ task7_8.solutionParams = {
 // 	 куди переходимо при кліку на зображення (тег img повинен знаходитись у середині тега a:
 // 		 &lta&gt &ltimg src='шлях'&gt &lt/a&gt)
 
-export function task7_9() {
+export function task9_7() {
     const getRandomPath = (...path) => path[getRandomNumber(0, path.length - 1)]
 
     const renderBanner = (src, title, href) => `
@@ -491,8 +491,8 @@ export function task7_9() {
     )
 }
 
-task7_9.solutionParams = {
-    code: task7_9.toString(),
+task9_7.solutionParams = {
+    code: task9_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -503,7 +503,7 @@ task7_9.solutionParams = {
 
 //* =========================  Task #10  ===========================
 
-export function task7_10() {
+export function task10_7() {
     const countNegativeTemperature = (...arr) => {
         let count = 0
 
@@ -524,8 +524,8 @@ export function task7_10() {
     return renderResult(countNegTemp, temperatures)
 }
 
-task7_10.solutionParams = {
-    code: task7_10.toString(),
+task10_7.solutionParams = {
+    code: task10_7.toString(),
     name: "",
     title: "",
     lesson,
@@ -538,7 +538,7 @@ task7_10.solutionParams = {
 // Дано покази температур (довільна кількість). Розробити функцію,
 // яка дозволить знайти середнє значення для додатних показів температури.
 
-export function task7_11() {
+export function task11_7() {
     const arithmeticMeanArrElements = (arr) => {
         let sumPositiveTemp = 0
         let countPositiveTemp = 0
@@ -563,8 +563,8 @@ export function task7_11() {
     return renderResult(arithmeticMean, temperatures)
 }
 
-task7_11.solutionParams = {
-    code: task7_11.toString(),
+task11_7.solutionParams = {
+    code: task11_7.toString(),
     name: "",
     title: "",
     lesson,
