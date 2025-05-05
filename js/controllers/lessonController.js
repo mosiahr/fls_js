@@ -11,8 +11,8 @@ import { createList, pageTitle, Breadcrumb } from "../components/index.js"
 export default class LessonController extends Controller {
     constructor(page, objData, id) {
         super(page, objData)
-        this._id = id
-        this._lessonData = objData.get(id - 1)
+        this.id = id
+        this.lessonData = objData.get(id - 1)
         this.lessonPage = new this.page()
         this.lessonPage.breadcrumb = this.#createBreadcrumb()
     }
@@ -28,14 +28,14 @@ export default class LessonController extends Controller {
                 title: "Lessons",
             },
             {
-                title: this._lessonData._name,
+                title: this.lessonData._name,
             },
         ])
     }
 
     show() {
         this.lessonPage.updatePageElements(
-            pageTitle(this._lessonData.name, "", "", this._lessonData.title)
+            pageTitle(this.lessonData.name, "", "", this.lessonData.title)
                 ?.outerHTML
         )
         this.lessonPage.updatePageElements(this.createTaskList())
@@ -44,18 +44,18 @@ export default class LessonController extends Controller {
 
     createTaskList() {
         const taskArr = []
-        const tasks = this._lessonData.tasks
+        const tasks = this.lessonData.tasks
 
         for (const task of tasks) {
             if (task.available) {
-                const tagNameListAvailable = task.tags.map((tag) => {
+                const tagNameList = task.tags.map((tag) => {
                     if (tag.available) return tag.name
                 })
 
                 const taskEl = new TaskCard(
                     task,
                     `./#/tasks/${task.id + 1}`,
-                    tagNameListAvailable
+                    tagNameList
                 )
                 taskArr.push(taskEl.getTaskCardElement.outerHTML)
             }

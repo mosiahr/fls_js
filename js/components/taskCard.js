@@ -1,14 +1,17 @@
 import { NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT } from "../config.js"
 import { truncateStringFullWords } from "../utils.js"
+import check from "./check.js"
 
 export default class TaskCard {
-    _task
-    _path
-    _aClassNames = ["item-task"]
-    _divClassNames = ["task-card"]
-    _h3ClassNames = ["task-card__title"]
-    _divTagsClassNames = ["task-card__tags", "tags"]
-    _spanTags = ["item-tag"]
+    #task
+    #path
+    #tags
+
+    aClassNames = ["item-task"]
+    divClassNames = ["task-card"]
+    titleClassNames = ["task-card__title"]
+    divTagsClassNames = ["task-card__tags", "tags"]
+    spanTags = ["item-tag"]
 
     constructor(task, path, tags = []) {
         this.task = task
@@ -17,54 +20,74 @@ export default class TaskCard {
     }
 
     get task() {
-        return this._task
+        return this.#task
     }
     set task(value) {
-        this._task = value
+        this.#task = value
     }
 
     get path() {
-        return this._path
+        return this.#path
     }
     set path(value) {
-        this._path = value
+        this.#path = value
     }
 
-    get getTaskCardElement() {
-        const taskCard = document.createElement("a")
-        this._aClassNames.forEach((el) => taskCard.classList.add(el))
-        taskCard.href = this._path
+    get tags() {
+        return this.#tags
+    }
+    set tags(value) {
+        this.#tags = value
+    }
 
-        const bodyCard = document.createElement("div")
-        this._divClassNames.forEach((el) => bodyCard.classList.add(el))
-        taskCard.append(bodyCard)
+    createCardTitle() {
+        const title = document.createElement("h3")
+        this.titleClassNames.forEach((el) => title.classList.add(el))
+        title.textContent = this.#task.name
 
-        const h3 = document.createElement("h3")
-        this._h3ClassNames.forEach((el) => h3.classList.add(el))
-        h3.textContent = this._task.name
+        if (this.task.solutions.length) {
+            const checkEl = check()
+            title.append(checkEl)
+        }
+        return title
+    }
 
-        const p = document.createElement("p")
-        p.textContent = truncateStringFullWords(
-            this._task.description,
-            NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT,
-            "..."
-        )
-        bodyCard.append(h3, p)
-
+    createTagContainer() {
         const divTags = document.createElement("div")
-        this._divTagsClassNames.forEach((tag) => divTags.classList.add(tag))
+        this.divTagsClassNames.forEach((tag) => divTags.classList.add(tag))
 
         if (this.tags.length) {
             this.tags.forEach((tag) => {
                 const spanTag = document.createElement("span")
-                this._spanTags.forEach((el) => spanTag.classList.add(el))
+                this.spanTags.forEach((el) => spanTag.classList.add(el))
                 spanTag.textContent = tag
                 if (tag) divTags.append(spanTag)
             })
-
-            if (divTags.hasChildNodes()) bodyCard.append(divTags)
         }
-        // console.log(linkCard.outerHTML)
+        return divTags
+    }
+
+    get getTaskCardElement() {
+        const taskCard = document.createElement("a")
+        this.aClassNames.forEach((el) => taskCard.classList.add(el))
+        taskCard.href = this.#path
+
+        const bodyCard = document.createElement("div")
+        this.divClassNames.forEach((el) => bodyCard.classList.add(el))
+        taskCard.append(bodyCard)
+
+        const title = this.createCardTitle()
+
+        const p = document.createElement("p")
+        p.textContent = truncateStringFullWords(
+            this.#task.description,
+            NUMBER_CHARACTERS_FOR_TASK_DESCRIPTION_LIMIT,
+            "..."
+        )
+        bodyCard.append(title, p)
+
+        const tagContainer = this.createTagContainer()
+        if (tagContainer.hasChildNodes()) bodyCard.append(tagContainer)
 
         return taskCard
     }
