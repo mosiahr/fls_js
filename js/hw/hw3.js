@@ -79,7 +79,7 @@ export function task3_3() {
 
     const firstUserNumber = parseInt(
         prompt(
-            `Try to guess the integer number. \n Enter your number (Attempt 1): `
+            `Try to guess the integer number (1-5). \n Enter your number (Attempt 1): `
         )
     )
 
@@ -87,7 +87,7 @@ export function task3_3() {
 
     const secondUserNumber = parseInt(
         prompt(
-            `Try to guess the integer number. \n Enter your number (Attempt 2): `
+            `Try to guess the integer number. (1-5) \n Enter your number (Attempt 2): `
         )
     )
 
