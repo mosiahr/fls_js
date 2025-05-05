@@ -83,6 +83,10 @@ export function task3_3() {
         )
     )
 
+    if (isNaN(firstUserNumber) || firstUserNumber < 1 || firstUserNumber > 5) {
+        result = "Sorry, you entered an invalid number."
+    }
+
     if (randomNumber === firstUserNumber) return "You are guessed!"
 
     const secondUserNumber = parseInt(
@@ -91,6 +95,13 @@ export function task3_3() {
         )
     )
 
+    if (
+        isNaN(secondUserNumber) ||
+        secondUserNumber < 1 ||
+        secondUserNumber > 5
+    ) {
+        result = "Sorry, you entered an invalid number."
+    }
     if (randomNumber === secondUserNumber) return "You are guessed!"
 
     return "Unfortunally, you don't guess"
