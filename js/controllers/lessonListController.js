@@ -11,8 +11,10 @@ import {
 export default class LessonListController extends Controller {
     constructor(page, objData) {
         super(page, objData)
+        this.lessonData = objData
         this._lessonListPage = new this.page()
         this._lessonListPage.breadcrumb = this.#createBreadcrumb()
+        this.setDocumentTitle("Lessons")
     }
 
     #createBreadcrumb() {

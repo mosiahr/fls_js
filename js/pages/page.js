@@ -17,8 +17,4 @@ export default class Page extends BasicPage {
         this.footer = args[1] || createFooter(FOOTER_INFO)
         this.pageElements = args || []
     }
-
-    getClassName() {
-        return this.constructor.name
-    }
 }

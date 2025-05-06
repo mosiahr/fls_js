@@ -17,6 +17,7 @@ export default class HomePageController extends Controller {
     constructor(page, objData) {
         super(page, objData)
         this.homePage = new this.page()
+        this.setDocumentTitle("Home")
     }
 
     show() {

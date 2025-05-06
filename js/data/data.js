@@ -18,7 +18,6 @@ class QueryArray extends Array {
 
     getFromAvailable(id) {
         try {
-            // return this._array.find((item) => item.id === id)
             return this.allAvailable().find((item) => item.id === id)
         } catch (error) {
             console.log(error)
@@ -36,7 +35,7 @@ class QueryArray extends Array {
 
 export default class Data {
     #data
-	
+
     constructor(data) {
         this.#data = data
         this._objectData = this.#getObjectData()

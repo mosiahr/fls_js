@@ -39,22 +39,7 @@ export default class BasicPage {
         return `<pre><code>${highlightedCode}</code></pre>`
     }
 
-    // get pageElements() {
-    //     console.log("RRR")
-
-    //     return this.pageElements
-    // }
-
-    // set pageElements(elems) {
-    //     console.log(elems)
-
-    //     elems.forEach((el) => this.pageElements.push(el))
-    //     // this.pageElements = arr
-    // }
-
     getClassName() {
         return this.constructor.name
     }
-
-	
 }

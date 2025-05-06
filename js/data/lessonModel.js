@@ -7,6 +7,10 @@ export default class LessonModel extends Model {
         this._tasks = tasks
     }
 
+	get name() {
+        return this._name || `Lesson #${this._id + 1}`
+    }
+
     get title() {
         return this._title
     }

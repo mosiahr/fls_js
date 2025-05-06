@@ -15,15 +15,16 @@ import {
     DONT_HAVE_SOLUTION_RESULT_MESSAGE,
 } from "../config.js"
 
-import { app } from "../index.js"
+// import { app } from "../index.js"
 
 export default class TaskController extends Controller {
     #id
     #solutionId
-    #taskData
+    _taskData
 
     constructor(page, objData, id, solutionId) {
         super(page, objData)
+
         this.id = id
         this.solutionId = solutionId
         this.taskData = objData.get(id - 1)
@@ -33,28 +34,7 @@ export default class TaskController extends Controller {
         // console.log(this.taskListData)
         // console.log(objData)
         this.taskPage.breadcrumb = this.#createBreadcrumb()
-    }
-
-    #createBreadcrumb() {
-        return new Breadcrumb([
-            {
-                href: `/${PROJECT_FOLDER}/#`,
-                title: "Home",
-            },
-            {
-                href: `/${PROJECT_FOLDER}/#/lessons`,
-                title: "Lessons",
-            },
-            {
-                href: `/${PROJECT_FOLDER}/#/lessons/${
-                    this.taskData.lessonId + 1
-                }`,
-                title: `Lesson ${this.taskData.lessonId + 1}`,
-            },
-            {
-                title: this.taskData.name,
-            },
-        ])
+        this.setDocumentTitle(this.getTitleName())
     }
 
     get id() {
@@ -78,15 +58,47 @@ export default class TaskController extends Controller {
     }
 
     get taskData() {
-        return this.#taskData
+        return this._taskData
     }
 
     set taskData(value) {
-        this.#taskData = value
+        this._taskData = value
+    }
+
+    get taskName() {
+        return this.taskData.name
+    }
+
+    get lessonId() {
+        return this.taskData.lessonId
+    }
+
+    #createBreadcrumb() {
+        return new Breadcrumb([
+            {
+                href: `/${PROJECT_FOLDER}/#`,
+                title: "Home",
+            },
+            {
+                href: `/${PROJECT_FOLDER}/#/lessons`,
+                title: "Lessons",
+            },
+            {
+                href: `/${PROJECT_FOLDER}/#/lessons/${this.lessonId + 1}`,
+                title: `Lesson ${this.lessonId + 1}`,
+            },
+            {
+                title: this.taskName,
+            },
+        ])
+    }
+
+    getTitleName() {
+        return `${this.taskName} - Lesson #${this.lessonId + 1}`
     }
 
     show() {
-        if (!this.#taskData) throw new Error("Task Data doesn't exist!")
+        if (!this._taskData) throw new Error("Task Data doesn't exist!")
 
         if (this.id > 1) {
             this.taskPage.updatePageElements(
@@ -112,14 +124,14 @@ export default class TaskController extends Controller {
 
         this.taskPage.updatePageElements(
             pageTitle(
-                this.#taskData?.name,
-                `Lesson #${this.#taskData?.lessonId + 1}`,
-                `#/lessons/${this.#taskData?.lessonId + 1}/`,
-                this.#taskData?.description
+                this.taskName,
+                `Lesson #${this._taskData?.lessonId + 1}`,
+                `#/lessons/${this._taskData?.lessonId + 1}/`,
+                this._taskData?.description
             )?.outerHTML
         )
 
-        if (this.#taskData.solutions && this.#taskData.solutions.length !== 0) {
+        if (this._taskData.solutions && this._taskData.solutions.length !== 0) {
             const btn = button(
                 window.location.href,
                 "Start test",
@@ -141,18 +153,18 @@ export default class TaskController extends Controller {
     // TODO: If it is multiple solutions, need to implement them
     showSolutionCode() {
         return solutionEl(
-            this.#taskData.solutions[this.#solutionId]?.code,
+            this._taskData.solutions[this.#solutionId]?.code,
             "",
             "page-block__solution",
             "solution"
         )
     }
     getSolutionResult() {
-        const solutionFunc = this.#taskData.solutions[this.#solutionId]?.func
+        const solutionFunc = this._taskData.solutions[this.#solutionId]?.func
         const solutionParams =
-            this.#taskData.solutions[this.#solutionId]?.params
+            this._taskData.solutions[this.#solutionId]?.params
         const resultAsCode =
-            this.#taskData.solutions[this.#solutionId]?.resultAsCode
+            this._taskData.solutions[this.#solutionId]?.resultAsCode
 
         let solutionResult
         if (solutionFunc && solutionParams)
@@ -168,7 +180,7 @@ export default class TaskController extends Controller {
         return solutionResult
     }
 
-    getSolutions = (id) => this.#taskData.solutions[id]?.code
+    getSolutions = (id) => this._taskData.solutions[id]?.code
 
     renderSolutionResult() {
         const solutionResultDiv = document.querySelector("#solution__result")

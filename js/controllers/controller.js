@@ -1,8 +1,12 @@
+import { DEFAULT_PAGE_TITLE } from "../config.js"
+
 export default class Controller {
     state = {}
+
     constructor(page, objData, ...args) {
         this.page = page
         this.objData = objData
+        this.setDocumentTitle("", "")
     }
 
     get state() {
@@ -11,6 +15,14 @@ export default class Controller {
 
     set state(obj) {
         this.state = Object.assign(this.state, obj)
+    }
+
+    initDocumentTitle(value) {
+        document.title = value
+    }
+
+    setDocumentTitle(value, divider = "|") {
+        document.title = value + ` ${divider} ` + DEFAULT_PAGE_TITLE
     }
 
     getClassName() {
