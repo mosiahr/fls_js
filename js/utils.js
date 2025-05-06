@@ -108,5 +108,5 @@ export function toUpperCaseFirstLetterEveryWord(str) {
 }
 
 export function getCallbackResult(callback, ...args) {
-    return callback(args)
+    return callback(...args)
 }

@@ -16,27 +16,27 @@ export function task1_3() {
     let result = ""
 
     const firstChildName = getCallbackResult(
+        (message, defaultName) => prompt(message, defaultName),
         "Enter the name of the first child, please",
-        "Inna",
-        (message, defaultName) => prompt(message, defaultName)
+        "Inna"
     )
 
     const secondChildName = getCallbackResult(
+        (message, defaultName) => prompt(message, defaultName),
         "Enter the name of the second child, please",
-        "Bohdan",
-        (message, defaultName) => prompt(message, defaultName)
+        "Bohdan"
     )
 
     const firstCandyNumber = getCallbackResult(
+        (message, defaultName) => parseInt(prompt(message, defaultName)),
         `Enter how many candies ${firstChildName} has, please`,
-        0,
-        (message, defaultName) => parseInt(prompt(message, defaultName))
+        0
     )
 
     const secondCandyNumber = getCallbackResult(
+        (message, defaultName) => parseInt(prompt(message, defaultName)),
         `Enter how many candies ${secondChildName} has, please`,
-        0,
-        (message, defaultName) => parseInt(prompt(message, defaultName))
+        0
     )
 
     if (firstCandyNumber > secondCandyNumber) result = firstChildName
@@ -63,15 +63,15 @@ export function task2_3() {
     let result = ""
 
     const price = getCallbackResult(
+        (message, defaultName) => parseFloat(prompt(message, defaultName)),
         "Enter the price of the item, please",
-        10.5,
-        (message, defaultName) => parseFloat(prompt(message, defaultName))
+        10.5
     )
 
     const moneyAmount = getCallbackResult(
+        (message, defaultName) => parseFloat(prompt(message, defaultName)),
         `Enter the amount of money, please`,
-        50,
-        (message, defaultName) => parseFloat(prompt(message, defaultName))
+        50
     )
 
     if (price > moneyAmount) result = "Not enough money"
