@@ -21,7 +21,7 @@ export default class Timer {
     }
 
     get delay() {
-        return delay
+        return this.#delay
     }
 
     set delay(value) {

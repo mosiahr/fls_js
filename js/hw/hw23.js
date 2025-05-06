@@ -227,7 +227,7 @@ task10_23.solutionParams = {
 export function task11_23() {
     const str =
         "hello123. www dfg -fgf, 4142-3433-2323-3434/world hi test456, 1.5.2025 \"noDigitsHere' 5942-6878-6549-1594 01.05.2025 ...789only? 34 145OK 7. Yes!"
-    return str.match(/\d{4}-\d{4}-\d{4}-\d{4}/g)
+    return str.match(/\b\d{4}-\d{4}-\d{4}-\d{4}\b/g)
 }
 
 task11_23.solutionParams = {
