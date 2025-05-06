@@ -2,6 +2,7 @@ import {
     getNumbersFromCurrentFileName,
     getRandomNumber,
     toUpperCaseFirstLetterEveryWord,
+    getCallbackResult,
 } from "../utils.js"
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
@@ -12,29 +13,40 @@ const lesson = getNumbersFromCurrentFileName(import.meta)
 //  або вивести, що кількість однакова.
 
 export function task1_3() {
-    const firstChildName = prompt(
+    let result = ""
+
+    const firstChildName = getCallbackResult(
         "Enter the name of the first child, please",
-        "Inna"
+        "Inna",
+        (message, defaultName) => prompt(message, defaultName)
     )
-    const secondChildName = prompt(
+
+    const secondChildName = getCallbackResult(
         "Enter the name of the second child, please",
-        "Bohdan"
+        "Bohdan",
+        (message, defaultName) => prompt(message, defaultName)
     )
 
-    const firstCandyNumber = parseInt(
-        prompt(`Enter how many candies ${firstChildName} has, please`, 0)
-    )
-    const secondCandyNumber = parseInt(
-        prompt(`Enter how many candies ${secondChildName} has, please`, 0)
+    const firstCandyNumber = getCallbackResult(
+        `Enter how many candies ${firstChildName} has, please`,
+        0,
+        (message, defaultName) => parseInt(prompt(message, defaultName))
     )
 
-    if (firstCandyNumber > secondCandyNumber) return firstChildName
-    else if (firstCandyNumber < secondCandyNumber) return secondChildName
-    else if (firstCandyNumber === secondCandyNumber) return "Equal"
+    const secondCandyNumber = getCallbackResult(
+        `Enter how many candies ${secondChildName} has, please`,
+        0,
+        (message, defaultName) => parseInt(prompt(message, defaultName))
+    )
+
+    if (firstCandyNumber > secondCandyNumber) result = firstChildName
+    else if (firstCandyNumber < secondCandyNumber) result = secondChildName
+    else if (firstCandyNumber === secondCandyNumber) result = "Equal"
+    return result
 }
 
 task1_3.solutionParams = {
-    code: task1_3.toString(),
+    code: getCallbackResult.toString() + "\n\n" + task1_3.toString(),
     name: "",
     title: "",
     lesson,
@@ -48,21 +60,32 @@ task1_3.solutionParams = {
 //  інакше, якщо ще залишаються гроші, то пропонуємо купити лотерею за 4 грн.
 
 export function task2_3() {
-    const price = parseFloat(
-        prompt(`Enter the price of the item, please`, 10.5)
+    let result = ""
+
+    const price = getCallbackResult(
+        "Enter the price of the item, please",
+        10.5,
+        (message, defaultName) => parseFloat(prompt(message, defaultName))
     )
 
-    const moneyAmount = parseFloat(
-        prompt(`Enter the amount of money, please`, 50)
+    const moneyAmount = getCallbackResult(
+        `Enter the amount of money, please`,
+        50,
+        (message, defaultName) => parseFloat(prompt(message, defaultName))
     )
 
-    if (price > moneyAmount) return "Not enough money"
-    if (moneyAmount - price > 4) return "Would you like to buy lottery tickets?"
-    else if (moneyAmount - price < 4) return "Would you like a bag?"
+    if (price > moneyAmount) result = "Not enough money"
+    else {
+        if (moneyAmount - price > 4)
+            result = "Would you like to buy lottery tickets?"
+        else result = "Would you like a bag?"
+    }
+
+    return result
 }
 
 task2_3.solutionParams = {
-    code: task2_3.toString(),
+    code: getCallbackResult.toString() + "\n\n" + task2_3.toString(),
     name: "",
     title: "",
     lesson,
@@ -74,41 +97,51 @@ task2_3.solutionParams = {
 //* =========================  Task #3  ===========================
 // Випадковим чином генерується число від 1 до 5. Спробуйте вгадати число за 2 спроби.
 
+function compareTwoNumbers(firstNumber, secondNumber) {
+    if (firstNumber === secondNumber) return true
+    return false
+}
+
+function isGuessedNumber(guessedNumber) {
+    const userNumber = getCallbackResult(
+        (message) => parseInt(prompt(message)),
+        `Try to guess the integer number (1-5). \n Enter your number (Attempt 1): `
+    )
+
+    if (isNaN(userNumber) || userNumber < 1 || userNumber > 5) {
+        throw new RangeError("Sorry, you entered an invalid number.")
+    }
+
+    return compareTwoNumbers(userNumber, guessedNumber)
+}
+
 export function task3_3() {
-    const randomNumber = 1 + Math.floor(Math.random() * 5)
+    try {
+        const randomNumber = 1 + Math.floor(Math.random() * 5)
 
-    const firstUserNumber = parseInt(
-        prompt(
-            `Try to guess the integer number (1-5). \n Enter your number (Attempt 1): `
-        )
-    )
+        const resGuessedNumber1 = isGuessedNumber(randomNumber)
+        if (resGuessedNumber1) return "You are guessed!"
 
-    if (isNaN(firstUserNumber) || firstUserNumber < 1 || firstUserNumber > 5) {
-        result = "Sorry, you entered an invalid number."
+        const resGuessedNumber2 = isGuessedNumber(randomNumber)
+        if (resGuessedNumber2) return "You are guessed!"
+
+        return "Unfortunally, you don't guess"
+    } catch (error) {
+        if (error instanceof RangeError) {
+            return error.message
+        }
     }
-
-    if (randomNumber === firstUserNumber) return "You are guessed!"
-
-    const secondUserNumber = parseInt(
-        prompt(
-            `Try to guess the integer number. (1-5) \n Enter your number (Attempt 2): `
-        )
-    )
-
-    if (
-        isNaN(secondUserNumber) ||
-        secondUserNumber < 1 ||
-        secondUserNumber > 5
-    ) {
-        result = "Sorry, you entered an invalid number."
-    }
-    if (randomNumber === secondUserNumber) return "You are guessed!"
-
-    return "Unfortunally, you don't guess"
 }
 
 task3_3.solutionParams = {
-    code: task3_3.toString(),
+    code:
+        getCallbackResult.toString() +
+        "\n\n" +
+        compareTwoNumbers.toString() +
+        "\n\n" +
+        isGuessedNumber.toString() +
+        "\n\n" +
+        task3_3.toString(),
     name: "",
     title: "",
     lesson,
@@ -142,8 +175,6 @@ export function task4_3() {
                 break
             case age >= 63:
                 result = "You are retired"
-            default:
-                break
         }
     }
 
@@ -164,14 +195,33 @@ task4_3.solutionParams = {
 // З клавіатури вводиться назва категорії водія (А-мотоцикл, В-легковий автомобіль,
 // С-вантажний автомобіль). Вивести на екран назву транспортного засобу, яким він може керувати.
 export function task5_3() {
-    const category = prompt(
-        "Enter the driving license category, please \n(Available A, B or C): ",
-        "B"
-    )
+    try {
+        let result = ""
+        const category = prompt(
+            "Enter the driving license category, please \n(Available A, B or C): ",
+            "B"
+        )
 
-    if (category === "A") return "motorbike"
-    if (category === "B") return "passenger car"
-    if (category === "c") return "lorry"
+        if (!["A", "B", "C"].includes(category)) {
+            throw new RangeError(`The argument must be an 'A', 'B' or 'C'.`)
+        }
+
+        switch (category) {
+            case "A":
+                result = "motorbike"
+                break
+            case "B":
+                result = "passenger car"
+                break
+            case "C":
+                result = "lorry"
+                break
+        }
+
+        return result
+    } catch (error) {
+        if (error instanceof RangeError) return error.message
+    }
 }
 
 task5_3.solutionParams = {
