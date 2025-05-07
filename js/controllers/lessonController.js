@@ -6,7 +6,7 @@ import { Page } from "../pages/index.js"
 import { TaskCard } from "../components/index.js"
 import { limitString } from "../utils.js"
 import Controller from "./controller.js"
-import { createList, pageTitle, Breadcrumb } from "../components/index.js"
+import { createList, PageTitle, Breadcrumb } from "../components/index.js"
 
 export default class LessonController extends Controller {
     constructor(page, objData, id) {
@@ -40,7 +40,7 @@ export default class LessonController extends Controller {
 
     show() {
         this.lessonPage.updatePageElements(
-            pageTitle(this.lessonData.name, "", "", this.lessonData.title)
+            new PageTitle(this.lessonData.name, this.lessonData.title).render()
                 ?.outerHTML
         )
         this.lessonPage.updatePageElements(this.createTaskList())

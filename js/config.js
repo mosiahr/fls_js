@@ -12,3 +12,4 @@ export const DONT_HAVE_SOLUTION_RESULT_MESSAGE =
     "Sorry, We don't have solution result!"
 export const EXCHANGERATE_API_TOKEN = "8f46dc9af1cf5d709c9d7a18"
 export const DEFAULT_PAGE_TITLE = "FLS 2025"
+export const LIMIT_PAGE_TITLE = 200

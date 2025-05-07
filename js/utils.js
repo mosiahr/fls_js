@@ -63,10 +63,10 @@ export const getRandomNumberArrFromUser = (
     return resArr
 }
 
-export const limitString = (str, numChar) =>
-    str.substring(0, numChar) + (str.length > numChar ? "..." : "")
+export const limitString = (str, numChar, mark = "...") =>
+    str.substring(0, numChar) + (str.length > numChar ? mark : "")
 
-export const truncateStringFullWords = (str, max, suffix) => {
+export const truncateStringFullWords = (str, max, suffix = "...") => {
     return str.length < max
         ? str
         : `${str.substr(

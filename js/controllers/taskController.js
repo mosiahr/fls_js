@@ -1,6 +1,6 @@
 import Controller from "./controller.js"
 import {
-    pageTitle,
+    TaskTitle,
     button,
     solutionEl,
     codeEl,
@@ -123,12 +123,18 @@ export default class TaskController extends Controller {
         }
 
         this.taskPage.updatePageElements(
-            pageTitle(
+            // pageTitle(
+            //     this.taskName,
+            //     `Lesson #${this._taskData?.lessonId + 1}`,
+            //     `#/lessons/${this._taskData?.lessonId + 1}/`,
+            //     this._taskData?.description
+            // )?.outerHTML
+            new TaskTitle(
                 this.taskName,
                 `Lesson #${this._taskData?.lessonId + 1}`,
-                `#/lessons/${this._taskData?.lessonId + 1}/`,
+                // `#/lessons/${this._taskData?.lessonId + 1}/`,
                 this._taskData?.description
-            )?.outerHTML
+            ).render()?.outerHTML
         )
 
         if (this._taskData.solutions && this._taskData.solutions.length !== 0) {

@@ -9,7 +9,7 @@ import Controller from "./controller.js"
 import {
     HomePageContent,
     createList,
-    pageTitle,
+    // PageTitle,
     Breadcrumb,
 } from "../components/index.js"
 

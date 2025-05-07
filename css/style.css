@@ -254,6 +254,10 @@ td {
     flex-grow: 1;
 }
 
+.task-title {
+    /* font-size: 20px; */
+}
+
 .page-block__title h5 {
     color: var(--label-color);
     font-size: 18px;
