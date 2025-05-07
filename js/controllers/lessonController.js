@@ -13,8 +13,6 @@ export default class LessonController extends Controller {
         super(page, objData)
         this.id = id
         this.lessonData = objData.get(id - 1)
-        console.log(this.lessonData)
-
         this.lessonPage = new this.page()
         this.lessonPage.breadcrumb = this.#createBreadcrumb()
         this.setDocumentTitle(this.getTitleName())

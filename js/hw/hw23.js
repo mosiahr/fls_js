@@ -443,7 +443,7 @@ class ColorPicker {
         title.classList.add("task-card__title")
         title.innerText = this.title
         title.style.fontSize = "18px"
-        title.style.textAlign = "center"
+        title.style.justifyContent = "center"
 
         this.titleEl = title
         return title
