@@ -34,6 +34,11 @@ export default class TaskController extends Controller {
         // console.log(this.taskListData)
         // console.log(objData)
         this.taskPage.breadcrumb = this.#createBreadcrumb()
+        this.taskTitleEl = new TaskTitle(
+            this.taskName,
+            `Lesson #${this._taskData?.lessonId + 1}`,
+            this._taskData?.description
+        )
         this.setDocumentTitle(this.getTitleName())
     }
 
@@ -122,20 +127,7 @@ export default class TaskController extends Controller {
             )
         }
 
-        this.taskPage.updatePageElements(
-            // pageTitle(
-            //     this.taskName,
-            //     `Lesson #${this._taskData?.lessonId + 1}`,
-            //     `#/lessons/${this._taskData?.lessonId + 1}/`,
-            //     this._taskData?.description
-            // )?.outerHTML
-            new TaskTitle(
-                this.taskName,
-                `Lesson #${this._taskData?.lessonId + 1}`,
-                // `#/lessons/${this._taskData?.lessonId + 1}/`,
-                this._taskData?.description
-            ).render()?.outerHTML
-        )
+        this.taskPage.updatePageElements(this.taskTitleEl.render()?.outerHTML)
 
         if (this._taskData.solutions && this._taskData.solutions.length !== 0) {
             const btn = button(
@@ -217,6 +209,11 @@ export default class TaskController extends Controller {
             e.preventDefault()
             // this.runSolution()
             this.renderSolutionResult()
+        })
+
+        const expandButton = document.querySelector("#expand-button")
+        expandButton?.addEventListener("click", (e) => {
+            this.taskTitleEl.toggle()
         })
 
         // const buttonPreviousLink = document.querySelector(".link--previous")

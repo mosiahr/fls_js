@@ -28,7 +28,7 @@ export default class PageTitle {
 
     createContainer() {
         const container = document.createElement("div")
-        container.className = "page-block__title"
+        container.classList.add("page-block__title", "title-block")
         return container
     }
 
@@ -40,7 +40,7 @@ export default class PageTitle {
 
     createTitle() {
         const title = document.createElement("h2")
-        title.classList.add("task-title")
+        // title.classList.add("task-title")
         title.textContent = this.titleText
         return title
     }
