@@ -260,8 +260,6 @@ td {
 .title-block .title-block__task {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
 }
 
 .page-block__title .title-block__description {
