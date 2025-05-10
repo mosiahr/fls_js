@@ -507,7 +507,7 @@ class ColorPicker {
         )
     }
 
-    createCountBlock(volume = 0) {
+    createCountBlock(volume) {
         if (!volume) volume = 0
 
         const countBlock = document.createElement("div")
