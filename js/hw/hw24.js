@@ -118,7 +118,6 @@ task1_24.solutionParams = {
 
 class Shop {
   #productList
-  index = 0
 
   /**
    * Creates an instance of the class with a list of products.
@@ -141,6 +140,7 @@ class Shop {
   }
 
   [Symbol.iterator]() {
+    this.index = 0
     return this
   }
   next() {
