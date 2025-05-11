@@ -141,12 +141,10 @@ class Shop {
   }
 
   [Symbol.iterator]() {
-    // this.current = this.productList[this.index]
     return this
   }
   next() {
     if (this.index < this.productList.length) {
-      // this.current = this.productList[this.index]
       return { done: false, value: this.productList[this.index++] }
     } else return { done: true }
   }
