@@ -4,6 +4,7 @@ import {
   toUpperCaseFirstLetterEveryWord,
 } from '../utils.js'
 
+import { table, createList } from '../components/index.js'
 import Timer from '../helpers/timer.js'
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
@@ -116,6 +117,39 @@ task1_24.solutionParams = {
 //  кількість одиниць). Додати можливість ітератора до класу Shop, щоб при ітеруванні
 // для кожного елемента виводився рядок «товар-загальна вартість»
 
+class Product {
+  /**
+   * @param {string} name - The name of the item.
+   * @param {number} price - The price of the item.
+   * @param {number} volume - The volume of the item.
+   */
+  constructor(name, price, volume) {
+    this.name = name
+    this.price = price
+    this.volume = volume
+  }
+
+  [Symbol.toPrimitive](hint) {
+    let res
+    switch (hint) {
+      case 'string':
+        res = `${this.name} - ${this.getTotalPrice()}`
+        break
+      case 'number':
+        res = this.getTotalPrice()
+        break
+      default:
+        res = `${this.name} - ${this.getTotalPrice()}`
+        break
+    }
+    return res
+  }
+
+  getTotalPrice() {
+    return (this.price * this.volume).toFixed(2)
+  }
+}
+
 class Shop {
   #productList
 
@@ -150,39 +184,6 @@ class Shop {
   }
 }
 
-class Product {
-  /**
-   * @param {string} name - The name of the item.
-   * @param {number} price - The price of the item.
-   * @param {number} volume - The volume of the item.
-   */
-  constructor(name, price, volume) {
-    this.name = name
-    this.price = price
-    this.volume = volume
-  }
-
-  [Symbol.toPrimitive](hint) {
-    let res
-    switch (hint) {
-      case 'string':
-        res = `${this.name} - ${this.getTotalPrice()}`
-        break
-      case 'number':
-        res = this.getTotalPrice()
-        break
-      default:
-        res = `${this.name} - ${this.getTotalPrice()}`
-        break
-    }
-    return res
-  }
-
-  getTotalPrice() {
-    return (this.price * this.volume).toFixed(2)
-  }
-}
-
 export function task2_24() {
   const res = []
   const products = [
@@ -205,7 +206,7 @@ export function task2_24() {
     res.push(String(product))
   }
 
-  return res
+  return createList(res)
 }
 
 task2_24.solutionParams = {
@@ -214,11 +215,202 @@ task2_24.solutionParams = {
     '\n\n' +
     Product.toString() +
     '\n\n' +
+    createList.toString() +
+    '\n\n' +
     task2_24.toString(),
   name: '',
   title: '',
   lesson,
   task: 2,
   params: [],
-  resultAsCode: true,
+  resultAsCode: false,
+}
+
+/** =========================  Task #3  =========================== */
+// Створити генератор, який би випадковим чином поступово генерував
+// вказану кількість парних чисел.
+
+/** =========================  Task #4  =========================== */
+// Дано список URL адрес. Підрахувати кількість адрес, що відносяться до кожного
+//  із доменів (edu, com, org,...).
+
+/** =========================  Task #5  =========================== */
+// Дано масив книг (назва, рік видання, автор, ціна). Підрахувати загальну
+// вартість книг для кожного із авторів.
+
+class Autor {
+  // Memoizing
+  static instances = new Map()
+
+  #firstName
+  #lastName
+
+  constructor(firstName, lastName) {
+    const key = JSON.stringify([
+      this.normalizeSpaces(firstName),
+      this.normalizeSpaces(lastName),
+    ])
+
+    if (Autor.instances.has(key)) return Autor.instances.get(key)
+
+    this.firstName = firstName
+    this.lastName = lastName
+
+    Autor.instances.set(key, this)
+  }
+
+  get firstName() {
+    return this.#firstName
+  }
+  set firstName(value) {
+    this.#firstName = this.normalizeSpaces(value)
+  }
+
+  get lastName() {
+    return this.#lastName
+  }
+  set lastName(value) {
+    this.#lastName = this.normalizeSpaces(value)
+  }
+
+  normalizeSpaces(text) {
+    const regex = /\s+/g
+    return text.replace(regex, ' ').trim()
+  }
+
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
+
+  [Symbol.toPrimitive](hint) {
+    let res
+    switch (hint) {
+      case 'string':
+        res = this.getFullName()
+        break
+      default:
+        res = this.getFullName()
+        break
+    }
+    return res
+  }
+}
+class Book {
+  constructor(title, year, price, autor) {
+    this.title = title
+    this.year = year
+    this.price = price
+    this.autor = autor
+  }
+}
+
+class Library {
+  //Singleton
+  instanceRef
+  #booksList
+
+  constructor(booksList) {
+    if (Library.instanceRef) return Library.instanceRef
+
+    this.booksList = booksList
+    this.totalValueBooksByAutorMap = new Map()
+
+    this.instanceRef = this
+  }
+
+  get booksList() {
+    return this.#booksList
+  }
+  set booksList(value) {
+    this.#booksList = value
+  }
+
+  addBookObject(book) {
+    if (book instanceof Book) this.booksList.push(book)
+    else throw new TypeError('Instance should be a Book type!')
+  }
+
+  [Symbol.iterator]() {
+    this.currentBookIndex = 0
+    return this
+  }
+  next() {
+    if (this.currentBookIndex < this.booksList.length) {
+      const book = this.booksList[this.currentBookIndex++]
+      if (this.totalValueBooksByAutorMap.has(book.autor)) {
+        const totalValue =
+          this.totalValueBooksByAutorMap.get(book.autor) + book.price
+        this.totalValueBooksByAutorMap.set(book.autor, totalValue)
+      } else this.totalValueBooksByAutorMap.set(book.autor, book.price)
+
+      return {
+        done: false,
+        value: `${book.title} - ${book.price}, ${book.autor},
+        ${this.totalValueBooksByAutorMap.get(book.autor).toFixed(2)}`,
+      }
+    }
+    return { done: true }
+  }
+}
+
+export function task5_24() {
+  const tarasShevchenko = new Autor('Taras', 'Shevchenko')
+  const lesyaUkrainka = new Autor('Lesya', 'Ukrainka')
+  const listBooks = [
+    new Book(
+      'Shadows of Forgotten Ancestors',
+      1911,
+      12.99,
+      new Autor('Mykhailo', 'Kotsiubynsky')
+    ),
+    new Book('The Forest Song', 1911, 10.99, lesyaUkrainka),
+    new Book('Kobzar', 1840, 15.99, tarasShevchenko),
+    new Book('Kobzar', 1840, 15.99, tarasShevchenko),
+    new Book('Kobzar', 1840, 15.99, tarasShevchenko),
+    new Book('A Dream', 1844, 19.99, tarasShevchenko),
+    new Book('Black Council', 1846, 11.99, new Autor('Panteleimon', 'Kulish')),
+    new Book('Black Council', 1846, 11.99, new Autor('Panteleimon', 'Kulish')),
+    new Book('Maria', 1934, 9.99, new Autor('Ulas', 'Samchuk')),
+    new Book('Maria', 1934, 9.99, new Autor('Ulas', 'Samchuk')),
+    new Book('Tiger Trappers', 1900, 8.99, new Autor('Ivan', 'Bahrianyi')),
+    new Book('The Yellow Prince', 1963, 14.99, new Autor('Vasyl', 'Barka')),
+    new Book('The Cathedral', 1968, 12.49, new Autor('Oles', ' Honchar')),
+    new Book('The Cathedral', 1968, 12.49, new Autor('Oles', 'Honchar')),
+    new Book(
+      'The Garden of Gethsemane',
+      1950,
+      10.49,
+      new Autor('Ivan', 'Bahrianyi')
+    ),
+  ]
+
+  const library = new Library(listBooks)
+  library.addBookObject(
+    new Book('The City', 1928, 13.99, new Autor('Valerian', 'Pidmohylny'))
+  )
+
+  return (
+    createList([...library]) +
+    '<br>' +
+    createList([...library.totalValueBooksByAutorMap])
+  )
+}
+
+task5_24.solutionParams = {
+  code:
+    Autor.toString() +
+    '\n\n' +
+    Book.toString() +
+    '\n\n' +
+    Library.toString() +
+    '\n\n' +
+    createList.toString() +
+    '\n\n' +
+    task5_24.toString(),
+  name: '',
+  title: '',
+  lesson,
+  task: 5,
+  params: [],
+  resultAsCode: false,
 }
