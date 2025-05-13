@@ -2,6 +2,7 @@ import {
   getNumbersFromCurrentFileName,
   getRandomNumber,
   toUpperCaseFirstLetterEveryWord,
+  trunsformEntityToCode,
 } from '../utils.js'
 
 import { table, createList } from '../components/index.js'
@@ -30,9 +31,11 @@ class PhoneNumber {
     '091': '3Mob',
     '094': 'Intertelecom',
   }
-  #phoneNumberRegex = new RegExp(
+
+  static #phoneNumberRegex = new RegExp(
     /^\+?(?:\d{1,3}?)?[-.\s]?(?<operatorCode>\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/
   )
+
   #phoneNumber
   #codePhoneOperator
 
@@ -57,7 +60,7 @@ class PhoneNumber {
   }
 
   get phoneNumberRegex() {
-    return this.#phoneNumberRegex
+    return PhoneNumber.#phoneNumberRegex
   }
 
   isValidPhone(phone) {
@@ -103,7 +106,7 @@ export function task1_24() {
 }
 
 task1_24.solutionParams = {
-  code: PhoneNumber.toString() + '\n\n' + task1_24.toString(),
+  code: trunsformEntityToCode(PhoneNumber, task1_24),
   name: '',
   title: '',
   lesson,
@@ -210,14 +213,7 @@ export function task2_24() {
 }
 
 task2_24.solutionParams = {
-  code:
-    Shop.toString() +
-    '\n\n' +
-    Product.toString() +
-    '\n\n' +
-    createList.toString() +
-    '\n\n' +
-    task2_24.toString(),
+  code: trunsformEntityToCode(Shop, Product, createList, task2_24),
   name: '',
   title: '',
   lesson,
@@ -226,15 +222,42 @@ task2_24.solutionParams = {
   resultAsCode: false,
 }
 
-/** =========================  Task #3  =========================== */
+//* =========================  Task #3  ===========================
 // Створити генератор, який би випадковим чином поступово генерував
 // вказану кількість парних чисел.
 
-/** =========================  Task #4  =========================== */
+function* generateRandomEvenNumbers(minNumber, maxNumber, numberVolume) {
+  for (let i = 0; i < numberVolume; i++) {
+    const randomNumber = getRandomNumber(minNumber, maxNumber)
+    yield randomNumber - (randomNumber % 2)
+  }
+}
+
+export function task3_24() {
+  const randomEvenNumbers = generateRandomEvenNumbers(100, 1, 10)
+  return createList([...randomEvenNumbers])
+}
+
+task3_24.solutionParams = {
+  code: trunsformEntityToCode(
+    getRandomNumber,
+    generateRandomEvenNumbers,
+    createList,
+    task3_24
+  ),
+  name: '',
+  title: '',
+  lesson,
+  task: 3,
+  params: [],
+  resultAsCode: false,
+}
+
+//* =========================  Task #4  ===========================
 // Дано список URL адрес. Підрахувати кількість адрес, що відносяться до кожного
 //  із доменів (edu, com, org,...).
 
-/** =========================  Task #5  =========================== */
+//* =========================  Task #5  ===========================
 // Дано масив книг (назва, рік видання, автор, ціна). Підрахувати загальну
 // вартість книг для кожного із авторів.
 
@@ -397,16 +420,7 @@ export function task5_24() {
 }
 
 task5_24.solutionParams = {
-  code:
-    Autor.toString() +
-    '\n\n' +
-    Book.toString() +
-    '\n\n' +
-    Library.toString() +
-    '\n\n' +
-    createList.toString() +
-    '\n\n' +
-    task5_24.toString(),
+  code: trunsformEntityToCode(Autor, Book, Library, createList, task5_24),
   name: '',
   title: '',
   lesson,
@@ -414,3 +428,33 @@ task5_24.solutionParams = {
   params: [],
   resultAsCode: false,
 }
+
+//* =========================  Task #6  ===========================
+// Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін).
+// Підрахувати для кожного клієнта кількість відвідувань.
+
+//* =========================  Task #7  ===========================
+// Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів,
+//  та кількість студентів кожного з курсів.
+
+//* =========================  Task #8  ===========================
+// Дано масив показів температур. Підрахувати кількість входжень кожного із показів
+// 	let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+// Заокруглити вверх значення та підрахувати кількість різних показів.
+
+//* =========================  Task #9  ===========================
+// Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії.
+// Підрахувати скільки студентів з гуртка з історії також відвідують гурток з математики.
+// Також підрахувати скільки всього студентів відвідують хоча б один гурток.
+const studentList1 = [
+  { name: 'Ivan Petrenko', course: 1, faculty: 'Engineering' },
+  { name: 'Olena Shevchenko', course: 2, faculty: 'Mathematics' },
+  { name: 'Andriy Kovalenko', course: 3, faculty: 'Physics' },
+  { name: 'Svitlana Bondarenko', course: 1, faculty: 'Biology' },
+  { name: 'Mykola Tkachuk', course: 2, faculty: 'Chemistry' },
+  { name: 'Oksana Hrytsenko', course: 3, faculty: 'History' },
+  { name: 'Yuriy Lysenko', course: 1, faculty: 'Engineering' },
+  { name: 'Kateryna Dovzhenko', course: 2, faculty: 'Mathematics' },
+  { name: 'Volodymyr Kravchenko', course: 3, faculty: 'Physics' },
+  { name: 'Iryna Horobets', course: 1, faculty: 'Biology' },
+]
