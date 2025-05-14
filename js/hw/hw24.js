@@ -555,6 +555,56 @@ task7_24.solutionParams = {
 // 	let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
 // Заокруглити вверх значення та підрахувати кількість різних показів.
 
+function getNumberOccurrencesEachElement(elements) {
+  const res = new Map()
+  for (const element of elements) {
+    res.set(element, (res.get(element) || 0) + 1)
+  }
+  res[Symbol.iterator] = function* () {
+    for (const [key, value] of this.entries()) {
+      yield `${key} => ${value}`
+    }
+  }
+  return res
+}
+
+function getDifferentOccurrencesSize(elements) {
+  const ceilElements = elements.map((el) => Math.ceil(el))
+  return new Set(ceilElements).size
+}
+
+export function task8_24() {
+  const temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+
+  const numberOccurrencesEachTemperature =
+    getNumberOccurrencesEachElement(temperatures)
+
+  const differentOccurrencesSize = getDifferentOccurrencesSize(temperatures)
+
+  return (
+    'Occurrences Number: ' +
+    '<br>' +
+    createList([...numberOccurrencesEachTemperature]) +
+    '<br>' +
+    `Different Occurrences Size: ${differentOccurrencesSize}`
+  )
+}
+
+task8_24.solutionParams = {
+  code: trunsformEntityToCode(
+    getNumberOccurrencesEachElement,
+    getDifferentOccurrencesSize,
+    createList,
+    task8_24
+  ),
+  name: '',
+  title: '',
+  lesson,
+  task: 8,
+  params: [],
+  resultAsCode: false,
+}
+
 //* =========================  Task #9  ===========================
 // Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії.
 // Підрахувати скільки студентів з гуртка з історії також відвідують гурток з математики.
