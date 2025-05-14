@@ -257,6 +257,62 @@ task3_24.solutionParams = {
 // Дано список URL адрес. Підрахувати кількість адрес, що відносяться до кожного
 //  із доменів (edu, com, org,...).
 
+function getDomainName(url) {
+  const regex = /https?:\/\/[\w.-]+\.(?<domainName>\w+)/
+  const res = url.match(regex)
+  if (!res) throw Error('Argument url should be URL!')
+  return res.groups?.domainName
+}
+
+export function task4_24() {
+  const urlList = [
+    'https://www.greenwave.com',
+    'https://www.pixeldrop.net',
+    'https://www.freshbites.org',
+    'https://www.nightowl.io',
+    'https://www.travelocean.co',
+    'https://www.codebucket.dev',
+    'https://www.smartfinance.ai',
+    'https://www.wildtrails.com',
+    'https://www.learnfast.edu',
+    'https://www.ecomspark.store',
+    'https://www.happypaws.pet',
+    'https://www.fixitnow.tech',
+    'https://www.coffeebeanhouse.com',
+    'https://www.artsycorner.net',
+    'https://www.quickdocs.org',
+    'https://www.zapmarket.shop',
+    'https://www.gearupnow.pro',
+    'https://www.globalconnect.biz',
+    'https://www.fitnesszone.fit',
+    'https://www.mindfulreads.blog',
+  ]
+
+  const domains = new Map()
+  domains[Symbol.iterator] = function* () {
+    for (const [key, value] of this.entries()) {
+      yield `${key} => ${value}`
+    }
+  }
+
+  for (const url of urlList) {
+    const domain = getDomainName(url)
+    const urlCount = domains.get(domain) || 0
+    domains.set(domain, urlCount + 1)
+  }
+  return createList(urlList) + '<br>' + createList([...domains])
+}
+
+task4_24.solutionParams = {
+  code: trunsformEntityToCode(getDomainName, createList, task4_24),
+  name: '',
+  title: '',
+  lesson,
+  task: 4,
+  params: [],
+  resultAsCode: false,
+}
+
 //* =========================  Task #5  ===========================
 // Дано масив книг (назва, рік видання, автор, ціна). Підрахувати загальну
 // вартість книг для кожного із авторів.
