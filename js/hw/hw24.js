@@ -559,15 +559,53 @@ task7_24.solutionParams = {
 // Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії.
 // Підрахувати скільки студентів з гуртка з історії також відвідують гурток з математики.
 // Також підрахувати скільки всього студентів відвідують хоча б один гурток.
-const studentList1 = [
-  { name: 'Ivan Petrenko', course: 1, faculty: 'Engineering' },
-  { name: 'Olena Shevchenko', course: 2, faculty: 'Mathematics' },
-  { name: 'Andriy Kovalenko', course: 3, faculty: 'Physics' },
-  { name: 'Svitlana Bondarenko', course: 1, faculty: 'Biology' },
-  { name: 'Mykola Tkachuk', course: 2, faculty: 'Chemistry' },
-  { name: 'Oksana Hrytsenko', course: 3, faculty: 'History' },
-  { name: 'Yuriy Lysenko', course: 1, faculty: 'Engineering' },
-  { name: 'Kateryna Dovzhenko', course: 2, faculty: 'Mathematics' },
-  { name: 'Volodymyr Kravchenko', course: 3, faculty: 'Physics' },
-  { name: 'Iryna Horobets', course: 1, faculty: 'Biology' },
-]
+export function task9_24() {
+  const mathematicStudentList = [
+    'Ivan Petrenko',
+    'Olena Shevchenko',
+    'Petro Tkachuk',
+    'Andriy Kovalenko',
+    'Viktoriya Bondarenko',
+    'Svitlana Bondarenko',
+    'Mykola Tkachuk',
+    'Serhiy Lysenko',
+    'Oksana Hrytsenko',
+    'Natalia Hrytsenko',
+  ]
+
+  const historyStudentList = [
+    'Dmytro Ivanov',
+    'Natalia Hrytsenko',
+    'Anna Shevchenko',
+    'Oleksandr Kovalenko',
+    'Serhiy Lysenko',
+    'Maria Dovzhenko',
+    'Viktoriya Bondarenko',
+    'Bohdan Kravchenko',
+    'Alina Horobets',
+    'Petro Tkachuk',
+  ]
+
+  const mathematicStudentSet = new Set(mathematicStudentList)
+  const historyStudentSet = new Set(historyStudentList)
+
+  const intersection = mathematicStudentSet.intersection(historyStudentSet)
+  const union = mathematicStudentSet.union(historyStudentSet)
+
+  return (
+    'Total students from the history course also attend the mathematics course (intersection ∩): ' +
+    intersection.size +
+    '<br><br>' +
+    'Total students attend at least one course (union ∪): ' +
+    union.size
+  )
+}
+task9_24.solutionParams = {
+  code: trunsformEntityToCode(task9_24),
+  name: '',
+  title: '',
+  lesson,
+  task: 9,
+  params: [],
+  resultAsCode: false,
+}
