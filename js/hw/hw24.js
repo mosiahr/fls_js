@@ -493,6 +493,63 @@ task5_24.solutionParams = {
 // Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів,
 //  та кількість студентів кожного з курсів.
 
+export function task7_24() {
+  const studentList = [
+    { name: 'Ivan Petrenko', course: 1, faculty: 'Engineering' },
+    { name: 'Olena Shevchenko', course: 2, faculty: 'Mathematics' },
+    { name: 'Andriy Kovalenko', course: 3, faculty: 'Physics' },
+    { name: 'Svitlana Bondarenko', course: 1, faculty: 'Biology' },
+    { name: 'Mykola Tkachuk', course: 2, faculty: 'Chemistry' },
+    { name: 'Oksana Hrytsenko', course: 3, faculty: 'History' },
+    { name: 'Yuriy Lysenko', course: 1, faculty: 'Engineering' },
+    { name: 'Kateryna Dovzhenko', course: 2, faculty: 'Mathematics' },
+    { name: 'Volodymyr Kravchenko', course: 3, faculty: 'Physics' },
+    { name: 'Iryna Horobets', course: 1, faculty: 'Biology' },
+  ]
+
+  const faculty = Map.groupBy(studentList, ({ faculty }) => faculty)
+  faculty[Symbol.iterator] = function* () {
+    for (const [key, value] of this.entries()) {
+      const student = value.length > 1 ? 'students' : 'student'
+      yield `Faculty ${key} => ${value.length} ${student}`
+    }
+  }
+
+  const course = Map.groupBy(studentList, ({ course }) => course)
+  course[Symbol.iterator] = function* () {
+    for (const [key, value] of this.entries()) {
+      const student = value.length > 1 ? 'students' : 'student'
+      yield `Course ${key} => ${value.length} ${student}`
+    }
+  }
+
+  return (
+    'Students List:' +
+    '<br>' +
+    createList(studentList, null, true) +
+    '<br>' +
+    'Number of faculties: ' +
+    faculty.size +
+    '<br><br>' +
+    'Number of students of each course:' +
+    '<br>' +
+    createList([...course]) +
+    '<br>' +
+    'Number of students of each faculty:' +
+    createList([...faculty])
+  )
+}
+
+task7_24.solutionParams = {
+  code: trunsformEntityToCode(createList, task7_24),
+  name: '',
+  title: '',
+  lesson,
+  task: 7,
+  params: [],
+  resultAsCode: false,
+}
+
 //* =========================  Task #8  ===========================
 // Дано масив показів температур. Підрахувати кількість входжень кожного із показів
 // 	let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
