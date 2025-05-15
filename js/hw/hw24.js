@@ -597,6 +597,11 @@ class Login {
     return this.#countMap
   }
 
+  static clear() {
+    Login.#logs = []
+    Login.#countMap.clear()
+  }
+
   static *[Symbol.iterator]() {
     for (const [key, value] of Login.countMap) {
       const user = JSON.parse(key)[0]
@@ -703,18 +708,23 @@ export function task6_24() {
   new Login('mariam.i', 'Mariam2024$1111111')
   new Login('danish.ali', 'DanishAli@900111111')
 
+  const userList = createList([...User])
+  const logList = createList(Login.logs)
+  const loginCountList = createList([...Login])
+
+  Login.clear()
+
   return (
     'Users: ' +
     '<br>' +
-    createList([...User]) +
+    userList +
     '<br>' +
     'Logs: ' +
-    '<br>' +
-    createList(Login.logs) +
+    logList +
     '<br>' +
     'Successful Login Count: ' +
     '<br>' +
-    createList([...Login])
+    loginCountList
   )
 }
 
