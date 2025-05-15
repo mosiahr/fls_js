@@ -254,7 +254,7 @@ task3_24.solutionParams = {
 }
 
 //* =========================  Task #4  ===========================
-// Дано список URL адрес. Підрахувати кількість адрес, що відносяться до кожного
+// Дано список URL адрес. Підрахувати кількість адрес, що відносятьcя до кожного
 //  із доменів (edu, com, org,...).
 
 function getDomainName(url) {
@@ -433,7 +433,7 @@ class Library {
 }
 
 export function task5_24() {
-  const tarasShevchenko = new Autor('Taras', 'Shevchenko')
+  const tarasShevchenko = new Autor('Taras', 'Shevченко')
   const lesyaUkrainka = new Autor('Lesya', 'Ukrainka')
   const listBooks = [
     new Book(
@@ -488,6 +488,245 @@ task5_24.solutionParams = {
 //* =========================  Task #6  ===========================
 // Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін).
 // Підрахувати для кожного клієнта кількість відвідувань.
+
+class User {
+  // Memoizing
+  static instances = new Map()
+
+  static *[Symbol.iterator]() {
+    for (const [key, user] of User.instances) {
+      yield `${key} => ${user}`
+    }
+  }
+
+  #id
+  #username
+  #password
+  #firstName
+  #lastName
+
+  constructor(username, password, firstName = '', lastName = '') {
+    const key = JSON.stringify([
+      this.normalizeSpaces(username),
+      this.normalizeSpaces(password),
+    ])
+
+    if (User.instances.has(key)) return User.instances.get(key)
+
+    this.id = Symbol('id')
+    this.username = username
+    this.password = password
+    this.firstName = firstName
+    this.lastName = lastName
+
+    User.instances.set(key, this)
+  }
+
+  get id() {
+    return this.#id
+  }
+  set id(value) {
+    this.#id = value
+  }
+
+  get username() {
+    return this.#username
+  }
+  set username(value) {
+    this.#username = value
+  }
+
+  get password() {
+    return this.#password
+  }
+  set password(value) {
+    this.#password = value
+  }
+
+  get firstName() {
+    return this.#firstName
+  }
+  set firstName(value) {
+    this.#firstName = value
+  }
+
+  get lastName() {
+    return this.#lastName
+  }
+  set lastName(value) {
+    this.#lastName = value
+  }
+
+  getFullName() {
+    return `${firstName} + ${lastName}`
+  }
+
+  normalizeSpaces(text) {
+    const regex = /\s+/g
+    return text.replace(regex, ' ').trim()
+  }
+
+  [Symbol.toPrimitive](hint) {
+    let res
+
+    const primitiveStr = `#id: Symbol(id), #username: ${this.username},
+		#password: ${this.password}, #firstName: ${this.firstName},
+		#lastName: ${this.lastName}`
+
+    switch (hint) {
+      case 'string':
+        res = primitiveStr
+        break
+      default:
+        res = primitiveStr
+        break
+    }
+    return res
+  }
+}
+
+class Login {
+  static #logs = []
+  static #countMap = new Map()
+
+  static get logs() {
+    return this.#logs
+  }
+
+  static get countMap() {
+    return this.#countMap
+  }
+
+  static *[Symbol.iterator]() {
+    for (const [key, value] of Login.countMap) {
+      const user = JSON.parse(key)[0]
+      yield `${user} => ${value}`
+    }
+  }
+
+  #username
+  #password
+
+  constructor(username, password) {
+    this.username = username
+    this.password = password
+
+    this.users = User.instances
+    this.login()
+  }
+
+  get username() {
+    return this.#username
+  }
+  set username(value) {
+    this.#username = this.normalizeSpaces(value)
+  }
+
+  get password() {
+    return this.#password
+  }
+  set password(value) {
+    this.#password = this.normalizeSpaces(value)
+  }
+
+  addLog(value) {
+    Login.logs.push(value)
+  }
+
+  login() {
+    const key = JSON.stringify([this.username, this.password])
+
+    if (this.users.has(key)) {
+      this.addLog(
+        `${new Date()} Successful login: ${this.username}, IP: 192.168.*.**`
+      )
+
+      Login.countMap.set(key, (Login.countMap.get(key) || 0) + 1)
+    } else {
+      this.addLog(
+        `${new Date()} Failed login attempt: ${this.username}, IP: 192.168.*.**`
+      )
+    }
+  }
+
+  normalizeSpaces(text) {
+    const regex = /\s+/g
+    return text.replace(regex, ' ').trim()
+  }
+}
+
+export function task6_24() {
+  // User Registration
+  new User('ayesha.k', 'Ayesha@123')
+  new User('ali.raza', 'AliRaza!456')
+  new User('sara.a', 'Sara2025#')
+  new User('usman.t', 'Usman$789')
+  new User('fatima.n', 'Fatima*321')
+  new User('hamza.s', 'Hamza_654')
+  new User('zainab.m', 'Zainab@007')
+  new User('bilal.a', 'Bilal!111')
+  new User('mariam.i', 'Mariam2024$')
+  new User('danish.ali', 'DanishAli@900')
+
+  // Login and write information to logs: Successful login
+  new Login('ayesha.k', 'Ayesha@123')
+  new Login('ayesha.k', 'Ayesha@123')
+  new Login('ayesha.k', 'Ayesha@123')
+  new Login('usman.t', 'Usman$789')
+  new Login('ayesha.k', 'Ayesha@123')
+  new Login('usman.t', 'Usman$789')
+  new Login('ayesha.k', 'Ayesha@123')
+  new Login('ali.raza', 'AliRaza!456')
+  new Login('sara.a', 'Sara2025#')
+  new Login('usman.t', 'Usman$789')
+  new Login('fatima.n', 'Fatima*321')
+  new Login('hamza.s', 'Hamza_654')
+  new Login('zainab.m', 'Zainab@007')
+  new Login('bilal.a', 'Bilal!111')
+  new Login('bilal.a', 'Bilal!111')
+  new Login('mariam.i', 'Mariam2024$')
+  new Login('danish.ali', 'DanishAli@900')
+  new Login('ali.raza', 'AliRaza!456')
+  new Login('fatima.n', 'Fatima*321')
+  new Login('zainab.m', 'Zainab@007')
+  new Login('bilal.a', 'Bilal!111')
+
+  // Login and write information to logs: Failed login attempt
+  new Login('ayesha.k', 'Ayesha@12311111')
+  new Login('ali.raza', 'AliRaza!456111111')
+  new Login('sara.a', 'Sara2025#1111111')
+  new Login('usman.t', 'Usman$789111111')
+  new Login('fatima.n', 'Fatima*321111111')
+  new Login('hamza.s', 'Hamza_65411111')
+  new Login('zainab.m', 'Zainab@0071111')
+  new Login('bilal.a', 'Bilal!11111111')
+  new Login('mariam.i', 'Mariam2024$1111111')
+  new Login('danish.ali', 'DanishAli@900111111')
+
+  return (
+    'Users: ' +
+    '<br>' +
+    createList([...User]) +
+    '<br>' +
+    'Logs: ' +
+    '<br>' +
+    createList(Login.logs) +
+    '<br>' +
+    'Successful Login Count: ' +
+    '<br>' +
+    createList([...Login])
+  )
+}
+
+task6_24.solutionParams = {
+  code: trunsformEntityToCode(User, Login, createList, task6_24),
+  name: '',
+  title: '',
+  lesson,
+  task: 6,
+  params: [],
+  resultAsCode: false,
+}
 
 //* =========================  Task #7  ===========================
 // Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів,
