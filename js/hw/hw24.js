@@ -569,7 +569,7 @@ class User {
   [Symbol.toPrimitive](hint) {
     let res
 
-    const primitiveStr = `#id: ${this.id}, #username: ${this.username},
+    const primitiveStr = `#username: ${this.username},
 		#password: ${this.password}, #firstName: ${this.firstName},
 		#lastName: ${this.lastName}`
 
