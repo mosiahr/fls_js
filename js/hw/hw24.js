@@ -392,7 +392,6 @@ class Library {
     if (Library.instanceRef) return Library.instanceRef
 
     this.booksList = booksList
-    this.totalValueBooksByAutorMap = new Map()
 
     this.instanceRef = this
   }
@@ -411,6 +410,7 @@ class Library {
 
   [Symbol.iterator]() {
     this.currentBookIndex = 0
+    this.totalValueBooksByAutorMap = new Map()
     return this
   }
   next() {
@@ -558,7 +558,7 @@ class User {
   }
 
   getFullName() {
-    return `${firstName} + ${lastName}`
+    return `${this.firstName} + ${this.lastName}`
   }
 
   normalizeSpaces(text) {
@@ -569,7 +569,7 @@ class User {
   [Symbol.toPrimitive](hint) {
     let res
 
-    const primitiveStr = `#id: Symbol(id), #username: ${this.username},
+    const primitiveStr = `#id: ${this.id}, #username: ${this.username},
 		#password: ${this.password}, #firstName: ${this.firstName},
 		#lastName: ${this.lastName}`
 
