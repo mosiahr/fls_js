@@ -844,7 +844,7 @@
                     "name": "Task #1",
                     "description": "Використовуючи один з АРІ https://github.com/public-apis/public-apis#animals та функцію fetch організувати завантаження та відображення даних. Намагайтесь зробити це з використанням класів. Окремо клас для побудови розмітки. Окремо клас, який буде робити запити і повертати результати.",
                     "solutions": [],
-                    "available": true
+                    "available": false
                 }
             ],
             "available": true
