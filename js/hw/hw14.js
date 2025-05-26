@@ -241,22 +241,20 @@ export function task1_14() {
     (el) => el.valueProject > 10000
   )
 
-  return (
-    `1)===Total Cost: ${totalCost} ===<br><br>` +
-    `2)===Count Site With Year Range: ${countSiteWithYearRange} ===<br><br>` +
-    `3)===Count Site By More Than Sponsor Sum: ${countSiteByMoreThanSponsorSum} ===<br><br>` +
-    `4)===Sponsor List: ===${createList(sponsorList)} <br>` +
-    `5)===Year Of Highest Income: ${yearOfHighestIncome} ===<br><br>` +
-    `6)===Sorted List By Income Decrease: === ${createList(
+  return `1)===Total Cost: ${totalCost} ===<br><br>
+    2)===Count Site With Year Range: ${countSiteWithYearRange} ===<br><br>
+    3)===Count Site By More Than Sponsor Sum: ${countSiteByMoreThanSponsorSum} ===<br><br>
+    4)===Sponsor List: ===${createList(sponsorList)} <br>
+    5)===Year Of Highest Income: ${yearOfHighestIncome} ===<br><br>
+    6)===Sorted List By Income Decrease: === ${createList(
       toStringEveryElOfList(sortedListByIncomeDecrease)
-    )} <br>` +
-    `7)===list By Filter <= 10000: === <br>${createList(
+    )} <br>
+    7)===list By Filter <= 10000: === <br>${createList(
       listByFilterLessThan10000
-    )} <br>` +
-    `===list By Filter > 10000: === <br>${createList(
+    )} <br>
+    ===list By Filter > 10000: === <br>${createList(
       listByFilterMoreThan10000
     )} `
-  )
 }
 
 task1_14.solutionParams = {
@@ -801,9 +799,7 @@ function countGoodsPriceDecreased(dataList) {
 
 // 3) Товари, які доступні (sell_status:"available")
 function getAvailableGoods(dataList) {
-  return dataList.filter((el) =>
-    el.sell_status === 'available' ? el : undefined
-  )
+  return dataList.filter((el) => el.sell_status === 'available')
 }
 
 function createToStringToDataListEl(dataList) {
@@ -826,22 +822,28 @@ function getListForSale(dataList) {
 export function task3_14() {
   const totalPrice = getTotalPrice(dataList)
   const numberGoodsPriceLess = countGoodsPriceDecreased(dataList)
+
   const availableGoods = getAvailableGoods(dataList)
   createToStringToDataListEl(availableGoods)
-  const listForSale = getListForSale(dataList)
-  console.log(listForSale)
 
-  // console.log(availableGoods)
-  // console.log(dataList)
-  return (
-    `1)Total Price: ${totalPrice} <br>` +
-    `2)Number of Goods Which Price is Decreased: ${numberGoodsPriceLess} <br><br>` +
-    `3)Available Goods: ${createList(availableGoods)} <br>`
-  )
+  const listForSale = getListForSale(dataList)
+  createToStringToDataListEl(listForSale)
+
+  return `1)Total Price: ${totalPrice} <br>
+	2)Number of Goods Which Price is Decreased: ${numberGoodsPriceLess} <br><br>
+	3)Available Goods: ${createList(availableGoods)} <br>
+	4)List For Sale : ${createList(listForSale)}`
 }
 
 task3_14.solutionParams = {
-  code: trunsformEntityToCode(task3_14),
+  code: trunsformEntityToCode(
+    getTotalPrice,
+    countGoodsPriceDecreased,
+    getAvailableGoods,
+    createToStringToDataListEl,
+    getListForSale,
+    task3_14
+  ),
   name: '',
   title: '',
   lesson,
