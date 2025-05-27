@@ -281,7 +281,7 @@ task1_14.solutionParams = {
 // Визначити, який буде рік через N місяців.
 
 function getYearAfterNumberMonths({ month, year }, monthNumber) {
-  return Math.floor((month + monthNumber) / 12) + year
+  return Math.floor((month - 1 + monthNumber) / 12) + year
 }
 
 export function task2_14() {
@@ -792,8 +792,7 @@ function getTotalPrice(dataList) {
 // 2)Знайти кількість товарів, у яких ціна зменшилась (price < old_price).
 function countGoodsPriceDecreased(dataList) {
   return dataList.reduce((count, { old_price, price }) => {
-    if (old_price - price > 0) count++
-    return count
+    return old_price > price ? ++count : count
   }, 0)
 }
 
@@ -803,7 +802,7 @@ function getAvailableGoods(dataList) {
 }
 
 function createToStringToDataListEl(dataList) {
-  dataList.map(
+  dataList.forEach(
     (el) =>
       (el.toString = function () {
         return JSON.stringify(el, null, '\n')
