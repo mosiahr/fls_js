@@ -1,11 +1,9 @@
 import {
   getNumbersFromCurrentFileName,
-  getRandomNumber,
-  toUpperCaseFirstLetterEveryWord,
   trunsformEntityToCode,
 } from '../utils.js'
 
-import { table, createList } from '../components/index.js'
+import { createList } from '../components/index.js'
 
 const lesson = getNumbersFromCurrentFileName(import.meta)
 
